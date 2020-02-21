@@ -3,13 +3,33 @@ import logging
 from bs4 import BeautifulSoup
 from Interfaces import Scrapper
 from DataModels import Conference
+import datetime
 
 class WikiCfpScrapper(Scrapper):
     
-    def __init__(self , log_level):
+    def __init__(self , log_level , **config):
         self.base_address = "http://www.wikicfp.com"
         self.site_name = "wikicfp"
-        super().__init__(log_level)
+        super().__init__(log_level , __name__  , **config)
+    
+    def get_conferences(self):
+        base_address = self.base_address 
+        site_name = self.site_name
+        linkSet = set()
+        for name , link in self.iterate_links(base_address , site_name):
+            if hash(link) in linkSet:
+                continue
+            linkSet.add(hash(link))
+            req = requests.get(base_address + link)
+            if 200 <= req.status_code <=299:
+                self.logger.debug("Page extracted for conference {} link: {}  extracted".format(name , link))
+            else:
+                raise requests.HTTPError
+            try:
+                conference_data = self.parse_conference_page_info(req.content)
+                yield conference_data
+            except Exception as e:
+                self.logger.error("Error when parsing link {} exception: {}".format(link, e))
     
     def catgory_list(self , base_address:str , site_name:str ):  
         req = requests.get("{}/cfp/allcat?sortby=1".format(base_address)) # getting page listed in specific order
@@ -84,6 +104,7 @@ class WikiCfpScrapper(Scrapper):
             for link in links:
                 yield link
 
+    
 
     def extract_info(self , page_dom):
         info_table = page_dom.select("table.gglu")
@@ -92,15 +113,16 @@ class WikiCfpScrapper(Scrapper):
         info = {"date_range":"" , "location":"" , "deadline":"" , "notificationdue":"" , "finaldue":""}
         for title , content in zip(list_info_title , list_info_content):
             if title == "When":
-                info["date_range"] = content
+                dates = list(map( lambda x: self.get_date(x) , content.split("-")))
+                info["date_range"] = dates
             elif title == "Where":
                 info["location"] = content
             elif title == "Submission Deadline":
-                info["deadline"] = content
+                info["deadline"] = self.get_date(content)
             elif title == "Notification Due":
-                info["notificationdue"] = content
+                info["notificationdue"] =  self.get_date(content)
             elif title == "Final Version Due":
-                info["finaldue"] = content
+                info["finaldue"] = self.get_date(content)
         return info
 
     def extract_categories(self , page_dom):
@@ -117,22 +139,6 @@ class WikiCfpScrapper(Scrapper):
         bulk_text = page_dom.select("div.cfp")[0].text
         return Conference(**info , **{"title":title , "url":url , "categories":categories , "bulk_text":bulk_text })
 
-    def get_conferences(self):
-        base_address = self.base_address 
-        site_name = self.site_name
-        linkSet = set()
-        for name , link in self.iterate_links(base_address , site_name):
-            if hash(link) in linkSet:
-                continue
-            linkSet.add(hash(link))
-            req = requests.get(base_address + link)
-            if 200 <= req.status_code <=299:
-                self.logger.debug("Page extracted for conference {} link: {}  extracted".format(name , link))
-            else:
-                raise requests.HTTPError
-            try:
-                conference_data = self.parse_conference_page_info(req.content)
-                yield conference_data
-            except Exception as e:
-                self.logger.error("Error when parsing link {} exception: {}".format(link, e))
+    
+
 
