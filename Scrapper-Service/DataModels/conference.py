@@ -2,6 +2,11 @@ class Conference:
 
     @staticmethod
     def index():
+        """Get fields for indexing
+        
+        Returns:
+            List[String] -- List of fields that should be indexed. 
+        """
         return ['deadline']
 
     def __init__(self, title , url , deadline ,  **kwargs):
@@ -33,7 +38,7 @@ class Conference:
         self.dict_data["url"] = url
         self.dict_data["deadline"] = deadline
         ## Db compatibility 
-        self._id = hash(self.url+self.title) ## A conference is bound to have unique link
+        self._id = hash(self.url) ## A conference is bound to have unique link
         self.dict_data['_id'] = self._id
 
     def data(self):

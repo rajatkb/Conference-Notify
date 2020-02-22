@@ -1,0 +1,10 @@
+{
+    "host":"localhost",
+    "port":27017,
+    "database_name":"Conference_Notify", 
+    "collection_name":"conference",
+    "load":[{
+        "file":"Scrappers/WikiCFP.py",
+        "classname":"WikiCfpScrapper"
+    }]
+}

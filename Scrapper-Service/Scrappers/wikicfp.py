@@ -12,26 +12,42 @@ class WikiCfpScrapper(Scrapper):
         self.site_name = "wikicfp"
         super().__init__(log_level , __name__  , **config)
     
-    def get_conferences(self):
+    def extract_and_put(self ,linkSet , category , link, base_address , site_name , dbaction ):
+        for name , clink in self.iterate_links(category , link, base_address , site_name):
+                if hash(clink) in linkSet:
+                    continue
+                linkSet.add(hash(clink))
+                self.logger.debug("Total unique conference links till no :{}".format(len(linkSet)))
+                try:
+                    req = requests.get(base_address + clink)
+                    if 200 <= req.status_code <=299:
+                        self.logger.debug("Page extracted for conference : {} , category : {} ,  link: {}  extracted".format(name ,category, clink))
+                    else:
+                        raise requests.HTTPError
+                    try:
+                        conference_data = self.parse_conference_page_info(req.content)
+                        dbaction(conference_data)
+                    except Exception as e:
+                        self.logger.error("Error when parsing link {} exception: {}".format(link, e))
+                except Exception as e:
+                    self.logger.error("Error when requesting html failed :{}".format(e))
+    
+    def parse_action(self , dbaction):
         base_address = self.base_address 
         site_name = self.site_name
         linkSet = set()
-        for name , link in self.iterate_links(base_address , site_name):
-            if hash(link) in linkSet:
-                continue
-            linkSet.add(hash(link))
-            req = requests.get(base_address + link)
-            if 200 <= req.status_code <=299:
-                self.logger.debug("Page extracted for conference {} link: {}  extracted".format(name , link))
-            else:
-                raise requests.HTTPError
-            try:
-                conference_data = self.parse_conference_page_info(req.content)
-                yield conference_data
-            except Exception as e:
-                self.logger.error("Error when parsing link {} exception: {}".format(link, e))
-    
-    def catgory_list(self , base_address:str , site_name:str ):  
+        for category ,link in self.category_list(base_address , site_name):
+            self.extract_and_put(linkSet , category , link , base_address , site_name , dbaction)
+
+            ##
+            ## The dbaction is a visitor function which must be called with a conference object argument
+            ## The function extract and put can now be run in thread or asyncio
+            ## however it is recommended to use locks for accessing linkSet
+            ## you can threads as many categories there are 
+
+
+
+    def category_list(self , base_address:str , site_name:str ):  
         req = requests.get("{}/cfp/allcat?sortby=1".format(base_address)) # getting page listed in specific order
         if 200 <= req.status_code <=299:
             self.logger.debug("{} category page extracted".format(site_name))
@@ -51,6 +67,7 @@ class WikiCfpScrapper(Scrapper):
         
         anchors = anchors[1:]    
         links = map(lambda anchor: (anchor.text, anchor["href"])  , anchors)
+        links = sorted(links , key = lambda link: link[0])
         return links
 
     def next_anchor(self , base_address:str , category:str ,  link:str):
@@ -69,36 +86,49 @@ class WikiCfpScrapper(Scrapper):
             self.logger.error("{} no element form ".format(category))
             raise self.PageParsingError("{} no element form ".format(category))
         trs = table_container.find_all("tr" , recursive = False)
-        tr = trs[-1]
         content = trs[-2]
+        tr = trs[-1]
         anchors = tr.find_all("a")
         anchor = list(filter(lambda x: x.text == "next"  ,anchors))[0]
         return (content,anchor)
+        
 
     def iterate_pages(self, base_address:str , category:str , link:str):
-        curr_table_container , next_a = self.next_anchor(base_address , category , link)
-        self.logger.debug("{} category link \" {} \" extracted ".format(category , link))
+        count = 0
+        try:
+            curr_table_container , next_a = self.next_anchor(base_address , category , link)
+            count = count + 1
+            self.logger.debug("{} category link \" {} \" extracted ".format(category , link))
+        except Exception as e:
+            self.logger.warn("No. of link extracted: {} , Could not extract anchor information for category {} page {} error:{}".format(count,category , link , e))
+            return
         yield curr_table_container
         prev_link = link
         link = next_a["href"]
+
         while True:
-            curr_table_container , next_a= self.next_anchor(base_address , category , link) 
-            self.logger.debug("{} category link \" {} \" extracted ".format(category , link))
+            try:
+                curr_table_container , next_a= self.next_anchor(base_address , category , link) 
+                count = count + 1
+                self.logger.debug("{} category link \" {} \" extracted ".format(category , link))
+            except Exception as e:
+                self.logger.warn("No. of link extracted: {} , Could not extract anchor information for category {} page {} error:{}".format(count,category , link , e))
+                break
             yield curr_table_container
             link = next_a["href"]
             if prev_link == link and prev_link is not None:
                 break
             prev_link = link
 
-    def iterate_categories(self , base_address:str , site_name:str):
-        for (category , link) in self.catgory_list(base_address , site_name):
-            try: 
-                yield from self.iterate_pages(base_address , category , link)
-            except Exception as e:
-                self.logger.error("Failed to extract complete data from {} starting at {} exception:{} ".format(category , link , e))
+    def iterate_categories(self ,category:str , link:str ,  base_address:str , site_name:str):
+        self.logger.info("Starting with {} category ".format(category))
+        try: 
+            yield from self.iterate_pages(base_address , category , link)
+        except Exception as e:
+            self.logger.warn("Failed to extract complete data from {} starting at {} exception:{} ".format(category , link , e))
 
-    def iterate_links(self , base_address:str , site_name:str):
-        for parsed_pages in self.iterate_categories(base_address , site_name):
+    def iterate_links(self ,category:str , link:str , base_address:str , site_name:str):
+        for parsed_pages in self.iterate_categories(category , link , base_address , site_name):
             links = parsed_pages.select("a")
             links = map(lambda x: (x.text , x["href"]) , links)
             for link in links:
@@ -135,8 +165,15 @@ class WikiCfpScrapper(Scrapper):
         title = page_dom.find(name = "span" , attrs={"property":"v:description"}).text
         url = page_dom.find(name = "a" , attrs={"target":"_newtab"})["href"]
         info = self.extract_info(page_dom)
+        if "deadline" not in info:
+            raise ValueError("Deadline is a mandatory field, could not parse the page")
         categories = self.extract_categories(page_dom)
-        bulk_text = page_dom.select("div.cfp")[0].text
+        bulk_text = ""
+        try:
+            qresult = page_dom.select("div.cfp")
+            bulk_text = qresult[0].text
+        except Exception as e:
+            self.logger.warn("Failed to parse bulk text information css query result: {} error : {} ".format(qresult, e))
         return Conference(**info , **{"title":title , "url":url , "categories":categories , "bulk_text":bulk_text })
 
     

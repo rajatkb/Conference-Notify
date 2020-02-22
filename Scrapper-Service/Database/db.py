@@ -9,12 +9,12 @@ class Database:
         pass    
 
 
-    def __init__(self  , logger ,  context_name ,  database_name , collection_name  , host='localhost' , port=27017):
+    def __init__(self  , logger ,  context_name ,  database_name , collection_name  , host='localhost' , port=27017 , maxPoolSize = None):
         self.logger = logger
         try:
             self.logger.debug("Using Database name {}".format(database_name))
             self.logger.debug("Using address {}:{}".format(host , port))    
-            client = MongoClient(host , int(port))
+            client = MongoClient(host , int(port) , maxPoolSize = maxPoolSize)
             db = client[database_name] ## Create a new database if not existing
             ##
             ## Quirks of pymongo client , any error from this statement below
@@ -26,9 +26,12 @@ class Database:
             self.logger.debug("Succefully created client connection {}".format(sinfo))
             self.db = db
             self.collection = collection
-            modidx = list(map(lambda x: (x, pymongo.ASCENDING ), Conference.index()))
-            collection.create_index(modidx)
-
+            index_info = collection.index_information()
+            possible_index = Conference.index()
+            possible_index = filter(lambda x: (x+"_1") not in index_info , possible_index)
+            modidx = list(map(lambda x: (x, pymongo.ASCENDING ), possible_index))
+            if not len(modidx) == 0:
+                collection.create_index(modidx , unique = True )
         except Exception as e:
             self.logger.error("Failed to initiate mongodb client error: {}".format(e))
             raise e

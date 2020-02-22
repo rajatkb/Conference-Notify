@@ -1,7 +1,7 @@
 import logging
 import datetime
 from Database import Database
-from abc import ABC , abstractmethod
+from abc import *
 
 
 class Scrapper(ABC):
@@ -11,7 +11,7 @@ class Scrapper(ABC):
         try:
             return datetime.datetime.strptime(string , "%b %d, %Y")
         except Exception as e:
-            self.logger.error("Bad string format error : {}".format(e))
+            self.logger.warn("Bad string format error : {}".format(e))
             return string
 
     def __init__(self , log_level , context_name  , **config):
@@ -23,6 +23,7 @@ class Scrapper(ABC):
         logger.addHandler(log_stream)
         self.logger = logger     
         self.db = Database(logger , context_name, **config)
+        self.logger.info("{} setup complete !!".format(__name__))
 
     class PageParsingError(Exception):
         """[Raised when parsing fails]
@@ -37,20 +38,24 @@ class Scrapper(ABC):
             methods for making sure the the user implemented method gets called
         """
         self.logger.info("Scrapper started !! Inserting data into db")
-        for conf in self.get_conferences():
-            self.db.put(conf)
+        self.parse_action(self.db.put)
+            
             
         self.logger.info("Scrapper done , all information available in db")
 
+
     @abstractmethod
-    def get_conferences(self):
-        """ [get_conference]
+    def parse_action(self , dbaction):
+        """[parse_action]
             TO BE IMPLEMENTED BY THE USER
             The function is intended to return a iterator
             of the objects of Conference()
-            
-        Returns:
-            [Iterator[Conference]] --   Returns iterator of conference information
-                                        After parsing the conference page as intented by the user
+            the dbaction passes in the database push function , so that
+            implementor can decide for themselves. One can also implement this method 
+            using Ayncio / Thread / MultiProcessing
+        
+        Arguments:
+            dbaction {[function( Confernece )]} --  Action passed by run , should be called for making updates
+                                                    Pass Conference object as an argumenet
+
         """
-        return iter([])
