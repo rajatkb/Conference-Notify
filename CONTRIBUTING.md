@@ -15,7 +15,7 @@ Irrespective of the deployment strategy the core acrhitecture shall remain this 
 
 Move to [Scrapper-Service](https://github.com/rajatkb/Conference-Notify/tree/master/Scrapper-Service)
 
-### Notifcation-Service
+### Notifier-Service
 
 Not yet updated keep tabs on issue and project board
 

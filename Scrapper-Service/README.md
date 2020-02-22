@@ -1,3 +1,7 @@
+# SCRAPPER-SERVICE
+
+It's the service responsible for scrapping information about conferences and dumping all these information into the db storage. 
+
 #### Dev Environment Requirement
 *   Any MongoDB installation (ATLAS / Local)
 *   Python 3.6+
@@ -21,7 +25,7 @@
 *   main.py
 *   config.json
 
-The main.py will be a service that will be running as a daemon in a amazon/gcp micro instance for filling information into a Mongo NOSQL db. The choise of MongoDB comes from due to lack of requirement of transaction but rather faster I/O.  
+The main.py will be running as a daemon in a micro instance for filling information into a Mongo NOSQL db. The choice of MongoDB comes from due to lack of requirement of transaction but rather faster I/O.  
 
 #### Class files
 
