@@ -1,30 +1,36 @@
+#### Dev Environment Requirement
+*   Any MongoDB installation (ATLAS / Local)
+*   Python 3.6+
+
+#### Python packages required
+* pymongo driver
+* Beautiful Soup
+* Requests
+* logging (python default)
+
 #### Structure of service
 *   **Interfaces**
-    * Scrapper.py
-*   **Confuguration**
-    *   BasicConfig.py
+    * scrapper.py
 *   **DataModels**
-    * Conference.py
-    * ConferenceDB.py
+    * conference.py
 *   **Scrappers**
-    *   wikicfp.py
+    *   WikiCFP.py
     *   someotherservice.py
 *   **Database**
-    *   mdb.py 
+    *   db.py 
 *   main.py
 *   config.json
 
 The main.py will be a service that will be running as a daemon in a amazon/gcp micro instance for filling information into a Mongo NOSQL db. The choise of MongoDB comes from due to lack of requirement of transaction but rather faster I/O.  
 
-#### Import Data for conference
+#### Class files
 
-*   **Conference.py**   
+*   **conference.py**   
     *   Conference class
         *   This class contains the container used for Conference information , to contain scrapped information from the individual Scrappers
-
-*   **ConferenceDB.py**
-    *   ConfernceDB class
-        *   This class contains the container used for containing the Db information , along with the Conference information contained inside the db used.
+*   **db.py**
+    *   Database class
+        *   This class is responsible to establishing db connection and handling error related to it.
 
 #### How to Contribute ?
 
