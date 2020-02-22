@@ -1,1 +1,0 @@
-from .WikiCFP import WikiCfpScrapper

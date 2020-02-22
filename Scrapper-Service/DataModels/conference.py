@@ -1,3 +1,5 @@
+from .metadata import Metadata 
+
 class Conference:
 
     @staticmethod
@@ -7,9 +9,9 @@ class Conference:
         Returns:
             List[String] -- List of fields that should be indexed. 
         """
-        return ['deadline']
+        return ['url']
 
-    def __init__(self, title , url , deadline ,  **kwargs):
+    def __init__(self, title , url , deadline , metadata, **kwargs):
         """[Conference class]
             Used for modeling the data of conferences
         
@@ -17,7 +19,7 @@ class Conference:
             title {[string]} -- title of conference
             url {[string]} -- url of conference
             deadline {[datetime , string]} -- submission deadline
-
+            metadata {Metadata} -- contains meta information
             **kwargs
             date_range : array of two dates 
             location: string
@@ -33,21 +35,22 @@ class Conference:
         self.title = title
         self.url = url.strip()
         self.submission_deadline = deadline
-        self.dict_data = kwargs
-        self.dict_data["title"] = title
-        self.dict_data["url"] = url
-        self.dict_data["deadline"] = deadline
+        self.querydata = kwargs
+        self.querydata["title"] = title
+        self.querydata["url"] = url
+        self.querydata["deadline"] = deadline
+        self.querydata.update(metadata.data())
         ## Db compatibility 
         self._id = hash(self.url) ## A conference is bound to have unique link
-        self.dict_data['_id'] = self._id
+        self.querydata['_id'] = self._id
 
     def data(self):
-        return self.dict_data
+        return self.querydata
 
     def __str__(self):
-        return str(self.dict_data)
+        return str(self.querydata)
     
     def __getitem__(self , attr):
-        return self.dict_data[attr]
+        return self.querydata[attr]
 
     

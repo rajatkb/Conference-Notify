@@ -1,15 +1,27 @@
 from pymongo import MongoClient
 import pymongo
 import logging
-from DataModels import Conference
+from DataModels import Conference, Metadata
 
 class Database:
-
-    class BadDataFormatError(Exception):
-        pass    
-
-
-    def __init__(self  , logger ,  context_name ,  database_name , collection_name  , host='localhost' , port=27017 , maxPoolSize = None):
+   
+    def __init__(self  , logger ,  database_name , collection_name  , host='localhost' , port=27017 , maxPoolSize = None , **kwargs):
+        """[summary]
+        
+        Arguments:
+            logger {[logging]} -- logger passed by user 
+            database_name {[type]} -- name of database to be used
+            collection_name {[type]} -- collection for the mongodb db
+        
+        Keyword Arguments:
+            host {str} -- host for mongodb (default: {'localhost'})
+            port {int} -- port for mongodb (default: {27017})
+            maxPoolSize {[type]} -- maxpoolsize for mongo db (default: {None})
+        
+        Raises:
+            e:  error when database connection fails. These are unhandled connection 
+                and the application must stop immeditely in such cases
+        """
         self.logger = logger
         try:
             self.logger.debug("Using Database name {}".format(database_name))
@@ -38,7 +50,7 @@ class Database:
     
     def put(self , conference_data):
         if not isinstance(conference_data , Conference):
-            raise self.BadDataFormatError("Provided data is not in proper format as required by db")
+            raise ValueError("Provided data is not in proper format as required by db")
         else:
             _id = conference_data._id
             try:

@@ -2,42 +2,51 @@ import requests
 import logging
 from bs4 import BeautifulSoup
 from Interfaces import Scrapper
-from DataModels import Conference
+from DataModels import Conference , Metadata
 import datetime
+
 
 class WikiCfpScrapper(Scrapper):
     
     def __init__(self , log_level , **config):
         self.base_address = "http://www.wikicfp.com"
         self.site_name = "wikicfp"
-        super().__init__(log_level , __name__  , **config)
+        super().__init__(log_level , __name__ , **config)
     
-    def extract_and_put(self ,linkSet , category , link, base_address , site_name , dbaction ):
-        for name , clink in self.iterate_links(category , link, base_address , site_name):
+    def extract_and_put(self ,linkSet , category , link , dbaction ):
+        base_address= self.base_address
+        for name , clink in self.iterate_links(category , link):
                 if hash(clink) in linkSet:
                     continue
                 linkSet.add(hash(clink))
-                self.logger.debug("Total unique conference links till no :{}".format(len(linkSet)))
+                totalLink = len(linkSet)
+                self.logger.debug("Total unique conference links till now :{}".format(totalLink))
+                if totalLink % 500 == 0:
+                    self.logger.info("Total unique conference links till now :{}".format(totalLink))
                 try:
-                    req = requests.get(base_address + clink)
+                    qlink = base_address + clink
+                    req = requests.get(qlink)
                     if 200 <= req.status_code <=299:
                         self.logger.debug("Page extracted for conference : {} , category : {} ,  link: {}  extracted".format(name ,category, clink))
                     else:
                         raise requests.HTTPError
                     try:
-                        conference_data = self.parse_conference_page_info(req.content)
-                        dbaction(conference_data)
+                        conference_data = self.parse_conference_page_info(req.content , qlink )
                     except Exception as e:
-                        self.logger.error("Error when parsing link {} exception: {}".format(link, e))
+                        self.logger.error("Error when parsing link: {} exception: {}".format(link, e))
                 except Exception as e:
                     self.logger.error("Error when requesting html failed :{}".format(e))
+
+                ## Error from DB insertion should not be handled
+                ## Since this means there is fault in data or connection
+                ## Process must be restarted
+                dbaction(conference_data)
     
+
     def parse_action(self , dbaction):
-        base_address = self.base_address 
-        site_name = self.site_name
         linkSet = set()
-        for category ,link in self.category_list(base_address , site_name):
-            self.extract_and_put(linkSet , category , link , base_address , site_name , dbaction)
+        for category ,link in self.category_list():
+            self.extract_and_put(linkSet , category , link , dbaction)
 
             ##
             ## The dbaction is a visitor function which must be called with a conference object argument
@@ -47,7 +56,9 @@ class WikiCfpScrapper(Scrapper):
 
 
 
-    def category_list(self , base_address:str , site_name:str ):  
+    def category_list(self ):
+        base_address = self.base_address
+        site_name = self.site_name 
         req = requests.get("{}/cfp/allcat?sortby=1".format(base_address)) # getting page listed in specific order
         if 200 <= req.status_code <=299:
             self.logger.debug("{} category page extracted".format(site_name))
@@ -100,7 +111,8 @@ class WikiCfpScrapper(Scrapper):
             count = count + 1
             self.logger.debug("{} category link \" {} \" extracted ".format(category , link))
         except Exception as e:
-            self.logger.warn("No. of link extracted: {} , Could not extract anchor information for category {} page {} error:{}".format(count,category , link , e))
+            self.logger.warn("No. of link extracted: {} , Could not extract anchor information for category {} page {} error:{}"
+                            .format(count,category , link , e))
             return
         yield curr_table_container
         prev_link = link
@@ -112,7 +124,8 @@ class WikiCfpScrapper(Scrapper):
                 count = count + 1
                 self.logger.debug("{} category link \" {} \" extracted ".format(category , link))
             except Exception as e:
-                self.logger.warn("No. of link extracted: {} , Could not extract anchor information for category {} page {} error:{}".format(count,category , link , e))
+                self.logger.warn("No. of link extracted: {} , Could not extract anchor information for category {} page {} error:{}"
+                                .format(count,category , link , e))
                 break
             yield curr_table_container
             link = next_a["href"]
@@ -120,15 +133,18 @@ class WikiCfpScrapper(Scrapper):
                 break
             prev_link = link
 
-    def iterate_categories(self ,category:str , link:str ,  base_address:str , site_name:str):
-        self.logger.info("Starting with {} category ".format(category))
+    def iterate_categories(self ,category:str , link:str ,  base_address:str):
         try: 
+            self.logger.info("starting with {} category ".format(category))
             yield from self.iterate_pages(base_address , category , link)
+            self.logger.info("done with {} category ".format(category))
         except Exception as e:
-            self.logger.warn("Failed to extract complete data from {} starting at {} exception:{} ".format(category , link , e))
+            self.logger.warn("Failed to extract complete data from {} starting at {} exception:{} "
+                            .format(category , link , e))
 
-    def iterate_links(self ,category:str , link:str , base_address:str , site_name:str):
-        for parsed_pages in self.iterate_categories(category , link , base_address , site_name):
+    def iterate_links(self ,category:str , link:str):
+        base_address = self.base_address
+        for parsed_pages in self.iterate_categories(category , link , base_address):
             links = parsed_pages.select("a")
             links = map(lambda x: (x.text , x["href"]) , links)
             for link in links:
@@ -160,7 +176,10 @@ class WikiCfpScrapper(Scrapper):
         anchor_list = map(lambda x: x.text , anchor_list[1:])
         return list(anchor_list)
 
-    def parse_conference_page_info(self , page:str):
+    def create_metadata(self, website_url , domain_url , domain_name):
+        return Metadata(__name__ , datetime.datetime.now() , website_url , domain_url , domain_name)
+
+    def parse_conference_page_info(self , page:str , qlink):
         page_dom = BeautifulSoup(page , 'html.parser')
         title = page_dom.find(name = "span" , attrs={"property":"v:description"}).text
         url = page_dom.find(name = "a" , attrs={"target":"_newtab"})["href"]
@@ -174,7 +193,11 @@ class WikiCfpScrapper(Scrapper):
             bulk_text = qresult[0].text
         except Exception as e:
             self.logger.warn("Failed to parse bulk text information css query result: {} error : {} ".format(qresult, e))
-        return Conference(**info , **{"title":title , "url":url , "categories":categories , "bulk_text":bulk_text })
+        
+        metadata = self.create_metadata(qlink , self.base_address , self.site_name)
+
+        return Conference(**info , **{  "title":title , "url":url , 
+                                        "categories":categories , "bulk_text":bulk_text  , "metadata":metadata})
 
     
 
