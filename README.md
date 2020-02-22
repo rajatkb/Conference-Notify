@@ -3,4 +3,4 @@ Conference-Notify will be an open source web based application that will aggrega
 
 # README
 
-* (Notifier Read)[https://github.com/rajatkb/Conference-Notify/blob/master/Scrapper-Service/README.md]
+* [Notifier Read](https://github.com/rajatkb/Conference-Notify/blob/master/Scrapper-Service/README.md)
