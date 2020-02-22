@@ -10,3 +10,45 @@ Irrespective of the deployment strategy the core acrhitecture shall remain this 
 <centre>
 <img src="BasicArch.jpg"></img>
 </centre>
+
+### Scrappper-Service
+
+Move to [Scrapper-Service](https://github.com/rajatkb/Conference-Notify/tree/master/Scrapper-Service)
+
+### Notifcation-Service
+
+Not yet updated keep tabs on issue and project board
+
+### Search-Service
+
+Not yet updated keep tabs on issue and project board
+
+### ATTENTION
+
+When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+
+Please note we have a code of conduct, please follow it in all your interactions with the project.
+Pull Request Process
+
+ 
+    1.  Create your own branch with convention 
+        "name_task" convention. Do changes and commits from 
+        your end and create a pull request to add the branch.
+    
+    2.  Do verify the changes in branch are localised to 
+        issues  addressed in your own system. Before a brach push
+        or PR, do a pull from remote master to get recent changes
+
+    3.  Once the PR is submitted the branch will be verified
+        and merged to master
+
+    4.  Update the README.md if needed accordingly. 
+        Every change must mention if readme requires change.
+
+    [Under GSSOC]
+    5.  Make sure to label your PR with beginner,
+        easy, medium, hard. According to the issue it is targetting. 
+
+    
+
+
