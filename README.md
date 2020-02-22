@@ -69,6 +69,6 @@ This project is licensed under the GPL License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgement
 
 <centre>
-<img src="https://www.gssoc.tech/images/type-logo.png"></img>
+<img style="background:black;padding:10px" src="https://www.gssoc.tech/images/type-logo.png"></img>
 </centre>
 A big thanks to GirlScript foundation for having this project under [GirlScript Summer of Code](https://www.gssoc.tech/) .
