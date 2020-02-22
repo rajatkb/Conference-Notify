@@ -33,7 +33,7 @@ class WikiCfpScrapper(Scrapper):
                     try:
                         conference_data = self.parse_conference_page_info(req.content , qlink )
                     except Exception as e:
-                        self.logger.error("Error when parsing link: {} exception: {}".format(link, e))
+                        self.logger.error("Error when parsing link: {} exception: {}".format(clink, e))
                 except Exception as e:
                     self.logger.error("Error when requesting html failed :{}".format(e))
 
