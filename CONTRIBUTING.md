@@ -5,4 +5,8 @@ Thank you for considering to contribute to this project. I came up with the idea
 
 # Understanding the Architecture of the Services
 
-Irrespective of the deployment strategy the core acrhitecture shall remain this way
+Irrespective of the deployment strategy the core acrhitecture shall remain this way.
+
+<centre>
+<img src="BasicArch.jpg"></img>
+</centre>
