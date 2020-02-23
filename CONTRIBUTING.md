@@ -11,6 +11,11 @@ Irrespective of the deployment strategy the core acrhitecture shall remain this 
 <img src="BasicArch.jpg"></img>
 </centre>
 
+The project is built in a microservice fashion with each service exposing some sort of rest api for delivering the information except Scrapper-Service. The scrapper service currently needs to be run as an independent process. The services mostly rely on a common MongoDb and a Elastic Search service for information retrieval and storage.   
+
+The services themselves are written in Python and JavaScript primarily.
+
+
 ### Scrappper-Service
 
 Move to [Scrapper-Service](https://github.com/rajatkb/Conference-Notify/tree/master/Scrapper-Service)
@@ -20,6 +25,10 @@ Move to [Scrapper-Service](https://github.com/rajatkb/Conference-Notify/tree/mas
 Not yet updated keep tabs on issue and project board
 
 ### Search-Service
+
+Not yet updated keep tabs on issue and project board
+
+### User-Application
 
 Not yet updated keep tabs on issue and project board
 

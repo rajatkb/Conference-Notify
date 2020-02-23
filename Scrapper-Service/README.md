@@ -2,17 +2,35 @@
 
 It's the service responsible for scrapping information about conferences and putting all these information into the db storage. Currently the default The `main.py` will be running as a daemon in a micro instance for filling information into a Mongo NOSQL db. The choice of MongoDB comes from due to lack of requirement of transaction but rather faster I/O.    
 
-#### Dev Environment Requirement
+
+
+## Dev Environment Requirement
 *   Any MongoDB installation (ATLAS / Local)
 *   Python 3.6+
 
-#### Python packages required
+## Python packages required
 * pymongo driver
 * Beautiful Soup
 * Requests
 * logging (python default)
 
-#### Structure of service
+
+## Deploying the service
+
+```shell
+
+>> cd Scrapper-Service/
+
+>> python main.py -h
+usage: main.py [-h] [-c CONFIG] [-l LOG_LEVEL]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config CONFIG
+  -l LOG_LEVEL, --log LOG_LEVEL
+```
+
+## Structure of service
 *   **Interfaces**
     * scrapper.py
 *   **DataModels**
@@ -27,7 +45,7 @@ It's the service responsible for scrapping information about conferences and put
 
  
 
-#### Class files
+## Class files
 
 *   **conference.py**   
     *   Conference class
@@ -41,7 +59,7 @@ It's the service responsible for scrapping information about conferences and put
     *   Scrapper class
         * Interface for other scrapper plugins to extends.
 
-#### How to Contribute ?
+## How to Contribute ?
 
 * Add new scrappers by implementing the interface Scrapper.py and add the new scrapper information inside the config.json file so that the main.py file can pick up the required class when starting
 

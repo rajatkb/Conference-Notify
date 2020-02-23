@@ -42,8 +42,16 @@ None of this services requires any instllation and can be executed on the fly
 Note: Make sure the configuration file is properly configured for usage, since main.py is reading configuration from the file
 
 ```
-cd Scrapper-Service
-python main.py
+>> cd Scrapper-Service
+
+>> python main.py -h
+usage: main.py [-h] [-c CONFIG] [-l LOG_LEVEL]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CONFIG, --config CONFIG
+  -l LOG_LEVEL, --log LOG_LEVEL
+
 ```
 
 ## Built With
