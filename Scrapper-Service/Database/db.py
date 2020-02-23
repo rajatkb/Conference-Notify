@@ -27,6 +27,7 @@ class Database:
             self.logger.debug("Using Database name {}".format(database_name))
             self.logger.debug("Using address {}:{}".format(host , port))    
             client = MongoClient(host , int(port) , maxPoolSize = maxPoolSize)
+            self.client = client
             db = client[database_name] ## Create a new database if not existing
             ##
             ## Quirks of pymongo client , any error from this statement below
@@ -35,6 +36,7 @@ class Database:
             self.logger.debug("Using Collection name {}".format(collection_name))
             collection = db[collection_name]
             sinfo = client.server_info()
+            self.logger.info("Succefully created mongodb client connection on host:{} , port:{} ".format(host , port))
             self.logger.debug("Succefully created client connection {}".format(sinfo))
             self.db = db
             self.collection = collection
@@ -48,6 +50,12 @@ class Database:
             self.logger.error("Failed to initiate mongodb client error: {}".format(e))
             raise e
     
+
+    def __del__(self):
+        self.logger.info("Closing connection to mongodb !!")
+        self.client.close()
+        self.logger.info("Succesfully Closed connection to mongodb !!")
+
     def put(self , conference_data):
         if not isinstance(conference_data , Conference):
             raise ValueError("Provided data is not in proper format as required by db")

@@ -195,7 +195,7 @@ class WikiCfpScrapper(Scrapper):
         except Exception as e:
             self.logger.warn("Failed to parse bulk text information css query result: {} error : {} ".format(qresult, e))
         
-        metadata = self.create_metadata(qlink , self.base_address , self.site_name)
+        metadata = self.create_metadata(qlink , self.base_address , self.site_name )
 
         return Conference(**info , **{  "title":title , "url":url , 
                                         "categories":categories , "bulk_text":bulk_text  , "metadata":metadata})
