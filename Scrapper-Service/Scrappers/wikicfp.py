@@ -45,6 +45,7 @@ class WikiCfpScrapper(Scrapper):
 
     def parse_action(self , dbaction):
         linkSet = set()
+
         for category ,link in self.category_list():
             self.extract_and_put(linkSet , category , link , dbaction)
 
@@ -176,8 +177,8 @@ class WikiCfpScrapper(Scrapper):
         anchor_list = map(lambda x: x.text , anchor_list[1:])
         return list(anchor_list)
 
-    def create_metadata(self, website_url , domain_url , domain_name):
-        return Metadata(__name__ , datetime.datetime.now() , website_url , domain_url , domain_name)
+    def create_metadata(self, website_url , domain_url , domain_name , **kwargs):
+        return Metadata(__name__ , datetime.datetime.now() , website_url , domain_url , domain_name , **kwargs)
 
     def parse_conference_page_info(self , page:str , qlink):
         page_dom = BeautifulSoup(page , 'html.parser')

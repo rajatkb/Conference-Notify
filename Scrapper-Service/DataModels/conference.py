@@ -7,9 +7,9 @@ class Conference:
         """Get fields for indexing
         
         Returns:
-            List[String] -- List of fields that should be indexed. 
+            List[(String , Boolean)] -- List of fields that should be indexed along with should it be unique or not. 
         """
-        return ['url']
+        return [('url' , True) , ('deadline' , False)]
 
     def __init__(self, title , url , deadline , metadata, **kwargs):
         """[Conference class]

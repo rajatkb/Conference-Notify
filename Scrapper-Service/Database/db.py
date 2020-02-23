@@ -39,11 +39,11 @@ class Database:
             self.db = db
             self.collection = collection
             index_info = collection.index_information()
-            possible_index = Conference.index()
-            possible_index = filter(lambda x: (x+"_1") not in index_info , possible_index)
-            modidx = list(map(lambda x: (x, pymongo.ASCENDING ), possible_index))
-            if not len(modidx) == 0:
-                collection.create_index(modidx , unique = True )
+            possible_index = Conference.index() #  -> [(string,bool)]
+            possible_index = filter(lambda x: (x[0]+"_1") not in index_info , possible_index)
+            for idx , unique in possible_index:
+                collection.create_index([(idx , pymongo.ASCENDING )] , unique = unique )
+                
         except Exception as e:
             self.logger.error("Failed to initiate mongodb client error: {}".format(e))
             raise e

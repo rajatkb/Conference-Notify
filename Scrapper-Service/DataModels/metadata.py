@@ -1,5 +1,5 @@
 class Metadata:
-    def __init__(self , worker , date_extracted , website_url , domain_url , domain_name ):
+    def __init__(self , worker , date_extracted , website_url , domain_url , domain_name  , **kwargs):
         """Container for meta information inserted by the parser
         
         Arguments:
@@ -18,6 +18,8 @@ class Metadata:
                 "domain":domain_name
             }
         }
+        self.querydata[self.key].update(kwargs)
+
 
     def data(self):
         return self.querydata
