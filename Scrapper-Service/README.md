@@ -1,6 +1,6 @@
 # SCRAPPER-SERVICE
 
-It's the service responsible for scrapping information about conferences and dumping all these information into the db storage. 
+It's the service responsible for scrapping information about conferences and putting all these information into the db storage. Currently the default The `main.py` will be running as a daemon in a micro instance for filling information into a Mongo NOSQL db. The choice of MongoDB comes from due to lack of requirement of transaction but rather faster I/O.    
 
 #### Dev Environment Requirement
 *   Any MongoDB installation (ATLAS / Local)
@@ -25,16 +25,21 @@ It's the service responsible for scrapping information about conferences and dum
 *   main.py
 *   config.json
 
-The main.py will be running as a daemon in a micro instance for filling information into a Mongo NOSQL db. The choice of MongoDB comes from due to lack of requirement of transaction but rather faster I/O.  
+ 
 
 #### Class files
 
 *   **conference.py**   
     *   Conference class
-        *   This class contains the container used for Conference information , to contain scrapped information from the individual Scrappers
+        *   This class contains the container used for Conference information , to contain scrapped information from the individual Scrappers. It's part of the datamodel. Read the class doc string to know more.
+
 *   **db.py**
     *   Database class
-        *   This class is responsible to establishing db connection and handling error related to it.
+        *   This class is responsible to establishing db connection and handling error related to it. Read the class docstring to know more
+
+*   **scrapper.py**
+    *   Scrapper class
+        * Interface for other scrapper plugins to extends.
 
 #### How to Contribute ?
 
