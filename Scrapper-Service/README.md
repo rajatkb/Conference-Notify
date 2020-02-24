@@ -35,6 +35,7 @@ optional arguments:
     * scrapper.py
 *   **DataModels**
     * conference.py
+    * metadata.py
 *   **Scrappers**
     *   WikiCFP.py
     *   someotherservice.py
@@ -112,6 +113,7 @@ optional arguments:
         "notificationdue" : ISODate("2020-06-22T00:00:00Z"),
         
 }
+
 ```
 
 **Index**   

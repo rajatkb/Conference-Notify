@@ -62,7 +62,7 @@ class Database:
         else:
             _id = conference_data._id
             try:
-                res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.data()} , upsert = True)
+                res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.query_dict()} , upsert = True)
                 self.logger.debug("Value inserted message {}".format(res))
             except Exception as e:
                 self.logger.error("Failed to commit data error : {}".format(e))

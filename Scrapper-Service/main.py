@@ -26,4 +26,4 @@ if __name__ == '__main__':
         class_name = attr["class"]
         plugin_module = importlib.import_module(path , ".")
         scrapper = plugin_module.__getattribute__(class_name)
-        scrapper(log_level , **configuration).run()
+        scrapper(log_level , **configuration)

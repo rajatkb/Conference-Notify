@@ -45,7 +45,6 @@ class Scrapper(ABC):
         """
         pass
 
-    
     def run(self):
         """ [run function]
             to be called by the main.py and is not to be

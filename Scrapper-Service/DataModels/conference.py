@@ -9,7 +9,7 @@ class Conference:
         Returns:
             List[(String , Boolean)] -- List of fields that should be indexed along with should it be unique or not. 
         """
-        return [('url' , True) , ('deadline' , False)]
+        return [('url' , False) , ('deadline' , False) , ('title' , False)]
 
     def __init__(self, title , url , deadline , metadata, **kwargs):
         """[Conference class]
@@ -21,11 +21,11 @@ class Conference:
             deadline {[datetime , string]} -- submission deadline
             metadata {Metadata} -- contains meta information
             **kwargs
-            date_range : array of two dates 
+            date_range : array[datetime , datetime] 
             location: string
-            notificationdue: datetime object
-            finaldue: datetime object
-            categories: array of string
+            notificationdue: datetime 
+            finaldue: datetime 
+            categories: array[string]
             bulk_text: string 
         """
         ## Cleaning title text
@@ -39,12 +39,15 @@ class Conference:
         self.querydata["title"] = title
         self.querydata["url"] = url
         self.querydata["deadline"] = deadline
-        self.querydata.update(metadata.data())
+        self.querydata.update(metadata.query_dict())
         ## Db compatibility 
         self._id = hash(self.url) ## A conference is bound to have unique link
         self.querydata['_id'] = self._id
 
     def data(self):
+        return self.querydata
+    
+    def query_dict(self):
         return self.querydata
 
     def __str__(self):
