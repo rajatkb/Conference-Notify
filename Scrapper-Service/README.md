@@ -69,7 +69,7 @@ Jump to `demo.py` for implementing a scrapper from scratch and configuring it to
 
 * The data schema used in mongo
 
-```json
+```
 {
 
         /*
@@ -77,14 +77,19 @@ Jump to `demo.py` for implementing a scrapper from scratch and configuring it to
         */
 
         "_id" : NumberLong("6596203108960978438"),
+        
         "title" : " InWeS  2020 : 11th International Conference on Internet Engineering & Web Services",
+
         "url" : "https://iccsea2020.org/inwes/index.html"
-        "bulk_text" : "\n11th International Conference on Internet Engineering & Web Services (InWeS 2020) December 19 ~ .... ",
+        
         "deadline" : ISODate("2020-02-22T00:00:00Z"),
 
+        
         /*
             Below fields are optional.
         */
+
+        "bulk_text" : "\n11th International Conference on Internet Engineering & Web Services (InWeS 2020) December 19 ~ .... ",
 
         "categories" : [
                 "semantic web",
