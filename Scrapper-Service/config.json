@@ -4,7 +4,7 @@
     "database_name":"Conference_Notify", 
     "collection_name":"conference",
     "load":[
-        {   "filename":"Scrappers.WikiCFP",
+        {   "filename":"Scrappers.wikicfp",
             "class":"WikiCfpScrapper"
         }
     ]
