@@ -73,6 +73,12 @@ optional arguments:
         "title" : " InWeS  2020 : 11th International Conference on Internet Engineering & Web Services",
         "url" : "https://iccsea2020.org/inwes/index.html"
         "bulk_text" : "\n11th International Conference on Internet Engineering & Web Services (InWeS 2020) December 19 ~ .... ",
+        "deadline" : ISODate("2020-02-22T00:00:00Z"),
+
+        /*
+            Below fields are optional.
+        */
+
         "categories" : [
                 "semantic web",
                 "wireless",
@@ -83,10 +89,17 @@ optional arguments:
                 ISODate("2020-12-19T00:00:00Z"),
                 ISODate("2020-12-20T00:00:00Z")
         ],
-        "deadline" : ISODate("2020-02-22T00:00:00Z"),
         "finaldue" : ISODate("2020-07-01T00:00:00Z"),
         "location" : "Sydney, Australia",
+
+        /*
+            Non-optional metadata
+        */
+
         "metadata" : {
+            /*
+                Data commited by individual scrappers for metadata
+            */      
                 "Scrappers" : {
                         "WikiCFP" : {
                                 "date_extracted" : ISODate("2020-02-22T22:29:21.272Z"),
