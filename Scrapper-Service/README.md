@@ -50,6 +50,9 @@ optional arguments:
 *   **conference.py**   
     *   Conference class
         *   This class contains the container used for Conference information , to contain scrapped information from the individual Scrappers. It's part of the datamodel. Read the class doc string to know more.
+*   **metadata.py**
+    * Metadata class
+        * This class is used to encapsulate any information about the scrapper that is collecting the conference data and attach metadata about the data of the conference. Like from where it originated, which scrapper extracted it , date of access etc.
 
 *   **db.py**
     *   Database class
@@ -58,6 +61,51 @@ optional arguments:
 *   **scrapper.py**
     *   Scrapper class
         * Interface for other scrapper plugins to extends.
+
+## Data Scheme
+
+* The data schema used in mongo look like this
+
+```json
+{
+
+        "_id" : NumberLong("6596203108960978438"),
+        "title" : " InWeS  2020 : 11th International Conference on Internet Engineering & Web Services",
+        "url" : "https://iccsea2020.org/inwes/index.html"
+        "bulk_text" : "\n11th International Conference on Internet Engineering & Web Services (InWeS 2020) December 19 ~ .... ",
+        "categories" : [
+                "semantic web",
+                "wireless",
+                "web services",
+                "internet"
+        ],
+        "date_range" : [
+                ISODate("2020-12-19T00:00:00Z"),
+                ISODate("2020-12-20T00:00:00Z")
+        ],
+        "deadline" : ISODate("2020-02-22T00:00:00Z"),
+        "finaldue" : ISODate("2020-07-01T00:00:00Z"),
+        "location" : "Sydney, Australia",
+        "metadata" : {
+                "Scrappers" : {
+                        "WikiCFP" : {
+                                "date_extracted" : ISODate("2020-02-22T22:29:21.272Z"),
+                                "website_url" : "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=88588&copyownerid=46167",
+                                "website" : "http://www.wikicfp.com",
+                                "domain" : "wikicfp"
+                        }
+                }
+        },
+        "notificationdue" : ISODate("2020-06-22T00:00:00Z"),
+        
+}
+```
+
+**Index**   
+1. url , unique
+2. deadline
+
+
 
 ## How to Contribute ?
 
