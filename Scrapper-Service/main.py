@@ -8,12 +8,14 @@ parser.add_argument("-c" , "--config" , default='config.json' , type=str , actio
 parser.add_argument("-l" , "--log" , default="debug"  , action='store' , dest="log_level")
 values = parser.parse_args()
 
-level_defaults = {"debug":logging.DEBUG , "warn":logging.WARN , "info":logging.INFO , "error":logging.ERROR}
+
 
 CONFIG = values.config
-if values.log_level not in level_defaults:
+
+LOG_DEFAULTS = {"debug":logging.DEBUG , "warn":logging.WARN , "info":logging.INFO , "error":logging.ERROR}
+if values.log_level not in LOG_DEFAULTS:
     raise ValueError("Unsupported log level. Supported levels: DEBUG , WARN , INFO , ERROR")
-log_level = level_defaults[values.log_level] 
+log_level = LOG_DEFAULTS[values.log_level] 
 
 if __name__ == '__main__':
     with open(CONFIG) as file:
