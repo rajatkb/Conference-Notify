@@ -6,6 +6,11 @@
     "load":[
         {   "filename":"Scrappers.wikicfp",
             "class":"WikiCfpScrapper"
+        },
+        {
+            "filename":"Scrappers.demo",
+            "class":"DemoScrapper"
         }
+
     ]
 }

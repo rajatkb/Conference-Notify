@@ -37,14 +37,16 @@ optional arguments:
     * conference.py
     * metadata.py
 *   **Scrappers**
-    *   WikiCFP.py
-    *   someotherservice.py
+    *   wikicfp.py
+    *   demo.py
 *   **Database**
     *   db.py 
 *   main.py
 *   config.json
 
- 
+Jump to `demo.py` for implementing a scrapper from scratch and configuring it to run. 
+
+
 
 ## Class files
 
@@ -65,10 +67,14 @@ optional arguments:
 
 ## Data Scheme
 
-* The data schema used in mongo look like this
+* The data schema used in mongo
 
 ```json
 {
+
+        /*
+            Mandatory fields below
+        */
 
         "_id" : NumberLong("6596203108960978438"),
         "title" : " InWeS  2020 : 11th International Conference on Internet Engineering & Web Services",
@@ -116,8 +122,8 @@ optional arguments:
 
 ```
 
-**Index**   
-1. url , unique
+**Index Used**   
+1. url 
 2. deadline
 
 

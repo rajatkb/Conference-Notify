@@ -8,10 +8,11 @@ import datetime
 
 class WikiCfpScrapper(Scrapper):
     
-    def __init__(self , log_level , **config):
+    def __init__(self , **config):
+        super().__init__( context_name = __name__ , **config)
         self.base_address = "http://www.wikicfp.com"
         self.site_name = "wikicfp"
-        super().__init__(log_level , __name__ , **config)
+
     
     def extract_and_put(self ,linkSet , category , link , dbaction ):
         base_address= self.base_address

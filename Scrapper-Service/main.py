@@ -20,10 +20,11 @@ log_level = LOG_DEFAULTS[values.log_level]
 if __name__ == '__main__':
     with open(CONFIG) as file:
         configuration = json.load(file)
+    configuration["log_level"] = log_level
     import_list = configuration["load"]
     for attr in import_list:
         path = attr["filename"]
         class_name = attr["class"]
         plugin_module = importlib.import_module(path , ".")
         scrapper = plugin_module.__getattribute__(class_name)
-        scrapper(log_level , **configuration)
+        scrapper(**configuration).run()

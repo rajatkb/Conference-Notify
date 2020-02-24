@@ -2,7 +2,7 @@ import logging
 import datetime
 from Database import Database
 from DataModels import Metadata
-from abc import *
+from abc import ABC , abstractclassmethod , abstractmethod , abstractproperty
 
 
 class Scrapper(ABC):
@@ -29,7 +29,7 @@ class Scrapper(ABC):
 
 
 
-    def __init__(self , log_level , context_name  , **config):
+    def __init__(self , context_name , log_level   , **config):
         logger = logging.getLogger(context_name)
         logger.setLevel(log_level)
         log_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -38,7 +38,7 @@ class Scrapper(ABC):
         logger.addHandler(log_stream)
         self.logger = logger     
         self.db = Database(logger, **config)
-        self.logger.info("{} setup complete !!".format(__name__))
+        self.logger.info("{} setup complete !!".format(context_name))
 
     class PageParsingError(ValueError):
         """[Raised when parsing fails]
