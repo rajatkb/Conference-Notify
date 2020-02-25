@@ -43,7 +43,7 @@ class DemoScrapper(Scrapper):
                         domain_name="somename" , **{ "extra":"info you want to keep"} )
 
         data = Conference(**{  "title": "" , "url": "" , 
-                                "categories": "" , "bulk_text": ""  , "metadata":meta}) 
+                               "dealine":datetime.datetime.now() , "metadata":meta}) 
         
         ## There are other optional fields also for conference
         ## check out the docstring
