@@ -1,13 +1,12 @@
 import requests
 import logging
 from bs4 import BeautifulSoup
-from Interfaces import Scrapper,PageParsingError
-from Datamodels import Conference , Metadata
+from commons import Scrapper,PageParsingError
+from datamodels import Conference , Metadata
 import datetime
 
 
 class WikiCfpScrapper(Scrapper):
-    
     def __init__(self , **config):
         super().__init__( context_name = __name__ , **config)
         self.base_address = "http://www.wikicfp.com"
@@ -27,11 +26,7 @@ class WikiCfpScrapper(Scrapper):
                     self.logger.info("Total unique conference links till now :{}".format(totalLink))
                 try:
                     qlink = base_address + clink
-                    req = requests.get(qlink)
-                    if 200 <= req.status_code <=299:
-                        self.logger.debug("Page extracted for conference : {} , category : {} ,  link: {}  extracted".format(name ,category, clink))
-                    else:
-                        raise requests.HTTPError
+                    req = self.getPage(qlink , "Page extracted for conference : {} , category : {} ,  link: {}  extracted".format(name ,category, clink))
                     try:
                         conference_data = self.parse_conference_page_info(req.content , qlink )
                         ## Error from DB insertion should not be handled
@@ -42,7 +37,8 @@ class WikiCfpScrapper(Scrapper):
                         self.logger.error("Error when parsing link: {} exception: {}".format(clink, e))
                 except requests.HTTPError as e:
                     self.logger.error("Error when requesting html failed :{}".format(e))
-
+                except requests.Timeout as e:
+                    self.logger.error("Timeout when requesting html : {}".format(e))
                 
     
 
@@ -62,11 +58,7 @@ class WikiCfpScrapper(Scrapper):
     def category_list(self ):
         base_address = self.base_address
         site_name = self.site_name 
-        req = requests.get("{}/cfp/allcat?sortby=1".format(base_address)) # getting page listed in specific order
-        if 200 <= req.status_code <=299:
-            self.logger.debug("{} category page extracted".format(site_name))
-        else:
-            raise requests.HTTPError
+        req = self.getPage("{}/cfp/allcat?sortby=1".format(base_address), "{} category page extracted".format(site_name)) # getting page listed in specific order
 
         page_dom = BeautifulSoup(req.content , 'html.parser')
         table_container = page_dom.find(attrs={"class":"contsec"}) ## table in the page
@@ -85,11 +77,7 @@ class WikiCfpScrapper(Scrapper):
         return links
 
     def next_anchor(self , base_address:str , category:str ,  link:str):
-        req = requests.get(base_address+link)
-        if 200 <= req.status_code <=299:
-            self.logger.debug("{} page extracted".format(category))
-        else:
-            raise requests.HTTPError
+        req = self.getPage(base_address+link , "{} page extracted".format(category))
         page_dom = BeautifulSoup(req.content , 'html.parser')
         page_dom = page_dom.find(attrs={"class":"contsec"})
         page_dom = page_dom.find(name = "center")

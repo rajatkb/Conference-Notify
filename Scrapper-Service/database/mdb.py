@@ -2,14 +2,14 @@ from pymongo import MongoClient
 import pymongo
 import logging
 from logging import Logger
-from Datamodels import Conference, Metadata
+from datamodels import Conference, Metadata
+from commons import Database
 
-class Database:
+class MongoDatabase(Database):
     
     def __init__(   self  , logger:Logger ,  database_name:str , collection_name:str  , 
                     host:str ='localhost' , port:int=27017 , maxPoolSize:int = None , **kwargs):
-        """[summary]
-        
+        """Mongo database object
         Arguments:
             logger {[logging]} -- logger passed by user 
             database_name {[type]} -- name of database to be used
@@ -64,6 +64,7 @@ class Database:
             _id = conference_data._id
             try:
                 res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.query_dict()} , upsert = True)
-                self.logger.debug("Value inserted message {}".format(res))
+                self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
+                                    .format(res.matched_count , res.modified_count , res.upserted_id))
             except Exception as e:
                 self.logger.error("Failed to commit data error : {}".format(e))

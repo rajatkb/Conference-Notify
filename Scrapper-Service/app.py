@@ -4,7 +4,7 @@ import argparse
 import importlib
 import traceback
 import os
-from Utility import str2bool , getLogger , printStart
+from utility import str2bool , getLogger , printStart
 
 
 
@@ -52,12 +52,18 @@ CONFIG = values.config
 log_streamOption = LOG_STREAM_DEFAULTS[values.log_stream.lower()]
  
 
+def createDatabase(configuration):
+    db_configuration = configuration["database"]
+    path = db_configuration["plugin"]["filename"]
+    classname = db_configuration["plugin"]["class"]
+    module = importlib.import_module(path , ".")
+    Database = module.__getattribute__(classname)
+    return lambda logger: Database(logger , **db_configuration) 
+
 if __name__ == '__main__':
 
     with open(CONFIG) as file:
         configuration = json.load(file)
-
-    db_configuration = configuration["database"]
     
     logging_configuration = configuration["logging"]
     log_folder = logging_configuration["output"]
@@ -70,7 +76,6 @@ if __name__ == '__main__':
     logger.info("Application started , Extracting all the plugins")
 
     import_list = configuration["plugins"]
-
     for attr in import_list:
 
         path = attr["filename"]
@@ -80,10 +85,10 @@ if __name__ == '__main__':
         try:
             log_stream = log_streamOption("{}/{}.log".format(log_folder , class_name))
             if istest:
-                scrapper( log_level = log_level, log_stream = log_stream  , **db_configuration)
+                scrapper( log_level = log_level, log_stream = log_stream , getDatabaseObject = createDatabase(configuration) )
             else:
-                scrapper( log_level = log_level, log_stream = log_stream , **db_configuration).run()
+                scrapper( log_level = log_level, log_stream = log_stream , getDatabaseObject = createDatabase(configuration) ).run()
         except Exception as e:
             logger.error("{} scrapper failed".format(class_name))
-            # traceback.print_exception(type(e), e, e.__traceback__)
+            traceback.print_exception(type(e), e, e.__traceback__)
     logger.info("Scrapping done from all Scrapper plugins")

@@ -1,10 +1,9 @@
 import logging
 import datetime
-from Utility import getLogger , printStart
-from Datamodels import Conference, Metadata
-from Database import Database
+from utility import getLogger , printStart
+from datamodels import Conference, Metadata
 from abc import ABC , abstractclassmethod , abstractmethod , abstractproperty
-
+import requests
 
 class Scrapper(ABC):
 
@@ -28,13 +27,37 @@ class Scrapper(ABC):
             return string
 
 
-    def __init__(self , context_name , log_level , log_stream  , **config):
+    def __init__(self , context_name , log_level , log_stream  , getDatabaseObject = lambda logger: None ,  **kwargs):
         self.logger = getLogger(context_name , log_level , log_stream)  
         printStart(self.logger)   
-        self.db = Database(self.logger, **config)
+        self.db = getDatabaseObject(self.logger)
         self.logger.info("{} setup complete !!".format(context_name))
-        self.push_todb = self.db.put
+        if self.db != None:
+            self.push_todb = self.db.put
+        else:
+            raise ValueError("No database parameter given")
 
+    def getPage(self, qlink , debug_msg = "failed to extract page"):
+        """[summary]
+        
+        Arguments:
+            qlink {[str]} -- link to request
+        
+        Keyword Arguments:
+            debug_msg {str} -- debug log message for failing (default: {"failed to extract page"})
+        
+        Raises:
+            requests.HTTPError: if page not found
+            requests.Timeout: if no reponse from server , default is 1sec
+        Returns:
+            [request] -- request page
+        """
+        req = requests.get(qlink , timeout = 1)
+        if 200 <= req.status_code <=299:
+            self.logger.debug(debug_msg)
+        else:
+            raise requests.HTTPError
+        return req
 
 
     def run(self):
@@ -48,7 +71,7 @@ class Scrapper(ABC):
         self.logger.info("Scrapper routine done !!")
 
 
-    @abstractmethod
+    @abstractclassmethod
     def parse_action(self):
         """[parse_action]
             TO BE IMPLEMENTED BY THE USER

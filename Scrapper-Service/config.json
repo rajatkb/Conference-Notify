@@ -3,17 +3,22 @@
         "host":"localhost",
         "port":27017,
         "database_name":"Conference_Notify", 
-        "collection_name":"conference"
+        "collection_name":"conference",
+        "plugin":{
+            "filename":"database.mdb",
+            "class":"MongoDatabase"
+        }
+
     },
     "logging":{
         "output":"logs"
     }, 
     "plugins":[
-        {   "filename":"Scrappers.wikicfp",
+        {   "filename":"plugins.wikicfp",
             "class":"WikiCfpScrapper"
         },
         {
-            "filename":"Scrappers.demo",
+            "filename":"plugins.demo",
             "class":"DemoScrapper"
         }
     ]

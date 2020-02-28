@@ -1,8 +1,8 @@
 import requests
 import logging
 from bs4 import BeautifulSoup
-from Interfaces import Scrapper
-from Datamodels import Conference , Metadata
+from commons import Scrapper
+from datamodels import Conference , Metadata
 import datetime
 
 # Once you are done implementing below 
@@ -49,7 +49,14 @@ class DemoScrapper(Scrapper):
         ## check out the docstring
         ## Once done you can call dbaction
 
+        ## Use the already provided method from Scrapper class like
+        ## getDate , getPage etc.
+        ## They are tested methods and have lesser chance of breaking your code.
 
+        # self.getPage(" -- some page link --" , " -- some debug message --") 
+        # 
+        # PARSE DATA 
+        # 
         # self.push_todb(data)
 
         
