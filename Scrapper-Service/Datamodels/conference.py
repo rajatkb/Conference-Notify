@@ -42,7 +42,7 @@ class Conference:
         self.querydata["deadline"] = deadline
         self.querydata.update(metadata.query_dict())
         ## Db compatibility 
-        self._id = base64.b64encode(self.url) 
+        self._id = self.url
         ## A conference is bound to have unique link
         self.querydata['_id'] = self._id
 
