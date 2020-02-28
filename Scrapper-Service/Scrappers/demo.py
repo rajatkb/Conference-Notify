@@ -2,7 +2,7 @@ import requests
 import logging
 from bs4 import BeautifulSoup
 from Interfaces import Scrapper
-from DataModels import Conference , Metadata
+from Datamodels import Conference , Metadata
 import datetime
 
 # Once you are done implementing below 
@@ -35,7 +35,7 @@ class DemoScrapper(Scrapper):
         pass
         ## Initialize
 
-    def parse_action(self , dbaction):
+    def parse_action(self):
 
         meta = Metadata(__name__ , datetime.datetime.now() , 
                         website_url="somename.co.in/link" , 
@@ -43,14 +43,16 @@ class DemoScrapper(Scrapper):
                         domain_name="somename" , **{ "extra":"info you want to keep"} )
 
         data = Conference(**{  "title": "" , "url": "" , 
-                               "dealine":datetime.datetime.now() , "metadata":meta}) 
+                               "deadline":datetime.datetime.now() , "metadata":meta}) 
         
         ## There are other optional fields also for conference
         ## check out the docstring
         ## Once done you can call dbaction
 
 
-        # dbaction(data)
+        # self.push_todb(data)
+
+        
         self.logger.info("Yay !! data was put into db hopefully !! Check error logs , i.e run with log level error")
         # Remember this function will only be called once by the 
         # run method of parent class so implement your loop inside here 

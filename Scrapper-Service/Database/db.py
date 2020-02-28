@@ -1,11 +1,13 @@
 from pymongo import MongoClient
 import pymongo
 import logging
-from DataModels import Conference, Metadata
+from logging import Logger
+from Datamodels import Conference, Metadata
 
 class Database:
-   
-    def __init__(self  , logger ,  database_name , collection_name  , host='localhost' , port=27017 , maxPoolSize = None , **kwargs):
+    
+    def __init__(   self  , logger:Logger ,  database_name:str , collection_name:str  , 
+                    host:str ='localhost' , port:int=27017 , maxPoolSize:int = None , **kwargs):
         """[summary]
         
         Arguments:
@@ -26,7 +28,7 @@ class Database:
         try:
             self.logger.debug("Using Database name {}".format(database_name))
             self.logger.debug("Using address {}:{}".format(host , port))    
-            client = MongoClient(host , int(port) , maxPoolSize = maxPoolSize)
+            client =  MongoClient(host , int(port) , maxPoolSize = maxPoolSize)
             self.client = client
             db = client[database_name] ## Create a new database if not existing
             ##
@@ -35,9 +37,8 @@ class Database:
             ## strcuture is a collection. Should be addressed in the pymongo
             self.logger.debug("Using Collection name {}".format(collection_name))
             collection = db[collection_name]
-            sinfo = client.server_info()
+            client.server_info()
             self.logger.info("Succefully created mongodb client connection on host:{} , port:{} ".format(host , port))
-            self.logger.debug("Succefully created client connection {}".format(sinfo))
             self.db = db
             self.collection = collection
             index_info = collection.index_information()

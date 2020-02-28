@@ -1,0 +1,68 @@
+2020-02-28 20:49:08,413 - Scrappers.wikicfp - INFO - 
+    
+  _________                  .__                         __                  __   
+ /   _____/ ______________  _|__| ____  ____     _______/  |______  ________/  |_ 
+ \_____  \_/ __ \_  __ \  \/ /  |/ ___\/ __ \   /  ___/\   __\__  \ \_  __ \   __|
+ /        \  ___/|  | \/\   /|  \  \__\  ___/   \___ \  |  |  / __ \|  | \/|  |  
+/_______  /\___  >__|    \_/ |__|\___  >___  > /____  > |__| (____  /__|   |__|  
+        \/     \/                    \/    \/       \/            \/             
+    
+    
+2020-02-28 20:49:08,413 - Scrappers.wikicfp - DEBUG - Using Database name Conference_Notify
+2020-02-28 20:49:08,414 - Scrappers.wikicfp - DEBUG - Using address localhost:27017
+2020-02-28 20:49:08,416 - Scrappers.wikicfp - DEBUG - Using Collection name conference
+2020-02-28 20:49:08,420 - Scrappers.wikicfp - INFO - Succefully created mongodb client connection on host:localhost , port:27017 
+2020-02-28 20:49:08,421 - Scrappers.wikicfp - INFO - Scrappers.wikicfp setup complete !!
+2020-02-28 20:49:08,421 - Scrappers.wikicfp - INFO - Closing connection to mongodb !!
+2020-02-28 20:49:08,421 - Scrappers.wikicfp - INFO - Succesfully Closed connection to mongodb !!
+2020-02-28 20:49:35,233 - Scrappers.wikicfp - INFO - 
+    
+  _________                  .__                         __                  __   
+ /   _____/ ______________  _|__| ____  ____     _______/  |______  ________/  |_ 
+ \_____  \_/ __ \_  __ \  \/ /  |/ ___\/ __ \   /  ___/\   __\__  \ \_  __ \   __|
+ /        \  ___/|  | \/\   /|  \  \__\  ___/   \___ \  |  |  / __ \|  | \/|  |  
+/_______  /\___  >__|    \_/ |__|\___  >___  > /____  > |__| (____  /__|   |__|  
+        \/     \/                    \/    \/       \/            \/             
+    
+    
+2020-02-28 20:49:35,233 - Scrappers.wikicfp - DEBUG - Using Database name Conference_Notify
+2020-02-28 20:49:35,233 - Scrappers.wikicfp - DEBUG - Using address localhost:27017
+2020-02-28 20:49:35,236 - Scrappers.wikicfp - DEBUG - Using Collection name conference
+2020-02-28 20:49:35,240 - Scrappers.wikicfp - INFO - Succefully created mongodb client connection on host:localhost , port:27017 
+2020-02-28 20:49:35,241 - Scrappers.wikicfp - INFO - Scrappers.wikicfp setup complete !!
+2020-02-28 20:49:35,241 - Scrappers.wikicfp - INFO - Closing connection to mongodb !!
+2020-02-28 20:49:35,241 - Scrappers.wikicfp - INFO - Succesfully Closed connection to mongodb !!
+2020-02-28 20:49:56,719 - Scrappers.wikicfp - INFO - 
+    
+  _________                  .__                         __                  __   
+ /   _____/ ______________  _|__| ____  ____     _______/  |______  ________/  |_ 
+ \_____  \_/ __ \_  __ \  \/ /  |/ ___\/ __ \   /  ___/\   __\__  \ \_  __ \   __|
+ /        \  ___/|  | \/\   /|  \  \__\  ___/   \___ \  |  |  / __ \|  | \/|  |  
+/_______  /\___  >__|    \_/ |__|\___  >___  > /____  > |__| (____  /__|   |__|  
+        \/     \/                    \/    \/       \/            \/             
+    
+    
+2020-02-28 20:49:56,719 - Scrappers.wikicfp - DEBUG - Using Database name Conference_Notify
+2020-02-28 20:49:56,719 - Scrappers.wikicfp - DEBUG - Using address localhost:27017
+2020-02-28 20:49:56,721 - Scrappers.wikicfp - DEBUG - Using Collection name conference
+2020-02-28 20:49:56,735 - Scrappers.wikicfp - INFO - Succefully created mongodb client connection on host:localhost , port:27017 
+2020-02-28 20:49:56,735 - Scrappers.wikicfp - INFO - Scrappers.wikicfp setup complete !!
+2020-02-28 20:49:56,735 - Scrappers.wikicfp - INFO - Closing connection to mongodb !!
+2020-02-28 20:49:56,736 - Scrappers.wikicfp - INFO - Succesfully Closed connection to mongodb !!
+2020-02-28 20:51:49,893 - Scrappers.wikicfp - INFO - 
+    
+  _________                  .__                         __                  __   
+ /   _____/ ______________  _|__| ____  ____     _______/  |______  ________/  |_ 
+ \_____  \_/ __ \_  __ \  \/ /  |/ ___\/ __ \   /  ___/\   __\__  \ \_  __ \   __|
+ /        \  ___/|  | \/\   /|  \  \__\  ___/   \___ \  |  |  / __ \|  | \/|  |  
+/_______  /\___  >__|    \_/ |__|\___  >___  > /____  > |__| (____  /__|   |__|  
+        \/     \/                    \/    \/       \/            \/             
+    
+    
+2020-02-28 20:51:49,893 - Scrappers.wikicfp - DEBUG - Using Database name Conference_Notify
+2020-02-28 20:51:49,893 - Scrappers.wikicfp - DEBUG - Using address localhost:27017
+2020-02-28 20:51:49,895 - Scrappers.wikicfp - DEBUG - Using Collection name conference
+2020-02-28 20:51:49,909 - Scrappers.wikicfp - INFO - Succefully created mongodb client connection on host:localhost , port:27017 
+2020-02-28 20:51:49,910 - Scrappers.wikicfp - INFO - Scrappers.wikicfp setup complete !!
+2020-02-28 20:51:49,910 - Scrappers.wikicfp - INFO - Closing connection to mongodb !!
+2020-02-28 20:51:49,910 - Scrappers.wikicfp - INFO - Succesfully Closed connection to mongodb !!

@@ -1,8 +1,8 @@
 import requests
 import logging
 from bs4 import BeautifulSoup
-from Interfaces import Scrapper
-from DataModels import Conference , Metadata
+from Interfaces import Scrapper,PageParsingError
+from Datamodels import Conference , Metadata
 import datetime
 
 
@@ -13,8 +13,9 @@ class WikiCfpScrapper(Scrapper):
         self.base_address = "http://www.wikicfp.com"
         self.site_name = "wikicfp"
 
+        # http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=61171&copyownerid=6818
     
-    def extract_and_put(self ,linkSet , category , link , dbaction ):
+    def extract_and_put(self ,linkSet:set , category:str , link:str):
         base_address= self.base_address
         for name , clink in self.iterate_links(category , link):
                 if hash(clink) in linkSet:
@@ -33,23 +34,23 @@ class WikiCfpScrapper(Scrapper):
                         raise requests.HTTPError
                     try:
                         conference_data = self.parse_conference_page_info(req.content , qlink )
+                        ## Error from DB insertion should not be handled
+                        ## Since this means there is fault in data or connection
+                        ## Process must be restarted
+                        self.push_todb(conference_data)
                     except Exception as e:
                         self.logger.error("Error when parsing link: {} exception: {}".format(clink, e))
-                except Exception as e:
+                except requests.HTTPError as e:
                     self.logger.error("Error when requesting html failed :{}".format(e))
 
-                ## Error from DB insertion should not be handled
-                ## Since this means there is fault in data or connection
-                ## Process must be restarted
-                dbaction(conference_data)
+                
     
 
-    def parse_action(self , dbaction):
+    def parse_action(self):
         linkSet = set()
 
         for category ,link in self.category_list():
-            self.extract_and_put(linkSet , category , link , dbaction)
-
+            self.extract_and_put(linkSet , category , link)
             ##
             ## The dbaction is a visitor function which must be called with a conference object argument
             ## The function extract and put can now be run in thread or asyncio
@@ -173,7 +174,7 @@ class WikiCfpScrapper(Scrapper):
                 info["finaldue"] = self.get_date(content)
         return info
 
-    def extract_categories(self , page_dom):
+    def extract_categories(self , page_dom:BeautifulSoup):
         anchor_list = page_dom.select("table.gglu tr td a")
         anchor_list = map(lambda x: x.text , anchor_list[1:])
         return list(anchor_list)

@@ -1,7 +1,8 @@
 import logging
 import datetime
+from Utility import getLogger , printStart
+from Datamodels import Conference, Metadata
 from Database import Database
-from DataModels import Metadata
 from abc import ABC , abstractclassmethod , abstractmethod , abstractproperty
 
 
@@ -27,23 +28,14 @@ class Scrapper(ABC):
             return string
 
 
-
-
-    def __init__(self , context_name , log_level   , **config):
-        logger = logging.getLogger(context_name)
-        logger.setLevel(log_level)
-        log_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        log_stream =logging.StreamHandler()
-        log_stream.setFormatter(log_format)
-        logger.addHandler(log_stream)
-        self.logger = logger     
-        self.db = Database(logger, **config)
+    def __init__(self , context_name , log_level , log_stream  , **config):
+        self.logger = getLogger(context_name , log_level , log_stream)  
+        printStart(self.logger)   
+        self.db = Database(self.logger, **config)
         self.logger.info("{} setup complete !!".format(context_name))
+        self.push_todb = self.db.put
 
-    class PageParsingError(ValueError):
-        """[Raised when parsing fails]
-        """
-        pass
+
 
     def run(self):
         """ [run function]
@@ -51,13 +43,13 @@ class Scrapper(ABC):
             extended or reimplemented. Run contains necessary runtime
             methods for making sure the the user implemented method gets called
         """
-        self.logger.info("Scrapper started !! Inserting data into db")
-        self.parse_action(self.db.put)
-        self.logger.info("Scrapper done , all information available in db")
+        self.logger.info("Scrapper routine started !!")
+        self.parse_action()
+        self.logger.info("Scrapper routine done !!")
 
 
     @abstractmethod
-    def parse_action(self , dbaction):
+    def parse_action(self):
         """[parse_action]
             TO BE IMPLEMENTED BY THE USER
             The function is intended to return a iterator
@@ -65,9 +57,5 @@ class Scrapper(ABC):
             the dbaction passes in the database push function , so that
             implementor can decide for themselves. One can also implement this method 
             using Ayncio / Thread / MultiProcessing
-        
-        Arguments:
-            dbaction {[function( Confernece )]} --  Action passed by run , should be called for making updates
-                                                    Pass Conference object as an argumenet
 
         """
