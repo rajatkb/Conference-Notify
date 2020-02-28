@@ -1,0 +1,20 @@
+{
+    "database" : {
+        "host":"localhost",
+        "port":27017,
+        "database_name":"Conference_Notify", 
+        "collection_name":"conference"
+    },
+    "logging":{
+        "output":"logs"
+    }, 
+    "plugins":[
+        {   "filename":"Scrappers.wikicfp",
+            "class":"WikiCfpScrapper"
+        },
+        {
+            "filename":"Scrappers.demo",
+            "class":"DemoScrapper"
+        }
+    ]
+}
