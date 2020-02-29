@@ -62,6 +62,27 @@ optional arguments:
 
 ```
 
+**Notifier-Service**
+
+```shell
+
+>> cd Notifier-Service
+
+//For dev
+
+>> npm run-script build
+
+>> npm start 
+
+//For prod
+
+>> npm run-script build
+
+>> npm run-script run
+
+```
+
+
 ## Built With
 
 * [pymongo](https://api.mongodb.com/python/current/) - Mongo client for python
