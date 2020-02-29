@@ -16,9 +16,7 @@ from utility import str2bool , getLogger , printStart
 # 
 # Test whether the run is working or not
 # >> python app.py -l debug -ls file --test False
-# 
-# 
-# 
+#  
 # 
 
 parser = argparse.ArgumentParser()

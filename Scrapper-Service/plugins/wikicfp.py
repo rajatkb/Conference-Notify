@@ -39,7 +39,8 @@ class WikiCfpScrapper(Scrapper):
                     self.logger.error("Error when requesting html failed :{}".format(e))
                 except requests.Timeout as e:
                     self.logger.error("Timeout when requesting html : {}".format(e))
-                
+                except Exception as e:
+                    self.logger.error("Error occured where requesting html :{}".format(e))            
     
 
     def parse_action(self):
