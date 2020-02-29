@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "ts-node-dev --respawn src/app.ts"
+    "start": "ts-node-dev --respawn src/app.ts",
+    "run":"node build/app.js"
   },
   "author": "",
   "license": "ISC",
