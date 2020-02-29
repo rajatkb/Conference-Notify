@@ -44,13 +44,21 @@ Note: Make sure the configuration file is properly configured for usage, since m
 ```
 >> cd Scrapper-Service
 
->> python main.py -h
-usage: main.py [-h] [-c CONFIG] [-l LOG_LEVEL]
+>> python main.py --help
+usage: main.py [-h] [-c CONFIG] [-l {debug,warn,error,info}] [-t TEST]
+               [-ls {console,file}]
 
 optional arguments:
   -h, --help            show this help message and exit
   -c CONFIG, --config CONFIG
-  -l LOG_LEVEL, --log LOG_LEVEL
+                        Specify config.json file ,default: config.json
+  -l {debug,warn,error,info}, --log {debug,warn,error,info}
+                        Specify the debug level ,default: debug
+  -t TEST, --test TEST  Specify whether to test app initialization or run the
+                        scrappers ,default: True
+  -ls {console,file}, --logStream {console,file}
+                        Specify whether to print logs on terminal or to file
+                        ,default: console
 
 ```
 
