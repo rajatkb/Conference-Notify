@@ -50,7 +50,7 @@ Pull Request Process
             git commit -a -m "commit_message"
             git push origin <your_branch_name>
          
-        Once committed the changes and pushed, create a pull request with that branch. 
+        Once committed the changes are pushed, create a pull request with that branch. 
         Please make sure to add #issue_number in the description of the PR.
         Also make sure to provide the list of features added through the PR.
     
