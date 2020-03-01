@@ -51,7 +51,8 @@ Pull Request Process
             git push origin <your_branch_name>
          
         Once committed the changes and pushed, create a pull request with that branch. 
-        Please make sure to add #issue_number in the description of the PR along with the list of features added.
+        Please make sure to add #issue_number in the description of the PR.
+        Also make sure to provide the list of features added through the PR.
     
     2.  Do verify that your branch have got all the changes that are done in the main repo.
         Before a branch push or PR, do a pull from remote master to get recent changes by following steps:
