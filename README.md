@@ -24,7 +24,7 @@ python -m pip install pymongo
 
 ### Installing
 
-The projected is devided into several components, i.e services
+The project is divided into several components, i.e services
 
 * Notifier-Service
 * Scrapper-Service
