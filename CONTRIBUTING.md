@@ -40,19 +40,32 @@ Please note we have a code of conduct, please follow it in all your interactions
 Pull Request Process
 
  
-    1.  Create your own branch with convention 
-        "name_task" convention. Do changes and commits from 
-        your end and create a pull request to add the branch.
+    1.  Create your own branch with convention "name_of_the_task@yourfirstname"
+
+            git checkout -b <you_branch_name>
+
+        Do changes and commit on that branch using:
+
+            git add <list_of_files_to_be_committed> or git add .
+            git commit -a -m "commit_message"
+            git push origin <your_branch_name>
+         
+        Once committed the changes and pushed, create a pull request with that branch. Please make sure to add #issue_number in the description of the PR along with the list of features added.
     
-    2.  Do verify the changes in branch are localised to 
-        issues  addressed in your own system. Before a brach push
-        or PR, do a pull from remote master to get recent changes
+    2.  Do verify that your branch have got all the changes that are done in the         main repo.Before a branch push or PR, do a pull from remote master to get        recent changes by following steps:
+
+            git remote add upstream https://github.com/rajatkb/Conference-Notify.git
+            git remote -v
+            git fetch upstream
+            git checkout master
+            git merge upstream/master
+            git push origin master
 
     3.  Once the PR is submitted the branch will be verified
-        and merged to master
+        and merged to master by mentors.
 
-    4.  Update the README.md if needed accordingly. 
-        Every change must mention if readme requires change.
+    4.  Update the README.md if needed, accordingly. 
+        Every change must be mentioned if readme requires change.
 
     [Under GSSOC]
     5.  Make sure to label your PR with beginner,
