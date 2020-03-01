@@ -58,11 +58,22 @@ Pull Request Process
         Before a branch push or PR, do a pull from remote master to get recent changes by following steps:
 
             git remote add upstream https://github.com/rajatkb/Conference-Notify.git
-            git remote -v
-            git fetch upstream
-            git checkout master
-            git merge upstream/master
-            git push origin master
+
+        Rewrite your master with upstream’s master using git rebase.
+        
+            git rebase upstream/master
+        
+        Push your updates to master. You may need to force the push with “--force”.
+
+            git push origin master --force
+            
+        Before pushing your branch to origin, rebase your branch with the master.
+
+            git pull origin master --rebase
+
+        Push your branch to origin
+
+            git push origin <your_branch_name>
 
     3.  Once the PR is submitted the branch will be verified
         and merged to master by mentors.
