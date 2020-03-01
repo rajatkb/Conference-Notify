@@ -58,6 +58,7 @@ Pull Request Process
         Before a branch push or PR, do a pull from remote master to get recent changes by following steps:
 
             git remote add upstream https://github.com/rajatkb/Conference-Notify.git
+            git fetch upstream
 
         Rewrite your master with upstream’s master using git rebase.
         
