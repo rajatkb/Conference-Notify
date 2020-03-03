@@ -1,5 +1,5 @@
 from .metadata import Metadata 
-from url_shortner import Url_To_Id
+from url_shortner import Uuid
 
 class Conference:
 
@@ -42,7 +42,7 @@ class Conference:
         self.querydata["deadline"] = deadline
         self.querydata.update(metadata.query_dict())
         ## Db compatibility 
-        self._id = Url_To_Id(self.url).getKey()
+        self._id = Uuid(self.url).generate_uuid()
         ## A conference is bound to have unique link
         self.querydata['_id'] = self._id
 
