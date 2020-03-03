@@ -3,8 +3,15 @@ import random as r
 import timeit
 
 class Uuid:
+    """
+        url {{string}}: url used in class
+    """
     def __init__(self,url):
         self.url = url    
+    """
+         remove punctuation from string and compress string
+         eg www.google.com-> wwwgooglecom -> w3g1o2g1l1e1c1o1m1
+    """
     def clean_and_compress(self):
             value = re.sub('[^A-Za-z0-9]','',self.url)+'#'
             res=''
@@ -17,7 +24,9 @@ class Uuid:
                 res+=str(value[j])+str(c)
                 j+=1
             return res
-        
+    """
+        convert it to hexadecimal format
+    """
     def toHex(self,string):
         lst = []
         for ch in string:
@@ -26,7 +35,9 @@ class Uuid:
                 hv = '0'+hv
             lst.append(hv)
         return ''.join(lst)
-    
+    """
+        genrate unique ID
+    """
     def generate_uuid(self):
         random_string = ''
         random_str_seq = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
