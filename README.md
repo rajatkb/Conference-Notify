@@ -60,6 +60,9 @@ optional arguments:
                         Specify whether to print logs on terminal or to file
                         ,default: console
 
+>> python test_metadata.py
+It will run the unit tests written for metadata.py
+
 ```
 
 **Notifier-Service**
