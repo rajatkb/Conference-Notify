@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Mar  5 15:59:20 2020
+
+@author: Lenovo
+"""
+
 import logging
 import json
 import argparse
@@ -5,10 +12,8 @@ import importlib
 import traceback
 import os
 from utility import str2bool , getLogger , printStart
-
-
-
-
+from multiprocessing.pool import ThreadPool as Pool
+import time
 ##
 #
 # Test whether the initialization is working or not
@@ -56,7 +61,22 @@ def createDatabase(configuration):
     classname = db_configuration["plugin"]["class"]
     module = importlib.import_module(path , ".")
     Database = module.__getattribute__(classname)
-    return lambda logger: Database(logger , **db_configuration) 
+    return lambda logger: Database(logger , **db_configuration)
+
+def initiate_scrapper(attr):
+    path = attr["filename"]
+    class_name = attr["class"]
+    plugin_module = importlib.import_module(path , ".")
+    scrapper = plugin_module.__getattribute__(class_name)
+    try:
+        log_stream = log_streamOption("{}/{}.log".format(log_folder , class_name))
+        if istest:
+            scrapper( log_level = log_level, log_stream = log_stream , getDatabaseObject = createDatabase(configuration) )
+        else:
+            scrapper( log_level = log_level, log_stream = log_stream , getDatabaseObject = createDatabase(configuration) ).run()
+    except Exception as e:
+        logger.error("{} scrapper failed".format(class_name))
+        traceback.print_exception(type(e), e, e.__traceback__)
 
 if __name__ == '__main__':
 
@@ -69,24 +89,16 @@ if __name__ == '__main__':
         os.mkdir(log_folder)
     
     logger = getLogger(__name__ , log_level ,  log_streamOption("{}/{}.log".format(log_folder , "main")) )
-
     printStart(logger)
+#    start = time.process_time()
     logger.info("Application started , Extracting all the plugins")
-
+    #----------------------------------------------------------
     import_list = configuration["plugins"]
+    pool = Pool(10)
     for attr in import_list:
-
-        path = attr["filename"]
-        class_name = attr["class"]
-        plugin_module = importlib.import_module(path , ".")
-        scrapper = plugin_module.__getattribute__(class_name)
-        try:
-            log_stream = log_streamOption("{}/{}.log".format(log_folder , class_name))
-            if istest:
-                scrapper( log_level = log_level, log_stream = log_stream , getDatabaseObject = createDatabase(configuration) )
-            else:
-                scrapper( log_level = log_level, log_stream = log_stream , getDatabaseObject = createDatabase(configuration) ).run()
-        except Exception as e:
-            logger.error("{} scrapper failed".format(class_name))
-            traceback.print_exception(type(e), e, e.__traceback__)
+        pool.apply_async(initiate_scrapper,(attr,))
+    pool.close()
+    pool.join()
+    #----------------------------------------------------------
+#    print("time: ",time.process_time() - start)
     logger.info("Scrapping done from all Scrapper plugins")
