@@ -1,8 +1,9 @@
 import { Router , Request , Response } from 'express';
 import { ConferenceController } from '../controllers/conference';
-import {Conference} from '../schemas/conferences';
+import { Conference } from '../schemas/conferences';
+import { Route } from './route';
 
-export abstract class ConferenceRoute {
+export class ConferenceRoute extends Route{
     private routeName :string = "conferences";
 
     /**
@@ -13,7 +14,7 @@ export abstract class ConferenceRoute {
      * @memberof ConferenceRoute
      */
     constructor(private router:Router , private controller:ConferenceController) {
-
+        super(router , controller);
         router.get("/:offset/:count", (request:Request , response:Response) => {
             let offset:string = request.params.offset;
             let count:string = request.params.count;

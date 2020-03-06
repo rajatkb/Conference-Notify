@@ -5,21 +5,21 @@ from datamodels import Metadata
 class MetadataTestCase(unittest.TestCase):
     def get_metadata(self):
         worker ="worker"
-        date_extracted ="date_extracted"
-        website_url = "website_url"
-        domain_url = "domain_url"
-        domain_name = "domain_name"
+        date_extracted ="dateExtracted"
+        website_url = "websiteUrl"
+        domain_url = "domainUrl"
+        domain_name = "domainName"
         meta_data_obj = Metadata(worker, date_extracted, website_url, domain_url, domain_name)
         return meta_data_obj
 
     def test_data(self):
         obj = self.get_metadata()
-        expected = {'website': 'domain_url', 'domain': 'domain_name', 'website_url': 'website_url', 'date_extracted': 'date_extracted'}
+        expected = {'website': 'domainUrl', 'domain': 'domainName', 'websiteUrl': 'websiteUrl', 'dateExtracted': 'dateExtracted'}
         self.assertEqual(obj.querydata[obj.key], expected)
 
     def test_query_dict(self):
         obj = self.get_metadata()
-        expected ={'metadata.worker': {'website': 'domain_url', 'domain': 'domain_name', 'website_url': 'website_url', 'date_extracted': 'date_extracted'}}
+        expected ={'metadata.worker': {'website': 'domainUrl', 'domain': 'domainName', 'websiteUrl': 'websiteUrl', 'dateExtracted': 'dateExtracted'}}
         self.assertDictEqual(obj.querydata, expected)
 
     def test__str__(self):
@@ -30,7 +30,7 @@ class MetadataTestCase(unittest.TestCase):
 
     def test__getitem__(self):
         obj = self.get_metadata()
-        expected = "domain_url"
+        expected = "domainUrl"
         self.assertEqual(obj.querydata[obj.key]["website"], expected)
 
 if __name__ == '__main__':
