@@ -1,1 +1,2 @@
 from .metadata_test import MetadataTestCase
+from .test_conference import ConferenceTestCase
