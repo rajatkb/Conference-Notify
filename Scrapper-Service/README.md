@@ -11,6 +11,7 @@ It's the service responsible for scrapping information about conferences and put
 * Beautiful Soup
 * Requests
 * logging (python default)
+* unittest (for unit test of course)
 
 
 ## Deploying the service
@@ -19,14 +20,14 @@ It's the service responsible for scrapping information about conferences and put
 
 >> cd Scrapper-Service/
 
->> python main.py --help
-usage: main.py [-h] [-c CONFIG] [-l {debug,warn,error,info}] [-t TEST]
-               [-ls {console,file}]
+>> python app.py --help
+usage: app.py [-h] [-c CONFIG] [-l {debug,warn,error,info}] [-t TEST]
+              [-ls {console,file}]
 
 optional arguments:
   -h, --help            show this help message and exit
   -c CONFIG, --config CONFIG
-                        Specify config.json file ,default: config.json
+                        Specify config.json file
   -l {debug,warn,error,info}, --log {debug,warn,error,info}
                         Specify the debug level ,default: debug
   -t TEST, --test TEST  Specify whether to test app initialization or run the
@@ -34,11 +35,34 @@ optional arguments:
   -ls {console,file}, --logStream {console,file}
                         Specify whether to print logs on terminal or to file
                         ,default: console
+(base)
 ```
-
 
 Jump to `demo.py` for implementing a scrapper from scratch and configuring it to run. 
 
+## Test
+We are focusing on doing test driven development, so downn the line things are not unpredicatable.  
+
+Before deploying the current build , it's recommended that you run the test suite once. 
+
+```shell
+
+>>  python -m unittest test -v
+test__getitem__ (test.metadata_test.MetadataTestCase) ... ok
+test__str__ (test.metadata_test.MetadataTestCase) ... ok
+test_data (test.metadata_test.MetadataTestCase) ... ok
+test_query_dict (test.metadata_test.MetadataTestCase) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.002s
+
+OK
+(base)
+
+
+```
+
+If this succeeds , you can move forward with deployment. If this fails. Please mark the build number and raise an issue. Althouth it should not happen because builds and PR is maintained by the author. But in case things blow up you know where to raise issue, 😉😉 
 
 
 ## How to Contribute ?
