@@ -47,7 +47,7 @@ class Conference:
         self.querydata['_id'] = self._id
         
     def generate_uuid(self):
-        return uuid.uuid5(uuid.NAMESPACE_URL,self.url).int
+        return str(uuid.uuid5(uuid.NAMESPACE_URL,self.url))
     
     def data(self):
         return self.querydata
