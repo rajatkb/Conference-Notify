@@ -6,6 +6,9 @@
   font-size: 30px;
   padding-top: 90px;
 }
+.txt{
+  padding: 8px;;
+}
 input {
   width: 50%;
   margin: 1% 25% 1% 25%;
@@ -16,14 +19,11 @@ h2 {
    margin: 20px 25px;
    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
  }
-.conference-list {
-  display: flex;
-  margin-left:20px;
-}
-.card {
+#conference-list mat-card {
   height: 200px;
   width: 250px;
-  margin-right:20px;
+  align-self: center;
+  margin: 10px;
   color:  rgb(6,69,94);
   background-color:rgb(245,245,245);
 }

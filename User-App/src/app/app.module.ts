@@ -8,6 +8,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,7 +37,8 @@ import { SearchPageComponent } from './search-page/search-page.component';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    FlexLayoutModule
     ],
   providers: [],
   bootstrap: [AppComponent]
