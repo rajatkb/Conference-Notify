@@ -51,5 +51,47 @@ class ConferenceTestCase(unittest.TestCase):
         expected = "http://url.com"
         self.assertEqual(obj.__getitem__("url"), expected)
 
+    def test_title_type(self):
+        obj = self.get_conferenceobj()
+        res = type(obj.title).__name__
+        expected = "str"
+        self.assertEqual(res, expected)
+
+    def test_url_type(self):
+        obj = self.get_conferenceobj()
+        res = type(obj.url).__name__
+        expected = "str"
+        self.assertEqual(res, expected)
+
+    def test_deadline_type(self):
+        obj = self.get_conferenceobj()
+        res = type(obj.submission_deadline).__name__
+        expected = "datetime"
+        self.assertEqual(res, expected)
+
+    def test_querydata_type(self):
+        obj = self.get_conferenceobj()
+        res = type(obj.querydata).__name__
+        expected = "dict"
+        self.assertEqual(res, expected)
+
+    def test_query_deadline_type(self):
+        obj = self.get_conferenceobj()
+        res = type(obj.querydata["deadline"]).__name__
+        expected = "datetime"
+        self.assertEqual(res, expected)
+        
+    def test_query_title_type(self):
+        obj = self.get_conferenceobj()
+        res = type(obj.querydata["title"]).__name__
+        expected = "str"
+        self.assertEqual(res, expected)
+
+    def test_query_url_type(self):
+        obj = self.get_conferenceobj()
+        res = type(obj.querydata["url"]).__name__
+        expected = "str"
+        self.assertEqual(res, expected)
+
 if __name__ == '__main__':
     unittest.main() 

@@ -33,5 +33,48 @@ class MetadataTestCase(unittest.TestCase):
         expected = "domainUrl"
         self.assertEqual(obj.querydata[obj.key]["website"], expected)
 
+    def test_querydata_type(self):
+        obj = self.get_metadata()
+        expected = "dict"
+        self.assertEqual(type(obj.querydata).__name__, expected)
+
+    def test_worker_type(self):
+        obj = self.get_metadata()
+        res =type(obj.worker).__name__
+        expected = "str"
+        self.assertEqual(res, expected)
+
+    def test_key_type(self):
+        obj = self.get_metadata()
+        res = type(obj.key).__name__
+        expected = "str"
+        self.assertEqual(res, expected)
+
+    def test_dateExtracted_type(self):
+        obj = self.get_metadata()
+        res = type(obj.querydata[obj.key]["dateExtracted"]).__name__
+        expected = "datetime"
+        self.assertEqual(res, expected)
+
+    def test_websiteUrl_type(self):
+        obj = self.get_metadata()
+        res = type(obj.querydata[obj.key]["websiteUrl"]).__name__
+        expected = "str"
+        self.assertEqual(res, expected)
+        
+    def test_website_type(self):
+        obj = self.get_metadata()
+        res = type(obj.querydata[obj.key]["website"]).__name__
+        expected = "str"
+        self.assertEqual(res, expected)
+
+    def test_domain_type(self):
+        obj = self.get_metadata()
+        res = type(obj.querydata[obj.key]["domain"]).__name__
+        expected = "str"
+        self.assertEqual(res, expected)
+        
+        
+
 if __name__ == '__main__':
     unittest.main()
