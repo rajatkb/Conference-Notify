@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Mar  5 15:59:20 2020
-
-@author: Lenovo
-"""
-
 import logging
 import json
 import argparse
@@ -12,8 +5,8 @@ import importlib
 import traceback
 import os
 from utility import str2bool , getLogger , printStart
-from multiprocessing.pool import ThreadPool as Pool
-import time
+from multiprocessing import Process
+
 ##
 #
 # Test whether the initialization is working or not
@@ -61,9 +54,9 @@ def createDatabase(configuration):
     classname = db_configuration["plugin"]["class"]
     module = importlib.import_module(path , ".")
     Database = module.__getattribute__(classname)
-    return lambda logger: Database(logger , **db_configuration)
-
-def initiate_scrapper(attr):
+    return lambda logger: Database(logger , **db_configuration) 
+#----------------
+def parallize_scrapper(attr,log_folder,configuration):
     path = attr["filename"]
     class_name = attr["class"]
     plugin_module = importlib.import_module(path , ".")
@@ -77,7 +70,7 @@ def initiate_scrapper(attr):
     except Exception as e:
         logger.error("{} scrapper failed".format(class_name))
         traceback.print_exception(type(e), e, e.__traceback__)
-
+#----------------
 if __name__ == '__main__':
 
     with open(CONFIG) as file:
@@ -89,16 +82,41 @@ if __name__ == '__main__':
         os.mkdir(log_folder)
     
     logger = getLogger(__name__ , log_level ,  log_streamOption("{}/{}.log".format(log_folder , "main")) )
+
     printStart(logger)
-#    start = time.process_time()
     logger.info("Application started , Extracting all the plugins")
-    #----------------------------------------------------------
+
     import_list = configuration["plugins"]
-    pool = Pool(10)
+    
+    process_list=[]
     for attr in import_list:
-        pool.apply_async(initiate_scrapper,(attr,))
-    pool.close()
-    pool.join()
-    #----------------------------------------------------------
-#    print("time: ",time.process_time() - start)
+        #start process for each instance
+        process = Process(target=parallize_scrapper,args=(attr,log_folder,configuration,))
+        process_list.append(process)
+        process.start()
+    
+    #finish the job of each instance in list
+    for pro in process_list:
+        pro.join()
+    #terminate all the process to clean memeory
+    process_list[-1].terminate()
+    
     logger.info("Scrapping done from all Scrapper plugins")
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
