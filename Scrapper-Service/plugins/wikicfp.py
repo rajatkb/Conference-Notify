@@ -26,7 +26,7 @@ class WikiCfpScrapper(Scrapper):
                     self.logger.info("Total unique conference links till now :{}".format(totalLink))
                 try:
                     qlink = base_address + clink
-                    req = self.getPage(qlink , "Page extracted for conference : {} , category : {} ,  link: {}  extracted".format(name ,category, clink))
+                    req = self.get_page(qlink , "Page extracted for conference : {} , category : {} ,  link: {}  extracted".format(name ,category, clink))
                     try:
                         conference_data = self.parse_conference_page_info(req.content , qlink )
                         ## Error from DB insertion should not be handled
@@ -59,7 +59,7 @@ class WikiCfpScrapper(Scrapper):
     def category_list(self ):
         base_address = self.base_address
         site_name = self.site_name 
-        req = self.getPage("{}/cfp/allcat?sortby=1".format(base_address), "{} category page extracted".format(site_name)) # getting page listed in specific order
+        req = self.get_page("{}/cfp/allcat?sortby=1".format(base_address), "{} category page extracted".format(site_name)) # getting page listed in specific order
 
         page_dom = BeautifulSoup(req.content , 'html.parser')
         table_container = page_dom.find(attrs={"class":"contsec"}) ## table in the page
@@ -78,7 +78,7 @@ class WikiCfpScrapper(Scrapper):
         return links
 
     def next_anchor(self , base_address:str , category:str ,  link:str):
-        req = self.getPage(base_address+link , "{} page extracted".format(category))
+        req = self.get_page(base_address+link , "{} page extracted".format(category))
         page_dom = BeautifulSoup(req.content , 'html.parser')
         page_dom = page_dom.find(attrs={"class":"contsec"})
         page_dom = page_dom.find(name = "center")

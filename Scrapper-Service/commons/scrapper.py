@@ -37,7 +37,7 @@ class Scrapper(ABC):
         else:
             raise ValueError("No database parameter given")
 
-    def getPage(self, qlink , debug_msg = "failed to extract page"):
+    def get_page(self, qlink , debug_msg = "failed to extract page"):
         """[summary]
         
         Arguments:
