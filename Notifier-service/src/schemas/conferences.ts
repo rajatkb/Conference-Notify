@@ -16,3 +16,6 @@ export interface Conference{
     notificationDue?:Date;
     bulkTest?:string; // optional field
 }
+
+
+

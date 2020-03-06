@@ -12,8 +12,8 @@ class Metadata:
         self.key = "metadata."+worker
         self.querydata = {
             self.key: {
-                "date_extracted":date_extracted,
-                "website_url":website_url,
+                "dateExtracted":date_extracted,
+                "websiteUrl":website_url,
                 "website":domain_url,
                 "domain":domain_name
             }

@@ -22,12 +22,12 @@ class Conference:
             deadline {[datetime , string]} -- submission deadline
             metadata {Metadata} -- contains meta information
             **kwargs
-            date_range : array[datetime , datetime] 
+            dateRange : array[datetime , datetime] 
             location: string
-            notificationdue: datetime 
-            finaldue: datetime 
+            notificationDue: datetime 
+            finalDue: datetime 
             categories: array[string]
-            bulk_text: string 
+            bulkText: string 
         """
         ## Cleaning title text
         title = title.split(" ")
@@ -47,7 +47,7 @@ class Conference:
         self.querydata['_id'] = self._id
         
     def generate_uuid(self):
-        return str(uuid.uuid5(uuid.NAMESPACE_URL,self.url))
+        return uuid.uuid5(uuid.NAMESPACE_URL,self.url).int
     
     def data(self):
         return self.querydata

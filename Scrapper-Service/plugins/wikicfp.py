@@ -148,19 +148,19 @@ class WikiCfpScrapper(Scrapper):
         info_table = page_dom.select("table.gglu")
         list_info_title = map(lambda x: x.text.strip() ,  info_table[0].select("th"))
         list_info_content = map(lambda x:x.text.strip() , info_table[0].select("td"))
-        info = {"date_range":"" , "location":"" , "deadline":"" , "notificationdue":"" , "finaldue":""}
+        info = {"dateRange":"" , "location":"" , "deadline":"" , "notificationDue":"" , "finalDue":""}
         for title , content in zip(list_info_title , list_info_content):
             if title == "When":
                 dates = list(map( lambda x: self.get_date(x) , content.split("-")))
-                info["date_range"] = dates
+                info["dateRange"] = dates
             elif title == "Where":
                 info["location"] = content
             elif title == "Submission Deadline":
                 info["deadline"] = self.get_date(content)
             elif title == "Notification Due":
-                info["notificationdue"] =  self.get_date(content)
+                info["notificationDue"] =  self.get_date(content)
             elif title == "Final Version Due":
-                info["finaldue"] = self.get_date(content)
+                info["finalDue"] = self.get_date(content)
         return info
 
     def extract_categories(self , page_dom:BeautifulSoup):
@@ -189,7 +189,7 @@ class WikiCfpScrapper(Scrapper):
         metadata = self.create_metadata(qlink , self.base_address , self.site_name )
 
         return Conference(**info , **{  "title":title , "url":url , 
-                                        "categories":categories , "bulk_text":bulk_text  , "metadata":metadata})
+                                        "categories":categories , "bulkText":bulk_text  , "metadata":metadata})
 
     
 
