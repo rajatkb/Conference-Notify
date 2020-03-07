@@ -5,8 +5,8 @@ import importlib
 import traceback
 import os
 from utility import str2bool , getLogger , printStart
-from multiprocessing import Process
-
+#from multiprocessing import Process
+import multiprocessing
 ##
 #
 # Test whether the initialization is working or not
@@ -56,6 +56,31 @@ def createDatabase(configuration):
     Database = module.__getattribute__(classname)
     return lambda logger: Database(logger , **db_configuration) 
 #----------------
+    
+class attribute_info():
+    def __init__(self,attr,log_folder,configuration):
+        self.attr = attr
+        self.log_folder = log_folder
+        self.configuration = configuration
+    def getInfo(self):
+        return (self.attr,self.log_folder,self.configuration)
+    
+#----------------
+        
+class create_process(multiprocessing.Process):
+    def __init__(self,function_name,info):
+        multiprocessing.Process.__init__(self)
+        self.function_name = function_name
+        self.info = info.getInfo()
+    
+    def run(self):
+        attr = self.info[0]
+        log_folder = self.info[1]
+        config = self.info[2]
+        self.function_name(attr,log_folder,config)
+        
+#----------------
+        
 def parallize_scrapper(attr,log_folder,configuration):
     path = attr["filename"]
     class_name = attr["class"]
@@ -70,7 +95,8 @@ def parallize_scrapper(attr,log_folder,configuration):
     except Exception as e:
         logger.error("{} scrapper failed".format(class_name))
         traceback.print_exception(type(e), e, e.__traceback__)
-#----------------
+        
+##-----------------
 if __name__ == '__main__':
 
     with open(CONFIG) as file:
@@ -90,8 +116,7 @@ if __name__ == '__main__':
     
     process_list=[]
     for attr in import_list:
-        #start process for each instance
-        process = Process(target=parallize_scrapper,args=(attr,log_folder,configuration,))
+        process = create_process(parallize_scrapper,attribute_info(attr,log_folder,configuration))
         process_list.append(process)
         process.start()
     
