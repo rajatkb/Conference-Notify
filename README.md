@@ -60,8 +60,8 @@ optional arguments:
                         Specify whether to print logs on terminal or to file
                         ,default: console
 
->> python test_metadata.py
-It will run the unit tests written for metadata.py
+>> python -m unittest test
+It will run all the unit tests written and kept under test folder
 
 ```
 
