@@ -1,6 +1,6 @@
 import logging
 
-def getLogger(context_name , log_level , log_stream):
+def get_logger(context_name , log_level , log_stream):
     logger = logging.getLogger(context_name)
     logger.setLevel(log_level)
     log_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -9,7 +9,7 @@ def getLogger(context_name , log_level , log_stream):
     # Works as a separator , more readable logs
     return logger
 
-def printStart(logger):
+def print_start(logger):
     logger.info('''
     
   _________                  .__                         __                  __   

@@ -4,9 +4,17 @@ import argparse
 import importlib
 import traceback
 import os
+<<<<<<< HEAD
 from utility import str2bool , getLogger , printStart
 #from multiprocessing import Process
 import multiprocessing
+=======
+from utility import str2bool , get_logger , print_start
+from process import Multiprocessing
+
+
+
+>>>>>>> 4a3a92d119e08a2b19b377858ffa2a1f01fc3e58
 ##
 #
 # Test whether the initialization is working or not
@@ -103,20 +111,29 @@ if __name__ == '__main__':
     with open(CONFIG) as file:
         configuration = json.load(file)
     
+    ## reading logging configuration
     logging_configuration = configuration["logging"]
     log_folder = logging_configuration["output"]
-    if not log_folder in os.listdir():
+    if not log_folder in os.listdir('.'):
         os.mkdir(log_folder)
-    
-    logger = getLogger(__name__ , log_level ,  log_streamOption("{}/{}.log".format(log_folder , "main")) )
 
-    printStart(logger)
+    ## logger for main thread
+    logger = get_logger(__name__ , log_level ,  log_streamOption("{}/{}.log".format(log_folder , "main")) )
+
+    ## logger test in main thread
+    print_start(logger)
     logger.info("Application started , Extracting all the plugins")
+
+
+    ## handles creating mutiple process 
+    ## from single process using MultiProcessing  
+    multip = Multiprocessing()
 
     import_list = configuration["plugins"]
     
     process_list=[]
     for attr in import_list:
+<<<<<<< HEAD
         process = create_process(parallize_scrapper,attribute_info(attr,log_folder,configuration))
         process_list.append(process)
         process.start()
@@ -146,3 +163,28 @@ if __name__ == '__main__':
     
     
     
+=======
+
+        path = attr["filename"]
+        class_name = attr["class"]
+        plugin_module = importlib.import_module(path , ".")
+        scrapper = plugin_module.__getattribute__(class_name)
+        try:
+            log_stream = log_streamOption("{}/{}.log".format(log_folder , class_name))
+            if istest:
+                multip.execute_process( 
+                    lambda : scrapper(  log_level = log_level, 
+                                        log_stream = log_stream , 
+                                        getDatabaseObject = createDatabase(configuration) 
+                                    ))
+            else:
+                multip.execute_process(
+                    lambda : scrapper(  log_level = log_level, 
+                                        log_stream = log_stream , 
+                                        getDatabaseObject = createDatabase(configuration) ).run() )
+                
+        except Exception as e:
+            logger.error("{} scrapper failed".format(class_name))
+            traceback.print_exception(type(e), e, e.__traceback__)
+    logger.info("Scrapping done from all Scrapper plugins")
+>>>>>>> 4a3a92d119e08a2b19b377858ffa2a1f01fc3e58
