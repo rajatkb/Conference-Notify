@@ -54,7 +54,8 @@ def createDatabase(configuration):
     classname = db_configuration["plugin"]["class"]
     module = importlib.import_module(path , ".")
     Database = module.__getattribute__(classname)
-    return lambda logger: Database(logger , **db_configuration) 
+    return lambda logger: Database(logger , **db_configuration)
+
 #----------------
     
 class attribute_info():
