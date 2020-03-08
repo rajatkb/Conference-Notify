@@ -65,7 +65,7 @@ if __name__ == '__main__':
     
     logging_configuration = configuration["logging"]
     log_folder = logging_configuration["output"]
-    if not log_folder in os.listdir():
+    if not log_folder in os.listdir('.'):
         os.mkdir(log_folder)
     
     logger = getLogger(__name__ , log_level ,  log_streamOption("{}/{}.log".format(log_folder , "main")) )

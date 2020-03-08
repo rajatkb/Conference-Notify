@@ -3,7 +3,7 @@
         "host":"localhost",
         "port":27017,
         "database_name":"Conference_Notify", 
-        "collection_name":"conference",
+        "collection_name":"conferences",
         "plugin":{
             "filename":"database.mdb",
             "class":"MongoDatabase"
