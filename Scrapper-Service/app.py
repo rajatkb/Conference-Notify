@@ -4,7 +4,8 @@ import argparse
 import importlib
 import traceback
 import os
-from utility import str2bool, getLogger, printStart
+from utility import str2bool , get_logger , print_start
+from process import Multiprocessing
 
 
 ##
@@ -97,18 +98,28 @@ if __name__ == "__main__":
 
     with open(CONFIG) as file:
         configuration = json.load(file)
-
+    
+    ## reading logging configuration
     logging_configuration = configuration["logging"]
     log_folder = logging_configuration["output"]
-    if not log_folder in os.listdir():
+    if not log_folder in os.listdir('.'):
         os.mkdir(log_folder)
 
     logger = getLogger(
         __name__, log_level, log_streamOption("{}/{}.log".format(log_folder, "main"))
     )
 
-    printStart(logger)
+    ## logger for main thread
+    logger = get_logger(__name__ , log_level ,  log_streamOption("{}/{}.log".format(log_folder , "main")) )
+
+    ## logger test in main thread
+    print_start(logger)
     logger.info("Application started , Extracting all the plugins")
+
+
+    ## handles creating mutiple process 
+    ## from single process using MultiProcessing  
+    multip = Multiprocessing()
 
     import_list = configuration["plugins"]
     for attr in import_list:
@@ -118,19 +129,19 @@ if __name__ == "__main__":
         plugin_module = importlib.import_module(path, ".")
         scrapper = plugin_module.__getattribute__(class_name)
         try:
-            log_stream = log_streamOption("{}/{}.log".format(log_folder, class_name))
-            if is_test:
-                scrapper(
-                    log_level=log_level,
-                    log_stream=log_stream,
-                    getDatabaseObject=createDatabase(configuration),
-                )
+            log_stream = log_streamOption("{}/{}.log".format(log_folder , class_name))
+            if istest:
+                multip.execute_process( 
+                    lambda : scrapper(  log_level = log_level, 
+                                        log_stream = log_stream , 
+                                        getDatabaseObject = createDatabase(configuration) 
+                                    ))
             else:
-                scrapper(
-                    log_level=log_level,
-                    log_stream=log_stream,
-                    getDatabaseObject=createDatabase(configuration),
-                ).run()
+                multip.execute_process(
+                    lambda : scrapper(  log_level = log_level, 
+                                        log_stream = log_stream , 
+                                        getDatabaseObject = createDatabase(configuration) ).run() )
+
         except Exception as e:
             logger.error("{} scrapper failed".format(class_name))
             traceback.print_exception(type(e), e, e.__traceback__)

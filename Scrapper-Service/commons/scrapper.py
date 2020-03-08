@@ -1,6 +1,6 @@
 import logging
 import datetime
-from utility import getLogger , printStart
+from utility import get_logger , print_start
 from datamodels import Conference, Metadata
 from abc import ABC , abstractclassmethod , abstractmethod , abstractproperty
 import requests
@@ -28,8 +28,8 @@ class Scrapper(ABC):
 
 
     def __init__(self , context_name , log_level , log_stream  , getDatabaseObject = lambda logger: None ,  **kwargs):
-        self.logger = getLogger(context_name , log_level , log_stream)  
-        printStart(self.logger)   
+        self.logger = get_logger(context_name , log_level , log_stream)  
+        print_start(self.logger)   
         self.db = getDatabaseObject(self.logger)
         self.logger.info("{} setup complete !!".format(context_name))
         if self.db != None:
@@ -72,7 +72,7 @@ class Scrapper(ABC):
 
 
     @abstractclassmethod
-    def parse_action(self):
+    def parse_action(cls):
         """[parse_action]
             TO BE IMPLEMENTED BY THE USER
             The function is intended to return a iterator
