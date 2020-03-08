@@ -1,2 +1,2 @@
 from .argument import str2bool
-from .logger import getLogger , printStart
+from .logger import get_logger , print_start

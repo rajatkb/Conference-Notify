@@ -31,7 +31,7 @@ class ConferenceTestCase(unittest.TestCase):
         self.assertEqual('759839e1-5d29-5c50-91fc-ed182d3112b1', expected)
 
     def test_data(self):
-        obj = self.get_conferenceobj()
+        obj = self.get_conferenceobj()        
         expected = {'url': 'http://url.com', '_id': '759839e1-5d29-5c50-91fc-ed182d3112b1', 'deadline': 'deadline', 'metadata.worker': {'websiteUrl': 'website_url', 'dateExtracted': 'date_extracted', 'website': 'domain_url', 'domain': 'domain_name'}, 'title': 'title'}
         self.assertEqual(obj.data(), expected)
 
@@ -39,12 +39,6 @@ class ConferenceTestCase(unittest.TestCase):
         obj = self.get_conferenceobj()
         expected = {'url': 'http://url.com', '_id': '759839e1-5d29-5c50-91fc-ed182d3112b1', 'deadline': 'deadline', 'metadata.worker': {'websiteUrl': 'website_url', 'dateExtracted': 'date_extracted', 'website': 'domain_url', 'domain': 'domain_name'}, 'title': 'title'}
         self.assertEqual(obj.query_dict(), expected)
-
-    def test__str__(self):
-        obj = self.get_conferenceobj()
-        self.assertEqual(
-            "{}".format(obj.querydata), obj.querydata.__str__()
-        )
 
     def test_getitem(self):
         obj = self.get_conferenceobj()
@@ -63,6 +57,8 @@ class ConferenceTestCase(unittest.TestCase):
         expected = "str"
         self.assertEqual(res, expected)
 
+    ## TO-DO  
+    # Flaw in logic need to fix
     def test_deadline_type(self):
         obj = self.get_conferenceobj()
         res = type(obj.submission_deadline).__name__
@@ -75,6 +71,8 @@ class ConferenceTestCase(unittest.TestCase):
         expected = "dict"
         self.assertEqual(res, expected)
 
+    ## TO-DO 
+    # flaw in logic need to fix
     def test_query_deadline_type(self):
         obj = self.get_conferenceobj()
         res = type(obj.querydata["deadline"]).__name__
@@ -86,6 +84,7 @@ class ConferenceTestCase(unittest.TestCase):
         res = type(obj.querydata["title"]).__name__
         expected = "str"
         self.assertEqual(res, expected)
+
 
     def test_query_url_type(self):
         obj = self.get_conferenceobj()

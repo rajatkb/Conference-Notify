@@ -50,6 +50,8 @@ class MetadataTestCase(unittest.TestCase):
         expected = "str"
         self.assertEqual(res, expected)
 
+    ## TO-DO 
+    # need to fix the logic
     def test_dateExtracted_type(self):
         obj = self.get_metadata()
         res = type(obj.querydata[obj.key]["dateExtracted"]).__name__
