@@ -1,0 +1,25 @@
+{
+    "database" : {
+        "host":"localhost",
+        "port":27017,
+        "database_name":"Conference_Notify", 
+        "collection_name":"conferences",
+        "plugin":{
+            "filename":"database.mdb",
+            "class":"MongoDatabase"
+        }
+
+    },
+    "logging":{
+        "output":"logs"
+    }, 
+    "plugins":[
+        {   "filename":"plugins.wikicfp",
+            "class":"WikiCfpScrapper"
+        },
+        {
+            "filename":"plugins.demo",
+            "class":"DemoScrapper"
+        }
+    ]
+}
