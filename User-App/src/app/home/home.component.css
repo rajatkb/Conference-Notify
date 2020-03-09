@@ -1,32 +1,75 @@
 .heading {
-  height: 110px;
-  background-color: rgb(6,69,94);
+  height: 190px;
+  background-color: #6652FF;
   color: white;
   text-align: center;
   font-size: 30px;
   padding-top: 90px;
 }
 .txt{
-  padding: 8px;;
+  padding: 8px;
+  font-weight: 500;
 }
-input {
-  width: 50%;
-  margin: 1% 25% 1% 25%;
-  height: 50px;
-  text-align: center;
+.subhead {
+  font-size: 16px;
 }
-h2 {
-   margin: 20px 25px;
-   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
- }
+.attend-btn {
+  padding: 10px 50px 10px 50px;
+  font-size: 14px;
+  border-radius: 8px;
+  background-color: white;
+}
+.searchbox {
+  display: inline;
+}
+.searchbox input {
+  width: 30%;
+  margin: 3% 0% 1% 30%;
+  height: 30px;
+  text-indent: 1%;
+}
+.searchbox button {
+  width: 10%;
+  height: 40px;
+  background-color: #6652FF;
+  color: white;
+}
+.head {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.conference-head {
+  font-size: 18px;
+  margin: 4% 10%;
+}
+.view-txt{
+  float: right;
+}
+a {
+  text-decoration: none;
+}
 #conference-list mat-card {
-  height: 200px;
+  height: 280px;
   width: 250px;
   align-self: center;
-  margin: 10px;
+  margin: 0% 0% 4% 10%;
   color:  rgb(6,69,94);
-  background-color:rgb(245,245,245);
+  border-radius: 10px;
 }
-mat-card-title{
+.title-dir {
+  display: inline;
+}
+.title-txt {
+  color: black;
+  font-weight: 500;
+  font-size: 14px;
+  /* margin: 20%; */
+}
+.dir {
+  float: right;
+  margin-left: 10%;
+}
+
+/* mat-card-title{
   padding-top: 70px
-}
+} */
