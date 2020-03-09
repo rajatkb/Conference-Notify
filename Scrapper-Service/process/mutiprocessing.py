@@ -1,13 +1,16 @@
+from utility import get_logger , print_start
+
 ## TO_DO
 ## 1. Add multiprocessing from the reference implementation
 ## 2. Use Logging at properplaces for generating logs from the context manager
-## 3. folow the main class to know where to grab the log level and how to get a logger
 class MultiProcessingContext:
     def __init__(self , log_level , log_stream):
         """[Multi Processing class]
             Responsible for running the lambda functions passed in
             inside threads
         """
+        self.logger = get_logger(__name__ , log_level , log_stream)
+
         pass
     def __execute__(self , runnable):
         runnable()
