@@ -1,3 +1,7 @@
+from multiprocessing import Process
+import multiprocessing
+multiprocessing.set_start_method('spawn')
+
 class Multiprocessing:
     def __init__(self):
         """[Multi Processing class]
@@ -6,4 +10,7 @@ class Multiprocessing:
         """
         pass
     def execute_process(self ,  runnable = lambda : None ):
-        runnable()
+#        runnable()
+        p = Process(target = runnable)
+        p.start()
+        p.join()
