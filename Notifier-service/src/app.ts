@@ -55,6 +55,7 @@ export class App {
             throw new Error("No proper port for server found , configure in .env file")
         let port = Number.parseInt(process.env.SERVER_PORT)
         this.server = this.app.listen( port , () => {
+            this.logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>> APPLICATION STARTED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
             this.logger.info("Application listening at port :"+ port);
             callback(port);
         })

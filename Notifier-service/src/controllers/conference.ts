@@ -13,14 +13,26 @@ export class ConferenceController extends Controller {
 
     async getConferences(offset:Number , count:Number):Promise<Conference[]>{
         // TO-DO
+        /*
+            This route will return count number of Conferenes data , with a particular offset
+            The results should be sorted by nearest date greater than current date
+        */
         return Promise.resolve([]);
     }
     async getConferencesFromCategory(category:String , offset:Number , count:Number):Promise<Conference[]>{
         //TO- DO
+        /*
+            This route will return count number of Conferenes data , with a particular offset
+            The results should be sorted by nearest date greater than current date
+            But also the result should be of a a particular conference.
+        */
         return Promise.resolve([]);
     }
     async getCategories():Promise<Array<String>>{
         // To-DO
+        /*
+            get all the conference category
+        */
         return Promise.resolve([]);
     };
 

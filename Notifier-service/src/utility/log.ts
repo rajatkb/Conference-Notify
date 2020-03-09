@@ -21,12 +21,6 @@ const ConsoleConfig = {
     prettyPrint: true
 }
 
-winston.addColors({
-    error: 'red',
-    warn: 'yellow',
-    info: 'cyan',
-    debug: 'green'
-});
 
 export class Logger{
 
@@ -35,11 +29,6 @@ export class Logger{
     constructor(filename:string){
         this.logger = winston.createLogger({
             level: process.env.LOG_LEVEL,
-            format: winston.format.combine(
-                winston.format.json(),
-                winston.format.timestamp(),
-                winston.format.colorize()
-            ),
             transports: [
                 new winston.transports.Console(ConsoleConfig),
                 new winston.transports.File(FileConfig(filename))

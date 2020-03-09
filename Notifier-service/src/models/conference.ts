@@ -30,6 +30,20 @@ export class ConferenceModel extends Model{
         })
         return result
     }
+
+
+    /*
+        TO-DO 
+        1. add getConferences query function for the controller
+            -> Will get range number of conferences with a given offset
+            -> the result will be sorted by deadline
+
+        2. add getConferencesFromCategory query function for the controller
+            -> same as above but will have extra parameter of conference category
+
+        3. add getCategories query function for the controller
+            -> returns all unique categories acrooss all the entries
+    */
 }
 
 
