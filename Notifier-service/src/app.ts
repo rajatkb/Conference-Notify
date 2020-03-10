@@ -5,9 +5,14 @@ import { Database} from './interfaces/database';
 import { Server } from 'http';
 import { Controller } from './interfaces/controller';
 import { Model } from './interfaces/model';
+import { Logger } from './utility/log';
 
 
 export class App {
+
+    private logger = new Logger(this.constructor.name).getLogger();
+
+
     private app:Application;
     private server:Server|undefined;
     constructor(private routes:Array<Route>,
@@ -50,6 +55,8 @@ export class App {
             throw new Error("No proper port for server found , configure in .env file")
         let port = Number.parseInt(process.env.SERVER_PORT)
         this.server = this.app.listen( port , () => {
+            this.logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>> APPLICATION STARTED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            this.logger.info("Application listening at port :"+ port);
             callback(port);
         })
     }

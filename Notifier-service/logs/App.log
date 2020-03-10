@@ -1,0 +1,23 @@
+{"@message":"Application listening at port :3000","@fields":{"level":"info"}}
+{"@message":"Application listening at port :3000","@fields":{"level":"info"}}
+{"message":"Application listening at port :3000","level":"info"}
+undefined info: "Application listening at port :3000"
+undefined info: "Application listening at port :3000"
+{"message":"Application listening at port :3000","level":"info"}
+{"message":"Application listening at port :3000","level":"info"}
+{"message":"Application listening at port :3000","level":"info"}
+{"message":"Application listening at port :3000","level":"info"}
+undefined
+2020-03-09T15:54:59.751Z - App:[info]: >>>>>>>>>>>>>>>>>>>>>>>>>>>> APPLICATION STARTED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+2020-03-09T15:54:59.754Z - App:[info]: Application listening at port :3000
+2020-03-09T15:58:42.804Z - App:[info]: >>>>>>>>>>>>>>>>>>>>>>>>>>>> APPLICATION STARTED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+2020-03-09T15:58:42.807Z - App:[info]: Application listening at port :3000
+2020-03-09T15:59:07.249Z - App:[info]: >>>>>>>>>>>>>>>>>>>>>>>>>>>> APPLICATION STARTED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+2020-03-09T15:59:07.252Z - App:[info]: Application listening at port :3000
+2020-03-09T16:00:18.749Z - App:[[32minfo[39m]: [32m>>>>>>>>>>>>>>>>>>>>>>>>>>>> APPLICATION STARTED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<[39m
+2020-03-09T16:00:18.752Z - App:[[32minfo[39m]: [32mApplication listening at port :3000[39m
+2020-03-09T16:01:01.375Z - App:[[32minfo[39m]: [32m>>>>>>>>>>>>>>>>>>>>>>>>>>>> APPLICATION STARTED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<[39m
+2020-03-09T16:01:01.378Z - App:[[32minfo[39m]: [32mApplication listening at port :3000[39m
+2020-03-09T16:01:01.380Z - App:[[33mwarn[39m]: [33mThi is warning[39m
+2020-03-09T16:01:57.159Z - App:[info]: >>>>>>>>>>>>>>>>>>>>>>>>>>>> APPLICATION STARTED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+2020-03-09T16:01:57.163Z - App:[info]: Application listening at port :3000
