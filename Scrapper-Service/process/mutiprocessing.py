@@ -1,5 +1,5 @@
 from utility import get_logger , print_start
-
+from multiprocessing import Process
 ## TO_DO
 ## 1. Add multiprocessing from the reference implementation
 ## 2. Use Logging at properplaces for generating logs from the context manager
@@ -10,16 +10,19 @@ class MultiProcessingContext:
             inside threads
         """
         self.logger = get_logger(__name__ , log_level , log_stream)
-
-        pass
+        self.process_list=[]
     def __execute__(self , runnable):
-        runnable()
-        pass
+        p= Process(target= runnable)
+        self.process_list.append(p)
+        p.start()
+
     def __enter__(self):
         return self.__execute__ 
 
     def __exit__(self , exception_type, exception_value, traceback):
-        pass
+        for process in self.process_list:
+            process.join()
+
 
 ## A HELPER IMPLEMENTATION
 # class MultiPoc:
