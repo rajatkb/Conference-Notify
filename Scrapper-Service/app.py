@@ -84,7 +84,6 @@ CONFIG = values.config
 
 log_streamOption = LOG_STREAM_DEFAULTS[values.log_stream.lower()]
 
-
 def parse_dbconfig(configuration):
     db_configuration = configuration["database"]
     path = db_configuration["plugin"]["filename"]
