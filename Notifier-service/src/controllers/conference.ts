@@ -13,11 +13,38 @@ export class ConferenceController extends Controller {
 
     async getConferences(offset:Number , count:Number):Promise<Conference[]>{
         // TO-DO
-        return Promise.resolve([]);
+        return new Promise<Conference[]>((resolve, reject) => {
+            this.conferenceModel?.getConferences(offset, count).then( value => {
+                if(value == null)
+                    resolve([])
+                else{
+                    let conferences: Conference[];
+                    value.forEach(conference => {
+                        conferences.push(conference);
+                    });
+                    resolve(conferences)
+                }
+            }).catch(err => {
+                reject(err)
+            })
+        })
     }
     async getConferencesFromCategory(category:String , offset:Number , count:Number):Promise<Conference[]>{
-        //TO- DO
-        return Promise.resolve([]);
+        return new Promise<Conference[]>((resolve, reject) => {
+            this.conferenceModel?.getConferences(offset, count).then( value => {
+                if(value == null)
+                    resolve([])
+                else{
+                    let conferences: Conference[];
+                    value.forEach(conference => {
+                        conferences.push(conference);
+                    });
+                    resolve(conferences)
+                }
+            }).catch(err => {
+                reject(err)
+            })
+        })
     }
     async getCategories():Promise<Array<String>>{
         // To-DO
