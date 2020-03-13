@@ -22,8 +22,7 @@ class MultiProcessingContext:
                 None
         """
         self.logger.info('''
-                         Thread Process inited
-                         initiated
+                         Thread Process initiated
                          ''')
         ## start process for each call
         p= Process(target= runnable)
