@@ -1,5 +1,5 @@
-import { Model }  from './model'
+import { Service }  from './services'
 
 export abstract class Controller {
-    abstract init(model:Model):void;
+    constructor(service:Service){};
 }

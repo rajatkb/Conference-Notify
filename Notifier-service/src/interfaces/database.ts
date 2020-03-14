@@ -1,3 +1,7 @@
 export abstract class Database {
-    abstract init(dbName:string | undefined):Promise<any>;
+    protected dbName:string;
+    constructor(dbName:string){
+        this.dbName = dbName;
+    };
+    public abstract getConnection():Promise<any>;
 }

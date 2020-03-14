@@ -1,9 +1,5 @@
 import * as dotenv from 'dotenv';
-import { MongoDb } from './database/mongodb'; 
 import { App } from './app';
-import { ConferenceController } from './controllers/conference'
-import { ConferenceRoute} from './routes/conference';
-import { ConferenceModel } from './models/conference';
 /* 
 Load the .env file into the process environment variable scope
 It's necessary to keep a .env file in the project root
@@ -20,17 +16,7 @@ dotenv.config()
 */
 
 
-let app = new App(  [
-                        new ConferenceRoute()
-                    ] , 
-                    [   
-                        new ConferenceController()
-                    ] , 
-                    [   
-                        new ConferenceModel()
-                    ] ,  
-                    new MongoDb() );
-
+let app = new App();
 app.init()
 app.start((port) => {
     console.log("Listening on port :"+port);

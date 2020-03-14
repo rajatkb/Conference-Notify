@@ -1,4 +1,7 @@
-import { Connection } from 'mongoose';
+import { Database } from './database';
 export abstract class Model{
-    abstract init(connection:Connection):void;
+    protected database:Database;
+    constructor(database:Database){
+        this.database = database;
+    }
 }

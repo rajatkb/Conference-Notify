@@ -1,56 +1,89 @@
 import { Conference } from '../schemas/conferences'
-import { ConferenceModel } from '../models/conference';
+import { ConferenceService } from '../interfaces/services/conference';
 import { Controller } from '../interfaces/controller';
-
-
+import { Response, Request } from 'express'
+import { Logger } from '../utility/log';
 
 
 export class ConferenceController extends Controller {
-    conferenceModel?:ConferenceModel = undefined;
-    init(conferenceModel:ConferenceModel):void{
-        this.conferenceModel = conferenceModel;
-     }
 
-    async getConferences(offset:Number , count:Number):Promise<Conference[]>{
-        // TO-DO
-        /*
-            This route will return count number of Conferenes data , with a particular offset
-            The results should be sorted by nearest date greater than current date
-        */
-        return Promise.resolve([]);
-    }
-    async getConferencesFromCategory(category:String , offset:Number , count:Number):Promise<Conference[]>{
-        //TO- DO
-        /*
-            This route will return count number of Conferenes data , with a particular offset
-            The results should be sorted by nearest date greater than current date
-            But also the result should be of a a particular conference.
-        */
-        return Promise.resolve([]);
-    }
-    async getCategories():Promise<Array<String>>{
-        // To-DO
-        /*
-            get all the conference category
-        */
-        return Promise.resolve([]);
-    };
+    private logger = new Logger(this.constructor.name).getLogger();
 
-    async getOne():Promise<Conference[]> {
-        return new Promise<Conference[]>((resolve , reject) => {
-            this.conferenceModel?.getOne().then( value => {
-                if(value == null)
-                    resolve([])
-                else{
-                    let conference:Conference = {   title: value.title ,
-                                                    url: value.url , 
-                                                    deadline: value.deadline } 
-                    resolve([conference])
-                }
-            }).catch(err => {
-                reject(err)
-            })
-        }) 
-        
+    constructor(private conferenceService: ConferenceService) {
+        super(conferenceService)
+    }
+
+    private success = (fun: string, info: any) => `Recieved request for ${fun}  from: ${info}`
+    private fail = (fun: string, info: any, err: any) => `Failed at request for ${fun} from : ${info} : Error encountered :${err}`
+
+    getOne = async (request: Request, response: Response) => {
+        let requester = request.ip ;
+        let category: string = request.params.category;
+        try {
+            this.logger.info(this.success("getOne", requester))
+            let result = await this.conferenceService.getOne();
+            response.json({
+                status: 200,
+                payload: result
+            });
+        } catch (e) {
+            this.logger.error(this.fail("getOne", requester, e))
+            response.redirect('/')
+        }
+    }
+
+    getConferences = async (request: Request, response: Response) => {
+        let requester = request.connection.address
+        let offset: string = request.params.offset;
+        let count: string = request.params.count;
+        try {
+            this.logger.info(this.success("getConference", requester))
+            let result: Conference[] = await this.conferenceService
+                .getConferences(
+                    Number.parseFloat(offset),
+                    Number.parseFloat(count));
+            response.json({
+                status: 200,
+                payload: result
+            });
+        } catch (e) {
+            this.logger.error(this.fail("getConference", requester, e))
+            response.redirect('/')
+        }
+    }
+
+    getConferencesFomCategory = async (request: Request, response: Response) => {
+        let offset: string = request.params.offset;
+        let count: string = request.params.count;
+        let category: string = request.params.category;
+        let requester = request.connection.address
+        try {
+            this.logger.info(this.success("getConferenceFromCategory", requester))
+            let result: Conference[] = await this.conferenceService.
+                getConferencesFromCategory(
+                    category,
+                    Number.parseFloat(offset),
+                    Number.parseFloat(count));
+            response.json({
+                status: 200,
+                payload: result
+            });
+        } catch (e) {
+            this.logger.error(this.fail("getConferenceFromCategory", requester, e))
+            response.redirect('/')
+        }
+    }
+
+
+    getCategories = async (request: Request, response: Response) => {
+        let category: string = request.params.category;
+        let requester = request.connection.address
+        try {
+            this.logger.info(this.success("getCategories", requester))
+            let result: Array<String> = await this.conferenceService.getCategories();
+            response.json(result);
+        } catch (e) {
+            
+        }
     }
 }

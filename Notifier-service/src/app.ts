@@ -1,12 +1,19 @@
 import express from 'express';
 import { Application , Request , Response } from 'express';
-import { Route } from './interfaces/route';
-import { Database} from './interfaces/database';
 import { Server } from 'http';
-import { Controller } from './interfaces/controller';
-import { Model } from './interfaces/model';
 import { Logger } from './utility/log';
 
+
+
+
+
+
+import { MongoDb } from './database/mongodb'
+import { ConferenceController} from './controllers/conference'
+import { ConferenceServiceI } from './services/conference'
+import { ConferenceModelI } from './models/conference'
+import { ConferenceRoute } from './routes/conference'
+import { Route } from './interfaces/route';
 
 export class App {
 
@@ -15,38 +22,32 @@ export class App {
 
     private app:Application;
     private server:Server|undefined;
-    constructor(private routes:Array<Route>,
-                private controllers:Array<Controller>,
-                private models:Array<Model>,
-                private database:Database){
+    
+    private routes:Route[] =[];
+
+    constructor(){
         this.app = express();
+
+
+        let databaseName = process.env.MONGO_DB_NAME
+        if(databaseName == undefined){
+            this.logger.error("missing database name in .env");
+            throw new Error("No databas name provided")
+        }
+        
+        let database = new MongoDb(databaseName)
+
+        let conferenceService = new ConferenceServiceI(new ConferenceModelI(database))
+        let conferenceController = new ConferenceController(conferenceService)
+        let conferenceRoute = new ConferenceRoute(conferenceController)
+        this.routes.push(conferenceRoute)
+
     }
 
-    async init(){
-        try{
-            let connection = await this.database.init(process.env.MONGO_DB_NAME) 
-
-            this.models.forEach(model => {
-                model.init(connection)
-            })
-
-            this.controllers.forEach((controller , index) => {
-                controller.init(this.models[index])
-            })
-
-            this.routes.forEach((route,index) => {
-                route.init(this.controllers[index])
-                this.app.use('/'+route.getRouteName() ,route.getRouter())
-            })
-
-            this.app.get("/*", (req:Request, res:Response) => {
-                res.json({"error": "route Not available"})
-            })
-        }catch(e){
-            //TO-DO Logg error for not being able to create the mongo db or any of the routes
-            console.log(e);
-
-        }
+    init():void{
+        this.routes.forEach( (route:Route) => {
+            this.app.use("/"+route.getRouteName() , route.getRouter())
+        })
     }
 
 
