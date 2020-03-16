@@ -1,4 +1,5 @@
 from .metadata import Metadata 
+import datetime
 import uuid
 
 class Conference:
@@ -6,11 +7,10 @@ class Conference:
     @staticmethod
     def index():
         """Get fields for indexing
-        
         Returns:
             List[(String , Boolean)] -- List of fields that should be indexed along with should it be unique or not. 
         """
-        return [('url' , False) , ('deadline' , False) , ('title' , False)]
+        return [('url' , False) , ('deadline' , False) , ('title' , False) , ('categories' , False)]
 
     def __init__(self, title , url , deadline , metadata, **kwargs):
         """[Conference class]
@@ -21,6 +21,7 @@ class Conference:
             url {[string]} -- url of conference
             deadline {[datetime , string]} -- submission deadline
             metadata {Metadata} -- contains meta information
+            
             **kwargs
             dateRange : array[datetime , datetime] 
             location: string
@@ -35,7 +36,12 @@ class Conference:
         title = " ".join(title)
         self.title = title
         self.url = url.strip()
+        
+        if not isinstance(deadline  , datetime.datetime):
+            raise ValueError("deadline is not datetime") 
+
         self.submission_deadline = deadline
+        
         self.querydata = kwargs
         self.querydata["title"] = title
         self.querydata["url"] = url

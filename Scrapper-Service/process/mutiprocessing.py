@@ -1,11 +1,24 @@
 from utility import get_logger , print_start
 from multiprocessing import Process
-## TO_DO
-## 1. Add multiprocessing from the reference implementation
-## 2. Use Logging at properplaces for generating logs from the context manager
+import dill
+
+def dill_encode(runnable):
+    runnable_serialized = dill.dumps(runnable)
+    return runnable_serialized
+
+def dill_decode_run(runnable_serialized):
+    runnable_class , args = dill.loads(runnable_serialized)
+    try:
+        runnable_obj = runnable_class(**args)
+        runnable_obj.run()
+    except Exception as e:
+        print("[dill routine]:  Runnable failed in runtime due to error raised {}".format(e))
+
+
+
 class MultiProcessingContext:
     
-    def __init__(self , log_level , log_stream):
+    def __init__(self , log_level , log_stream , log_folder="logs"):
         """[Multi Processing class]
             Responsible for running the lambda functions passed in
             inside threads
@@ -14,18 +27,21 @@ class MultiProcessingContext:
                 log_stream {[string]} -- Stream of log for each process
                 
         """
-        self.logger = get_logger(__name__ , log_level , log_stream)
+        self.logger = get_logger(__name__, log_level, log_stream , log_folder)
         self.process_list=[]
-    def __execute__(self , runnable):
+    
+    def __execute__(self , runnable , **kwargs):
         """Start execution of MultiProcessingContext 
             Returns:
                 None
         """
-        self.logger.info('''
-                         Thread Process initiated
+        self.logger.info(''' 
+                          Thread Process initiated
                          ''')
         ## start process for each call
-        p= Process(target= runnable)
+
+        serialized = dill_encode((runnable , kwargs))
+        p= Process(target= dill_decode_run , args=(serialized,))
         ## append the each process in list
         self.process_list.append(p)
         ## start calling process
@@ -39,19 +55,3 @@ class MultiProcessingContext:
         for process in self.process_list:
             process.join()
 
-
-## A HELPER IMPLEMENTATION
-# class MultiPoc:
-#     def __init__(self):
-#         self.process_list = []
-#         pass
-#     def __execute__(self , runnable ):
-#         p = Process(target= runnable)
-#         self.process_list.append(p)
-#         p.start()
-#     def __enter__(self):
-#         return self.__execute__
-    
-#     def __exit__(self , exception_type, exception_value, traceback):
-#         for process in self.process_list:
-#             process.join()

@@ -7,13 +7,15 @@ import datetime
 
 
 class WikiCfpScrapper(Scrapper):
-    def __init__(self , **config):
-        super().__init__( context_name = __name__ , **config)
+    def __init__(self , **kwargs):
+        super().__init__( context_name = __name__ , **kwargs)
         self.base_address = "http://www.wikicfp.com"
         self.site_name = "wikicfp"
+        self.logger.info("{} initialized !!!".format(__name__))
 
-        # http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=61171&copyownerid=6818
-    
+    def __del__(self):
+        self.logger.info("{} done scrapping !!!".format(__name__))
+
     def extract_and_put(self ,linkSet:set , category:str , link:str):
         base_address= self.base_address
         for name , clink in self.iterate_links(category , link):
@@ -40,19 +42,14 @@ class WikiCfpScrapper(Scrapper):
                 except requests.Timeout as e:
                     self.logger.error("Timeout when requesting html : {}".format(e))
                 except Exception as e:
-                    self.logger.error("Error occured where requesting html :{}".format(e))            
+                    self.logger.error("Error occured where requesting html :{}".format(e))
+                    
     
 
     def parse_action(self):
         linkSet = set()
-
         for category ,link in self.category_list():
             self.extract_and_put(linkSet , category , link)
-            ##
-            ## The dbaction is a visitor function which must be called with a conference object argument
-            ## The function extract and put can now be run in thread or asyncio
-            ## however it is recommended to use locks for accessing linkSet
-            ## you can threads as many categories there are 
 
 
 

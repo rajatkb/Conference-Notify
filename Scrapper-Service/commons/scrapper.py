@@ -29,13 +29,10 @@ class Scrapper(ABC):
 
 
 
-    def __init__(self , context_name , log_level , log_stream  , database_module , db_configuration ,   **kwargs):
-        self.logger = get_logger(context_name , log_level , log_stream)  
+    def __init__(self , context_name , log_level , log_stream , log_folder , database_module , db_configuration ,   **kwargs):
+        self.logger = get_logger(context_name , log_level , log_stream , log_folder)  
         print_start(self.logger)   
-        
         self.db = database_module(self.logger , **db_configuration)
-
-
         self.logger.info("{} setup complete !!".format(context_name))
         if self.db != None:
             self.push_todb = self.db.put

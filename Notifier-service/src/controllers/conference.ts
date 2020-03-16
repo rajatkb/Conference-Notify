@@ -14,7 +14,7 @@ export class ConferenceController extends Controller {
     }
 
     private success = (fun: string, info: any) => `Recieved request for ${fun}  from: ${info}`
-    private fail = (fun: string, info: any, err: any) => `Failed at request for ${fun} from : ${info} : Error encountered :${err}`
+    private fail = (fun: string, info: any, err: any) => `Failed at request for ${fun} from : ${info} : Error encountered : ${err}`
 
     getOne = async (request: Request, response: Response) => {
         let requester = request.ip ;

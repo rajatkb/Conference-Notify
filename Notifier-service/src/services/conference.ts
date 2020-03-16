@@ -22,18 +22,12 @@ export class ConferenceServiceI extends ConferenceService{
                     let conference:Conference = {   title: value.title ,
                                                     url: value.url , 
                                                     deadline: value.deadline,
-                                                    metadata: value.metadata,
-                                                    bulkText: value.bulkText,
-                                                    categories: value.categories,
-                                                    dateRange: value.dateRange,
-                                                    finalDue:value.finalDue,
-                                                    location:value.location,
-                                                    notificationDue:value.notificationDue,
+                                                    metadata:value.metadata
                                                 } 
                     resolve(conference)
                 }
             }).catch(err => {
-                this.logger.error("getOne retrieval failed: "+err)
+                this.logger.error("getOne retrieval failed: "+ err)
                 reject(err)
             })
         }) 

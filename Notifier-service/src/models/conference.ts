@@ -22,15 +22,15 @@ export class ConferenceModelI extends ConferenceModel{
         .catch((error) => {
             let errstring = "Failed at getting connection :"+error;
             this.logger.error(errstring)
-            throw new Error(errstring)
         })
     }
     
     async getOne():Promise<ConferenceDocument | null> {
         let result = new Promise<ConferenceDocument | null>( (resolve , reject) => {
             if(this.model == undefined){
-                this.logger.error("Failed at getOne : this.model == undefined")
-                reject({"error": "model not initialising !!"});
+                this.logger.debug("Failed at getOne: this.model == undefined")
+                this.logger.error("Failed at getOne : model must have failed to initialize")
+                reject(new Error("model failed to be initialised"));
             }else{
                 this.model.findOne({} , (err , res) => {
                     if(!err){
