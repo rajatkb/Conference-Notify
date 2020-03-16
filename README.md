@@ -8,19 +8,40 @@ Conference-Notify will be an open source web based application that will aggrega
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+## Prerequisites
 
-* Mongodb installation (Local / Atlas)
-* Python 3.6+ environment
-* [Pymongo client](https://www.mongodb.com/blog/post/getting-started-with-python-and-mongodb)  
-* node.js
-* Angular 6+
+#### MongoDB Installation
 
-Pymongo client installation
-```shell
-python -m pip install pymongo
+#### Local  
+* This runs MongoDB in your own local machine.
+1. Download [MongoDB](https://www.mongodb.com/download-center/community)
+2. Install MongoDB with the Installation Wizard
 
-```
+#### Atlas
+* MongoDB Atlas is the global cloud database service for modern applications.
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2. Create an account or sign in into your mongoDB account.
+3. Depending on the usage, select various features.  
+For more information, Visit [MongoDB Atlas Docs](https://docs.atlas.mongodb.com/)
+
+#### Python 3.6
+1. Download [Python](https://www.python.org/downloads/) 
+2. Install it.
+
+#### Pymongo Client
+1. Install the Pymongo from the command line using  
+`python -m pip install pymongo`  
+For various driver installations, Check [Installation](https://pymongo.readthedocs.io/en/stable/installation.html)
+2. For more information, Visit [Pymongo client](https://www.mongodb.com/blog/post/getting-started-with-python-and-mongodb)
+
+#### Node.js
+Download [node.js](https://nodejs.org/en/download/) and install it.
+
+#### Angular 6+
+Download Angular 6+ from command line  
+`npm install -g @angular/cli`  
+
+For more information about Angular, Visit [Docs](https://angular.io/guide/setup-local)
 
 ### Installing
 
