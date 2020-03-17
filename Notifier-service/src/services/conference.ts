@@ -19,11 +19,8 @@ export class ConferenceServiceI extends ConferenceService{
                     resolve(null)
                 }
                 else{
-                    let conference:Conference = {   title: value.title ,
-                                                    url: value.url , 
-                                                    deadline: value.deadline,
-                                                    metadata:value.metadata
-                                                } 
+                    let result = value.toObject()
+                    let conference:Conference = result 
                     resolve(conference)
                 }
             }).catch(err => {

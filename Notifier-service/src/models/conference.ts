@@ -1,38 +1,55 @@
 import mongoose from 'mongoose';
 import { Connection } from 'mongoose';
-
 import { Conference , ConferenceDocument , ConferenceSchema } from '../schemas/conferences';
 import { Database } from '../interfaces/database';
 import { ConferenceModel } from '../interfaces/models/conference';
 import { Logger } from '../utility/log';
 
 
+
 export class ConferenceModelI extends ConferenceModel{
     modelName = "conference"
-    private model?:mongoose.Model<ConferenceDocument,{}>;
-    private connection?:Connection;
+    private model:Promise<mongoose.Model<ConferenceDocument,{}>>;
+    private connection:Promise<Connection>;
     private logger = new Logger(this.constructor.name).getLogger();
     constructor(database:Database){
         super(database)
-        database.getConnection()
+        
+        // this.connection = connection
+        // this.model = this.connection.model<ConferenceDocument>( this.modelName, ConferenceSchema);
+
+        this.connection = database.getConnection()
         .then( (connection:Connection) => {
-            this.connection = connection
-            this.model = this.connection.model<ConferenceDocument>( this.modelName, ConferenceSchema);
+            return Promise.resolve(connection);
         } )
         .catch((error) => {
             let errstring = "Failed at getting connection :"+error;
-            this.logger.error(errstring)
+            this.logger.error(errstring);
+            return Promise.reject(error);
         })
+
+        this.model = this.connection
+        .then( (connection: Connection) =>{
+            let model = connection.model<ConferenceDocument>( this.modelName, ConferenceSchema);
+            return Promise.resolve(model);
+        } )
+        .catch((error) => {
+            let errstring = "Failed at getting connection for model"+error;
+            this.logger.error(errstring);
+            return Promise.reject(error);
+        })
+
     }
     
     async getOne():Promise<ConferenceDocument | null> {
-        let result = new Promise<ConferenceDocument | null>( (resolve , reject) => {
-            if(this.model == undefined){
-                this.logger.debug("Failed at getOne: this.model == undefined")
-                this.logger.error("Failed at getOne : model must have failed to initialize")
-                reject(new Error("model failed to be initialised"));
-            }else{
-                this.model.findOne({} , (err , res) => {
+        // this.logger.debug("Failed at getOne: this.model == undefined")
+                // this.logger.error("Failed at getOne : model must have failed to initialize")
+                // reject(new Error("model failed to be initialised"));
+        
+        let result = this.model
+        .then( model => {
+            return new Promise<ConferenceDocument | null>( (resolve , reject) => {
+                model.findOne({} , (err , res) => {
                     if(!err){
                         resolve(res);
                     }
@@ -40,7 +57,12 @@ export class ConferenceModelI extends ConferenceModel{
                         reject(err);
                     }
                 })
-            }
+            })
+            
+        } ).catch(error => {
+            this.logger.debug("Failed at getOne: model not initialised error:"+error);
+            this.logger.error("Failed at getOne : model must have failed to initialize :"+error);
+            return Promise.reject(new Error("model failed to be initialised"));
         })
         return result
     }

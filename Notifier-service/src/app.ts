@@ -48,6 +48,13 @@ export class App {
         this.routes.forEach( (route:Route) => {
             this.app.use("/"+route.getRouteName() , route.getRouter())
         })
+
+        this.app.get("/**" , (request , response) => {
+            response.json({
+                status:404,
+                payload:null
+            })
+        })
     }
 
 
