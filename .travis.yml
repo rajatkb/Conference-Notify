@@ -1,0 +1,8 @@
+--- 
+install: 
+  - "python -m pip install pymongo || python3 -m pip install pymongo"
+language: python
+python: 
+  - "3.6"
+script: 
+  - "python -m unittest test"
