@@ -2,11 +2,9 @@
 matrix: 
   include: 
     - 
-      before_script: 
-        - "cd Scrapper-Service"
       install: 
         - "python -m pip install pymongo"
-        - "pip install -r requirements.txt"
+        - "pip install -r Scrapper-Service/requirements.txt"
       language: python
       python: 
         - 3.6
@@ -15,6 +13,7 @@ matrix:
     - 
       before_script: 
         - "cd User-App"
+        - "npm install -g @angluar/cli"
       language: node_js
       node_js: 
         - 10
