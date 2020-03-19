@@ -49,6 +49,9 @@ class Conference:
         self.querydata.update(metadata.query_dict())
         ## Db compatibility 
         self._id = self.generate_uuid()
+        self.url = url
+        self.title = title
+        self.deadline = deadline
         ## A conference is bound to have unique link
         self.querydata['_id'] = self._id
         
@@ -66,5 +69,3 @@ class Conference:
     
     def __getitem__(self , attr):
         return self.querydata[attr]
-
-    

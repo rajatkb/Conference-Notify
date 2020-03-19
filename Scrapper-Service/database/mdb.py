@@ -4,6 +4,10 @@ import logging
 from logging import Logger
 from datamodels import Conference, Metadata
 from commons import Database
+import time
+from bson.objectid import ObjectId
+from datetime import datetime
+
 
 class MongoDatabase(Database):
     
@@ -58,13 +62,39 @@ class MongoDatabase(Database):
         self.logger.info("Succesfully Closed connection to mongodb !!")
 
     def put(self , conference_data):
+        table_data = self.collection.find({"_id":conference_data._id})
+        for data in table_data:
+            prev_date = data['deadline']
+        new_date = conference_data.deadline
         if not isinstance(conference_data , Conference):
             raise ValueError("Provided data is not in proper format as required by db")
         else:
             _id = conference_data._id
             try:
-                res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.query_dict()} , upsert = True)
-                self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
-                                    .format(res.matched_count , res.modified_count , res.upserted_id))
+                if(self.collection.find({"_id":conference_data._id}).count()==0):
+                    print("insert elemenet")
+                    res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.query_dict()} , upsert = True)
+                    self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
+                                        .format(res.matched_count , res.modified_count , res.upserted_id))
+                else:
+                    if(new_date < prev_date):
+                        print("confrence updated")
+                        res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.query_dict()} , upsert = True)
+                        self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
+                                        .format(res.matched_count , res.modified_count , res.upserted_id))
+                    else:
+                        print("already present")
+                        pass
+                    
+                time.sleep(2)
             except Exception as e:
                 self.logger.error("Failed to commit data error : {}".format(e))
+                
+                
+                
+                
+                
+                
+                
+                
+                
