@@ -1,25 +1,29 @@
-# SCRAPPER-SERVICE
+# :books: SCRAPPER-SERVICE
 
 It's the service responsible for scrapping information about conferences and putting all these information into the db storage. Currently the default The `app.py` will be running as a daemon in a micro instance for filling information into a database. Current choice of db is Mongo. THe application can later be extended for different db and index service later.     
 
-## Dev Environment Requirement
-*   Any MongoDB installation (ATLAS / Local)
-*   Python 3.6+
+## :gear: Dev Environment Requirement
+*   Any [MongoDB installation](https://docs.mongodb.com/guides/server/install/) (ATLAS / Local)
+*   [Python 3.6+](https://www.python.org/downloads/)
 
-## Python packages required
+## :package: Python packages required
 * pymongo driver
 * Beautiful Soup
 * Requests
 * logging (python default)
 * unittest (for unit test of course)
 
+All the above requirements along with their versions are present in  `requirements.txt` and can be installed as 
 
-## Deploying the service
+```bash
+$ pip install -r requirements.txt
+```
+
+
+## :rocket: Deploying the service
 
 ```shell
-
 >> cd Scrapper-Service/
-
 >> python app.py --help
 usage: app.py [-h] [-c CONFIG] [-l {debug,warn,error,info}] [-t TEST]
               [-ls {console,file}]
@@ -40,7 +44,7 @@ optional arguments:
 
 Jump to `demo.py` for implementing a scrapper from scratch and configuring it to run. 
 
-## Test
+## :detective: Test
 We are focusing on doing test driven development, so downn the line things are not unpredicatable.  
 
 Before deploying the current build , it's recommended that you run the test suite once. 
@@ -62,12 +66,11 @@ OK
 
 ```
 
-If this succeeds , you can move forward with deployment. If this fails. Please mark the build number and raise an issue. Althouth it should not happen because builds and PR is maintained by the author. But in case things blow up you know where to raise issue, 😉😉 
+If this succeeds , you can move forward with deployment. If this fails. Please mark the build number and raise an issue. Althouth it should not happen because builds and PR is maintained by the author. But in case things blow up you know where to raise issue, 😉😉.
 
+## :pen: How to Contribute ?
 
-## How to Contribute ?
-
-* Add new scrappers by implementing the interface Scrapper.py and add the new scrapper information inside the config.json file so that the main.py file can pick up the required class when starting
+* Add new scrappers by implementing the interface Scrapper.py and add the new scrapper information inside the config.json file so that the `app.py`  file can pick up the required class when starting
 
 * Provide better implementation changes to the base design of the service.
 
