@@ -13,7 +13,7 @@ matrix:
     - 
       before_script: 
         - "cd User-App"
-        - "npm install -g @angluar/cli"
+        - "npm install -g @angular/cli"
       language: node_js
       node_js: 
         - 10
