@@ -1,8 +1,23 @@
 --- 
-install: 
-  - "python -m pip install pymongo || python3 -m pip install pymongo"
-language: python
-python: 
-  - "3.6"
-script: 
-  - "python -m unittest test"
+matrix: 
+  include: 
+    - 
+      before_script: 
+        - "cd Scrapper-Service"
+      install: 
+        - "python -m pip install pymongo"
+        - "pip install -r requirements.txt"
+      language: python
+      python: 
+        - 3.6
+      script: 
+        - "python -m unittest test"
+    - 
+      before_script: 
+        - "cd User-App"
+      language: node_js
+      node_js: 
+        - 10
+      script: 
+        - "ng test"
+        - "ng build"
