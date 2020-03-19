@@ -52,7 +52,7 @@ export class App {
         this.app.get("/**" , (request , response) => {
             response.json({
                 status:404,
-                payload:null
+                payload:" (ノಠ益ಠ)ノ彡┻━┻ "
             })
         })
     }
