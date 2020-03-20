@@ -62,18 +62,6 @@ class MongoDatabase(Database):
         self.logger.info("Succesfully Closed connection to mongodb !!")
 
     def put(self , conference_data):
-        prev_date = None
-        table_data = self.collection.find({"_id":conference_data._id})
-        for data in table_data:
-            prev_date = data['deadline']
-<<<<<<< HEAD
-        new_date = conference_data.querydata["deadline"]
-        
-=======
-            
-        new_date = conference_data.querydata["deadline"]
-
->>>>>>> b4bddf96ca4885472404443ddf3f0c4713e5a10a
         if not isinstance(conference_data , Conference):
             raise ValueError("Provided data is not in proper format as required by db")
         else:
