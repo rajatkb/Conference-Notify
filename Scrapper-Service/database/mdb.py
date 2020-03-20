@@ -68,23 +68,20 @@ class MongoDatabase(Database):
             prev_date = data['deadline']
             
         new_date = conference_data.querydata["deadline"]
-        print(new_date)
-        print(prev_date)
-        
+
         if not isinstance(conference_data , Conference):
             raise ValueError("Provided data is not in proper format as required by db")
         else:
             _id = conference_data._id
             try:
-                flag=0
-                if(new_date > prev_date and flag==0):
-                    print("confrence updated")
-                    flag=1
+                if(prev_date==None):
+                    print("confrence inserted")
                     res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.query_dict()} , upsert = True)
                     self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
                                         .format(res.matched_count , res.modified_count , res.upserted_id))
-                if(flag==1):
-                    print("duplicate data entered")
+                    
+                if(new_date > prev_date and prev_date!=None):
+                    print("duplicate updated")
                     res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.query_dict()} , upsert = True)
                     self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
                                         .format(res.matched_count , res.modified_count , res.upserted_id))
