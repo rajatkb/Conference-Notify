@@ -41,13 +41,19 @@ export class ConferenceModelI extends ConferenceModel{
 
     }
     
+    private async  makeQuery<T>(callback:(model:mongoose.Model<ConferenceDocument,{}>) => Promise<T>):Promise<T> {
+        return this.model
+        .then(callback)
+        .catch(error => {
+            this.logger.debug("Failed at getOne: model not initialised error:"+error);
+            this.logger.error("Failed at getOne : model must have failed to initialize :"+error);
+            return Promise.reject(new Error("model failed to be initialised"));
+        });                
+    }
+
+
     async getOne():Promise<ConferenceDocument | null> {
-        // this.logger.debug("Failed at getOne: this.model == undefined")
-                // this.logger.error("Failed at getOne : model must have failed to initialize")
-                // reject(new Error("model failed to be initialised"));
-        
-        let result = this.model
-        .then( model => {
+        let result = this.makeQuery((model) => {
             return new Promise<ConferenceDocument | null>( (resolve , reject) => {
                 model.findOne({} , (err , res) => {
                     if(!err){
@@ -58,11 +64,6 @@ export class ConferenceModelI extends ConferenceModel{
                     }
                 })
             })
-            
-        } ).catch(error => {
-            this.logger.debug("Failed at getOne: model not initialised error:"+error);
-            this.logger.error("Failed at getOne : model must have failed to initialize :"+error);
-            return Promise.reject(new Error("model failed to be initialised"));
         })
         return result
     }
@@ -71,7 +72,20 @@ export class ConferenceModelI extends ConferenceModel{
         TO-DO
     */
     async getConferences(offset:number , range:number):Promise<ConferenceDocument[] | null> {
-        return Promise.resolve(null);
+        let result = this.makeQuery((model) => {
+            return new Promise<ConferenceDocument[] | null>( (resolve , reject) => {
+                model.find({}).limit(range).exec((err , res) => {
+                    if(!err){
+                        resolve(res);
+                    }
+                    else{
+                        reject(err);
+                    }
+                })
+            })
+        })
+
+        return result;
     }
 
     /*

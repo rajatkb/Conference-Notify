@@ -80,12 +80,11 @@ class MongoDatabase(Database):
                     self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
                                         .format(res.matched_count , res.modified_count , res.upserted_id))
                     
-                if(new_date > prev_date and prev_date!=None):
+                elif(new_date > prev_date and prev_date!=None):
                     print("duplicate updated")
                     res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.query_dict()} , upsert = True)
                     self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
                                         .format(res.matched_count , res.modified_count , res.upserted_id))
-                    
             except Exception as e:
                 self.logger.error("Failed to commit data error : {}".format(e))
                 

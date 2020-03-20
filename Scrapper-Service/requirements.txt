@@ -4,7 +4,6 @@ certifi==2019.11.28
 chardet==3.0.4
 idna==2.9
 linecache2==1.0.0
-pkg-resources==0.0.0
 pymongo==3.10.1
 requests==2.23.0
 six==1.14.0
@@ -12,3 +11,4 @@ soupsieve==2.0
 traceback2==1.4.0
 unittest2==1.1.0
 urllib3==1.25.8
+dill==0.3.1.1
