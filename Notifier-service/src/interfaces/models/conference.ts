@@ -15,11 +15,5 @@ export abstract class ConferenceModel extends Model{
     abstract async getOne():Promise<ConferenceDocument | null>
     abstract async getConferences(offset:number , range:number):Promise<ConferenceDocument[] | null>
     abstract async getConferencesFromCategory(category:string , offset:number , range:number):Promise<ConferenceDocument[] | null>
-
-    /*
-        TO-DO 
-        getCategories may move to sepparate Model section , since it may require a sepparate 
-        schema support of category
-    */
     abstract async getCategories():Promise<any>
 }

@@ -6,7 +6,7 @@ Conference-Notify will be an open source web based application that will aggrega
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system. You can also refer to this [helper document](https://docs.google.com/document/d/1gAd7DHDg7xybD6H72HAGCQFdPDTqC9SDejJCdPK0wd4/edit?usp=sharing)
 
 ### Prerequisites
 
