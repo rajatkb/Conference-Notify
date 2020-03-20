@@ -18,20 +18,15 @@ export class ConferenceController extends Controller {
     getOne = async (request: Request, response: Response) => {
         let requester = request.ip;
         let category: string = request.params.category;
+        this.logger.info(this.success("getOne", requester))
         try {
-            this.logger.info(this.success("getOne", requester))
-            try {
 
-                let result = await this.conferenceService.getOne();
-                response.json(this.successResponse(result));
-            }
-            catch (e) {
-                this.logger.error(this.fail("getOne" , requester , e));
-                response.json(this.failResponse())
-            }
-        } catch (e) {
-            this.logger.error(this.fail("getOne", requester, e))
-            response.redirect('/')
+            let result = await this.conferenceService.getOne();
+            response.json(this.successResponse(result));
+        }
+        catch (e) {
+            this.logger.error(this.fail("getOne" , requester , e));
+            response.json(this.failResponse())
         }
     }
 
@@ -70,7 +65,6 @@ export class ConferenceController extends Controller {
         let category: string = request.params.category;
         let requester = request.connection.address
         try {
-            
             let offseti = Number.parseFloat(offset);
             let counti =  Number.parseFloat(count);
             if( Number.isNaN(offseti) || Number.isNaN(counti)){
@@ -103,9 +97,10 @@ export class ConferenceController extends Controller {
         try {
             this.logger.info(this.success("getCategories", requester))
             let result: Array<String> = await this.conferenceService.getCategories();
-            response.json(result);
+            this.successResponse(result)
         } catch (e) {
-
+            this.logger.error(this.fail("getCategories" , requester , e));
+            response.json(this.failResponse())
         }
     }
 }

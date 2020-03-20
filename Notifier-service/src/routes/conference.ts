@@ -19,6 +19,17 @@ export class ConferenceRoute extends Route{
         this.setRoutes()
     }
 
+    /**
+     * Routes for Conference routes 
+     * base route : /conferences
+     * 
+     * - /getOne returns one conference data
+     * - /:offset/:count (offset[int], count[int]) , returns several conferences , on bad argument returns empty payload
+     * - /:category/:offset/:count (category[string] , offset[int], count[int]) , returns several conferences , on bad argument returns empty payload
+     * - /:categories , returns list of categories, returns null payload on fail
+     * @protected
+     * @memberof ConferenceRoute
+     */
     protected setRoutes(){
         this.router.get("/getone",this.controller.getOne)
         this.router.get("/:offset/:count" , this.controller.getConferences)

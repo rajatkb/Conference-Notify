@@ -38,7 +38,7 @@ class Conference:
         self.url = url.strip()
         
         if not isinstance(deadline  , datetime.datetime):
-            raise ValueError("deadline is not datetime") 
+            raise ValueError("deadline is not datetime , deadline value: {}".format(deadline)) 
         
         if not isinstance(metadata , Metadata):
             raise ValueError("metadata passed is not instance of the Metadata data model")
