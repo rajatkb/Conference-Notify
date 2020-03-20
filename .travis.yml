@@ -18,6 +18,7 @@ matrix:
       language: node_js
       node_js: 
         - 10
-      script: 
-        - "ng test"
+      script:
+        - "ng lint"
+        - "npm run test-headless"
         - "ng build"
