@@ -1,0 +1,24 @@
+--- 
+matrix: 
+  include: 
+    - 
+      install: 
+        - "python -m pip install pymongo"
+        - "pip install -r Scrapper-Service/requirements.txt"
+      language: python
+      python: 
+        - 3.6
+      script: 
+        - "python -m unittest test"
+    - 
+      before_script: 
+        - "cd User-App"
+        - "npm install --save-dev @angular-devkit/build-angular"
+        - "npm install -g @angular/cli"
+      language: node_js
+      node_js: 
+        - 10
+      script:
+        - "ng lint"
+        - "npm run test-headless"
+        - "ng build"
