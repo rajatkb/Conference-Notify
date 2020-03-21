@@ -1,6 +1,6 @@
 import logging
 import datetime
-from utility import get_logger , print_start
+from utility import get_logger , print_start , AdaptiveRequest
 from datamodels import Conference, Metadata
 from abc import ABC , abstractclassmethod , abstractmethod , abstractproperty
 import requests
@@ -34,6 +34,8 @@ class Scrapper(ABC):
         print_start(self.logger)   
         self.db = database_module(self.logger , **db_configuration)
         self.logger.info("{} setup complete !!".format(context_name))
+        self.arequest = AdaptiveRequest()
+
         if self.db != None:
             self.push_todb = self.db.put
         else:
@@ -54,7 +56,7 @@ class Scrapper(ABC):
         Returns:
             [request] -- request page
         """
-        req = requests.get(qlink , timeout = 1)
+        req = self.arequest.get(qlink)
         if 200 <= req.status_code <=299:
             self.logger.debug(debug_msg)
         else:

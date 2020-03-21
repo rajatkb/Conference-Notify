@@ -24,7 +24,7 @@ class Metadata:
     def data(self):
         return self.querydata[self.key]
     
-    def query_dict(self):
+    def get_query(self):
         return self.querydata
 
     def __str__(self):
