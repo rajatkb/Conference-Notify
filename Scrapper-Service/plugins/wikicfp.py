@@ -55,7 +55,7 @@ class WikiCfpScrapper(Scrapper):
             for category ,link in c_list:
                 self.extract_and_put(linkSet , category , link)
         except Exception as e:
-            self.logger.error("Failed at extracting category page of {} error:".format(self.base_address , e))
+            self.logger.error("Failed at extracting category page of {} error: {}".format(self.base_address , e))
 
 
     def category_list(self ):
