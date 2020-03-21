@@ -38,7 +38,7 @@ class Conference:
         self.url = url.strip()
         
         if not isinstance(deadline  , datetime.datetime):
-            raise ValueError("deadline is not datetime") 
+            raise ValueError("deadline is not datetime , deadline value: {}".format(deadline)) 
         
         if not isinstance(metadata , Metadata):
             raise ValueError("metadata passed is not instance of the Metadata data model")
@@ -49,7 +49,7 @@ class Conference:
         self.querydata["title"] = title
         self.querydata["url"] = url
         self.querydata["deadline"] = deadline
-        self.querydata.update(metadata.query_dict())
+        self.querydata.update(metadata.get_query())
         ## Db compatibility 
         self._id = self.__generate_uuid()
         ## A conference is bound to have unique link
@@ -79,3 +79,5 @@ class Conference:
     
     def __getitem__(self , attr):
         return self.querydata[attr]
+
+    

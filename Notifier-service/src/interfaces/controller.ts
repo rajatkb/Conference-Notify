@@ -7,16 +7,20 @@ export abstract class Controller {
     protected successResponse = (payload:any) => {
         return {
             status: 200,
-            payload: payload
+            payload: payload,
+            message:"success"
         }
     }
 
     protected failResponse = () => {
         return {
-            status:404,
-            payload:null
+            status:500,
+            payload:null,
+            message: "Internal error"
+
         }
     }
+
 
     constructor(service:Service){};
 }
