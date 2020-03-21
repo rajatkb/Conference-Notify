@@ -67,9 +67,6 @@ export class ConferenceModelI extends ConferenceModel{
         return result
     }
 
-    /*
-        TO-DO
-    */
     async getConferences(offset:number , range:number):Promise<ConferenceDocument[] | null> {
 
         let result = this.model.then(model => {
@@ -92,9 +89,6 @@ export class ConferenceModelI extends ConferenceModel{
         return result
     }
 
-    /*
-        TO-DO
-    */
     async getConferencesFromCategory(category:string , offset:number , range:number):Promise<ConferenceDocument[] | null> {
         let result = this.model
         .then( model => {
@@ -115,7 +109,6 @@ export class ConferenceModelI extends ConferenceModel{
             return Promise.reject(new Error("model failed to be initialised"));
         })
         return result
-        // return Promise.resolve(null);
     }
 
 
