@@ -49,6 +49,9 @@ export class App {
             this.app.use("/"+route.getRouteName() , route.getRouter())
         })
 
+        /*
+            Default path for anything
+        */
         this.app.get("/**" , (request , response) => {
             response.json({
                 status:404,
@@ -56,6 +59,8 @@ export class App {
             })
         })
     }
+
+
 
 
     start(callback:(port:Number) => void){

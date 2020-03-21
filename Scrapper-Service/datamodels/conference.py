@@ -49,7 +49,7 @@ class Conference:
         self.querydata["title"] = title
         self.querydata["url"] = url
         self.querydata["deadline"] = deadline
-        self.querydata.update(metadata.query_dict())
+        self.querydata.update(metadata.get_query())
         ## Db compatibility 
         self._id = self.__generate_uuid()
         ## A conference is bound to have unique link
