@@ -71,19 +71,74 @@ export class ConferenceModelI extends ConferenceModel{
         TO-DO
     */
     async getConferences(offset:number , range:number):Promise<ConferenceDocument[] | null> {
-        return Promise.resolve(null);
+
+        let result = this.model.then(model => {
+            return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
+                model.find({"deadline": {$gte: new Date()}}, (err, res) => {
+                    if(!err) {
+                       resolve(res);
+                    }
+                    else {
+                        reject(err);
+                    }
+                }).sort({'deadline': 1}).skip(offset).limit(range);
+                })
+        
+        }).catch(error => {
+            this.logger.debug("Failed at getConferences: model not initialised error:"+ error);
+            this.logger.error("Failed at getConferences : model must have failed to initialize :"+error);
+            return Promise.reject(new Error("model failed to be initialised"));
+        }) 
+        return result
     }
 
     /*
         TO-DO
     */
     async getConferencesFromCategory(category:string , offset:number , range:number):Promise<ConferenceDocument[] | null> {
-        return Promise.resolve(null);
+        let result = this.model
+        .then( model => {
+            return new Promise<ConferenceDocument[] | null>( (resolve , reject) => {
+                model.find({'categories': category} , (err , res) => {
+                    if(!err){
+                        resolve(res);
+                    }
+                    else{
+                        reject(err);
+                    }
+                }).skip(offset).limit(range)
+            })
+            
+        } ).catch(error => {
+            this.logger.debug("Failed at getOne: model not initialised error:"+error);
+            this.logger.error("Failed at getOne : model must have failed to initialize :"+error);
+            return Promise.reject(new Error("model failed to be initialised"));
+        })
+        return result
+        // return Promise.resolve(null);
     }
 
 
     async getCategories():Promise<any> {
-        return Promise.resolve(null);
+        let result = this.model
+        .then( model => {
+            return new Promise<ConferenceDocument[] | null>( (resolve , reject) => {
+                model.find({}, { categories:['1','2'], _id:0 } , (err , res) => {
+                    if(!err){
+                        resolve(res);
+                    }
+                    else{
+                        reject(err);
+                    }
+                })
+            })
+            
+        } ).catch(error => {
+            this.logger.debug("Failed at getOne: model not initialised error:"+error);
+            this.logger.error("Failed at getOne : model must have failed to initialize :"+error);
+            return Promise.reject(new Error("model failed to be initialised"));
+        })
+        return result
     }
 
     /*
