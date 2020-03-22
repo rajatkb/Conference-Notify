@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { Connection } from 'mongoose';
-import { Conference , ConferenceDocument , ConferenceSchema } from '../schemas/conferences';
+import { ConferenceDocument , ConferenceSchema } from '../schemas/conferences';
 import { Database } from '../interfaces/database';
 import { ConferenceModel } from '../interfaces/models/conference';
 import { Logger } from '../utility/log';
@@ -112,15 +112,15 @@ export class ConferenceModelI extends ConferenceModel{
         let result = this.model
         .then( model => {
             return new Promise<ConferenceDocument[] | null>( (resolve , reject) => {
-                model.find({}, { categories:[], _id:0 } , (err , res) => {
+                model.distinct(('categories') , (err , res) => {
                     if(!err){
                         resolve(res);
                     }
                     else{
                         reject(err);
                     }
-                }).distinct('categories')
             })
+        })
             
         } )
         return result
