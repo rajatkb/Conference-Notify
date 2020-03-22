@@ -18,8 +18,6 @@ import { Route } from './interfaces/route';
 export class App {
 
     private logger = new Logger(this.constructor.name).getLogger();
-
-
     private app:Application;
     private server:Server|undefined;
     

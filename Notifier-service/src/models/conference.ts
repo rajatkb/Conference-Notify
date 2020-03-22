@@ -41,8 +41,8 @@ export class ConferenceModelI extends ConferenceModel {
         return this.model
             .then(callback)
             .catch(error => {
-                this.logger.debug("Failed at"+ callback.name + ": model not initialised error:" + error);
-                this.logger.error("Failed at" + callback.name + " : model must have failed to initialize :" + error);
+                this.logger.debug("Failed at"+ callback.name + ": error:" + error);
+                this.logger.error("Failed at" + callback.name + " : model must have failed to initialize , or something error :" + error);
                 return Promise.reject(new Error("model failed to be initialised"));
             });
     }
