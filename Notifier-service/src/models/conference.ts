@@ -41,8 +41,8 @@ export class ConferenceModelI extends ConferenceModel {
         return this.model
             .then(callback)
             .catch(error => {
-                this.logger.debug("Failed at getOne: model not initialised error:" + error);
-                this.logger.error("Failed at getOne : model must have failed to initialize :" + error);
+                this.logger.debug("Failed at"+ callback.name + ": model not initialised error:" + error);
+                this.logger.error("Failed at" + callback.name + " : model must have failed to initialize :" + error);
                 return Promise.reject(new Error("model failed to be initialised"));
             });
     }
@@ -85,14 +85,14 @@ export class ConferenceModelI extends ConferenceModel {
     async getConferencesFromCategory(category: string, offset: number, range: number): Promise<ConferenceDocument[] | null> {
         let result = this.makeQuery((model) => {
                 return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
-                    model.find({ 'categories': { $in: [category] } }, (err, res) => {
-                        if (!err) {
+                    model.find({ 'categories': { $in: [category] } }).skip(offset).limit(range).exec((err, res) => {
+                             if (!err) {
                             resolve(res);
                         }
                         else {
                             reject(err);
                         }
-                    }).skip(offset).limit(range);
+                    })
                 })
             })
         return result
