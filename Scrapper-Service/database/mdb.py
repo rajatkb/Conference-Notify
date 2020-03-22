@@ -63,8 +63,8 @@ class MongoDatabase(Database):
         else:
             _id = conference_data._id
             try:
-                res = self.collection.update_one( {'_id':_id}  ,conference_data.get_query(), upsert = True)
+                res = self.collection.update_one( {'_id':_id,'deadline':{'$gte':conference_data.querydata['deadline']}}  ,conference_data.get_query(), upsert = True)
                 self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
-                                    .format(res.matched_count , res.modified_count , res.upserted_id))
+                                  .format(res.matched_count , res.modified_count , res.upserted_id))
             except Exception as e:
                 self.logger.error("Failed to commit data error : {}".format(e))
