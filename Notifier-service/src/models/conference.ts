@@ -96,7 +96,7 @@ export class ConferenceModelI extends ConferenceModel{
     }
 
 
-    async getCategories():Promise<any> {
+    async getCategories():Promise<Array<string> | null> {
         return Promise.resolve(null);
     }
 
