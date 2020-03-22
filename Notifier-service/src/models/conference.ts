@@ -41,6 +41,16 @@ export class ConferenceModelI extends ConferenceModel{
 
     }
     
+    private async  makeQuery<T>(callback:(model:mongoose.Model<ConferenceDocument,{}>) => Promise<T>):Promise<T> {
+        return this.model
+        .then(callback)
+        .catch(error => {
+            this.logger.debug("Failed at getOne: model not initialised error:"+error);
+            this.logger.error("Failed at getOne : model must have failed to initialize :"+error);
+            return Promise.reject(new Error("model failed to be initialised"));
+        });                
+    }
+
     async getOne():Promise<ConferenceDocument | null> {
         // this.logger.debug("Failed at getOne: this.model == undefined")
                 // this.logger.error("Failed at getOne : model must have failed to initialize")
@@ -56,13 +66,9 @@ export class ConferenceModelI extends ConferenceModel{
                     else{
                         reject(err);
                     }
-                })
+                }).exec()
             })
             
-        } ).catch(error => {
-            this.logger.debug("Failed at getOne: model not initialised error:"+error);
-            this.logger.error("Failed at getOne : model must have failed to initialize :"+error);
-            return Promise.reject(new Error("model failed to be initialised"));
         })
         return result
     }
@@ -79,12 +85,7 @@ export class ConferenceModelI extends ConferenceModel{
                         reject(err);
                     }
                 }).sort({'deadline': 1}).skip(offset).limit(range);
-                })
-        
-        }).catch(error => {
-            this.logger.debug("Failed at getConferences: model not initialised error:"+ error);
-            this.logger.error("Failed at getConferences : model must have failed to initialize :"+error);
-            return Promise.reject(new Error("model failed to be initialised"));
+            })
         }) 
         return result
     }
@@ -93,20 +94,15 @@ export class ConferenceModelI extends ConferenceModel{
         let result = this.model
         .then( model => {
             return new Promise<ConferenceDocument[] | null>( (resolve , reject) => {
-                model.find({'categories': category} , (err , res) => {
+                model.find({'categories': { $in: [category]}} , (err , res) => {
                     if(!err){
                         resolve(res);
                     }
                     else{
                         reject(err);
                     }
-                }).skip(offset).limit(range)
+                }).skip(offset).limit(range);
             })
-            
-        } ).catch(error => {
-            this.logger.debug("Failed at getOne: model not initialised error:"+error);
-            this.logger.error("Failed at getOne : model must have failed to initialize :"+error);
-            return Promise.reject(new Error("model failed to be initialised"));
         })
         return result
     }
@@ -116,21 +112,17 @@ export class ConferenceModelI extends ConferenceModel{
         let result = this.model
         .then( model => {
             return new Promise<ConferenceDocument[] | null>( (resolve , reject) => {
-                model.find({}, { categories:['1','2'], _id:0 } , (err , res) => {
+                model.find({}, { categories:[], _id:0 } , (err , res) => {
                     if(!err){
                         resolve(res);
                     }
                     else{
                         reject(err);
                     }
-                })
+                }).distinct('categories')
             })
             
-        } ).catch(error => {
-            this.logger.debug("Failed at getOne: model not initialised error:"+error);
-            this.logger.error("Failed at getOne : model must have failed to initialize :"+error);
-            return Promise.reject(new Error("model failed to be initialised"));
-        })
+        } )
         return result
     }
 
