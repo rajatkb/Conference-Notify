@@ -14,10 +14,6 @@ export class ConferenceModelI extends ConferenceModel {
     private logger = new Logger(this.constructor.name).getLogger();
     constructor(database: Database) {
         super(database)
-
-        // this.connection = connection
-        // this.model = this.connection.model<ConferenceDocument>( this.modelName, ConferenceSchema);
-
         this.connection = database.getConnection()
             .then((connection: Connection) => {
                 return Promise.resolve(connection);
@@ -68,29 +64,26 @@ export class ConferenceModelI extends ConferenceModel {
         return result
     }
 
-    /*
-        TO-DO
-    */
     async getConferences(offset: number, range: number): Promise<ConferenceDocument[] | null> {
 
-        let result = this.model.then(model => {
+        let result = this.makeQuery((model) => {
             return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
-                model.find({ "deadline": { $gte: new Date() } }, (err, res) => {
-                    if (!err) {
-                        resolve(res);
-                    }
-                    else {
-                        reject(err);
-                    }
-                }).sort({ 'deadline': 1 }).skip(offset).limit(range);
+                model.find({ "deadline": { $gte: new Date() } })
+                     .sort({ 'deadline': 1 }).skip(offset).limit(range).exec((err, res) => {
+                            if (!err) {
+                                resolve(res);
+                            }
+                            else {
+                                reject(err);
+                            }
+                     })
             })
         })
         return result
     }
 
     async getConferencesFromCategory(category: string, offset: number, range: number): Promise<ConferenceDocument[] | null> {
-        let result = this.model
-            .then(model => {
+        let result = this.makeQuery((model) => {
                 return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
                     model.find({ 'categories': { $in: [category] } }, (err, res) => {
                         if (!err) {
@@ -106,8 +99,7 @@ export class ConferenceModelI extends ConferenceModel {
     }
 
     async getCategories(): Promise<any> {
-        let result = this.model
-            .then(model => {
+        let result = this.makeQuery((model) => {
                 return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
                     model.distinct(('categories'), (err, res) => {
                         if (!err) {
@@ -122,18 +114,6 @@ export class ConferenceModelI extends ConferenceModel {
         return result
     }
 
-    /*
-        TO-DO 
-        1. add getConferences query function for the controller
-            -> Will get range number of conferences with a given offset
-            -> the result will be sorted by deadline
-
-        2. add getConferencesFromCategory query function for the controller
-            -> same as above but will have extra parameter of conference category
-
-        3. add getCategories query function for the controller
-            -> returns all unique categories acrooss all the entries
-    */
 }
 
 
