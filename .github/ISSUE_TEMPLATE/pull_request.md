@@ -25,6 +25,7 @@ _Put an `x` in the boxes that apply_
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation
 - [ ] My changes generate no new warnings
+- [ ] My changes does not break the current system and it passes all the current test cases.
 
 ## Screenshots
 
