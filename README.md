@@ -39,13 +39,13 @@ None of this services requires any instllation and can be executed on the fly
 ## Deployment
 
 **Scrapper-Service**  
-Note: Make sure the configuration file is properly configured for usage, since main.py is reading configuration from the file
+Note: Make sure the configuration file is properly configured for usage, since app.py is reading configuration from the file
 
 ```
 >> cd Scrapper-Service
 
->> python main.py --help
-usage: main.py [-h] [-c CONFIG] [-l {debug,warn,error,info}] [-t TEST]
+>> python app.py --help
+usage: app.py [-h] [-c CONFIG] [-l {debug,warn,error,info}] [-t TEST]
                [-ls {console,file}]
 
 optional arguments:
