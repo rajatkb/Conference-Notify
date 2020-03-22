@@ -13,7 +13,7 @@ class Guide2ResearchScrapper(Scrapper):
         self.base_address = "http://www.guide2research.com/"
         self.top_conf_address = self.base_address + "topconf/"
         self.all_conf_address = self.base_address + "conferences/"
-        self.site_name = "guide2research"
+        self.site_name = __name__
         self.scrapper_name = "Guide2Research"
 
     def parse_action(self):
@@ -27,21 +27,19 @@ class Guide2ResearchScrapper(Scrapper):
         """
         top_conference_links = self._get_conferences_list(which='top')
         all_conference_links = self._get_conferences_list(which='all')
-        n_top_confs = len(top_conference_links)
-        n_all_confs = len(all_conference_links)
-        for i,link in enumerate(top_conference_links):
+        for i, link in enumerate(top_conference_links):
             try:
                 conf_data = self._parse_top_conference(link=link)
                 self.push_todb(conf_data)
-                self.logger.info(f"Conference {i}/{n_top_confs} Top Conferences added")
+                self.logger.info(f"Number of Top Conferences added: {i} ")
             except Exception as e:
                 self.logger.error(
                     f"Error while parsing page {link}, find full trace {e}")
         for i,link in enumerate(all_conference_links):
             try:
                 conf_data = self._parse_all_conference(link=link)
-                self.logger.info(f"Conference {i}/{n_all_confs} All Conferences added")
                 self.push_todb(conf_data)
+                self.logger.info(f"Number of All Conferences added: {i}")
             except Exception as e:
                 self.logger.error(
                     f"Error while parsing {link}, full trace {e}"
@@ -75,7 +73,6 @@ class Guide2ResearchScrapper(Scrapper):
         soup = bs(content, "html5lib")
         div_el = soup.find("div", attrs={"id": "ajax_content"})
         conf_tables = div_el.findAll("table")
-        links = []
         for table in conf_tables:
             try:
                 anchor = table.h4.a
@@ -83,12 +80,11 @@ class Guide2ResearchScrapper(Scrapper):
                     pass
                 else:
                     link = f"http://www.guide2research.com{anchor['href']}"
-                    links.append(link)
+                    yield link
             except Exception as e:
                 PageParsingError(
                     f"The following error occured while trying to parse an anchor element {e}")
         self.logger.debug('Successfully scraped links of all top conferences')
-        return links
 
     def _parse_top_conference(self, link: str) -> Conference:
         """
@@ -226,18 +222,16 @@ class Guide2ResearchScrapper(Scrapper):
         soup = bs(content, "html5lib")
         conference_div = soup.find("div", attrs={"id": "ajax_content"})
         conf_tables = conference_div.findAll("table", attrs={"cellspacing": "0"})
-        links = []
         try:
             for conf in conf_tables:
                 details = conf.findAll("td")
                 anchor = details[1].h4.a
                 if anchor:
                     link = self.base_address + anchor['href']
-                    links.append(link)
+                    yield link
                 else:
                     self.logger.error(f'Conference link not found')
             self.logger.debug('Successfully scraped links of all conferences')
-            return links
         except Exception as e:
             self.logger.error(f"Failed to parse links in all conferences page with error {e}")
 
