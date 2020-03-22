@@ -85,7 +85,8 @@ export class ConferenceModelI extends ConferenceModel {
     async getConferencesFromCategory(category: string, offset: number, range: number): Promise<ConferenceDocument[] | null> {
         let result = this.makeQuery((model) => {
                 return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
-                    model.find({ 'categories': { $in: [category] } }).skip(offset).limit(range).exec((err, res) => {
+                    model.find({ 'categories': { $in: [category] } , "deadline": { $gte: new Date() } })
+                         .sort({ 'deadline': 1 }).skip(offset).limit(range).exec((err, res) => {
                              if (!err) {
                             resolve(res);
                         }
