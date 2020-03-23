@@ -1,3 +1,5 @@
+import datetime
+
 class Metadata:
     def __init__(self , worker , date_extracted , website_url , domain_url , domain_name  , **kwargs):
         """Container for meta information inserted by the parser
@@ -8,6 +10,8 @@ class Metadata:
             website_url {[type]} -- the url of the page 
             domain {[type]} -- domain address
         """
+        if not isinstance(date_extracted  , datetime.datetime):
+            raise ValueError("deadline is not datetime , deadline value: {}".format(date_extracted)) 
         self.worker = worker
         self.key = "metadata."+worker
         self.querydata = {
