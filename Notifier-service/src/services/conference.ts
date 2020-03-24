@@ -39,8 +39,7 @@ export class ConferenceServiceI extends ConferenceService{
                     resolve([])
                 }
                 else{
-                    let result = Object.assign({}, value);
-                    let conference:Conference[] = result 
+                    let conference:Conference[] = value!?.map(val => val.toObject()); 
                     resolve(conference)
                 }
             }).catch(err => {
@@ -57,8 +56,7 @@ export class ConferenceServiceI extends ConferenceService{
                     resolve([])
                 }
                 else{
-                    let result = Object.assign({}, value);
-                    let conference:Conference[] = result 
+                    let conference:Conference[] = value!?.map(val => val.toObject()); 
                     resolve(conference)
                 }
             }).catch(err => {
@@ -75,8 +73,7 @@ export class ConferenceServiceI extends ConferenceService{
                     resolve([])
                 }
                 else{
-                    let result = Object.assign({}, value);
-                    let conference:string[] = result 
+                    let conference:string[] = value!;
                     resolve(conference)
                 }
             }).catch(err => {
