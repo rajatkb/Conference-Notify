@@ -1,24 +1,5 @@
 import winston from 'winston';
 
-// const FileConfig = (filename:string) =>{ 
-//     return {
-//             level: process.env.LOG_LEVEL,
-//             filename: `${process.env.LOG_FOLDER}/${filename}.log`,
-//             handleExceptions: true,
-//             json: true,
-//             colorize: false,
-//             timestamp:true
-//         } 
-// }
-
-// const ConsoleConfig = {
-//     level: process.env.LOG_LEVEL,
-//     handleExceptions: true,
-//     colorize: true,
-//     prettyPrint: true
-// }
-
-
 export class Logger{
 
 

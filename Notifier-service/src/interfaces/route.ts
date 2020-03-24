@@ -1,11 +1,13 @@
 import {Controller} from './controller';
 import {Router} from 'express';
 import { Response, Request } from 'express'
+import { injectable } from 'inversify';
+
+@injectable()
 export abstract class Route {
-    protected routeName:string;
+    protected abstract routeName:string;
     protected router:Router;
-    constructor(routeName:string , controller:Controller){
-        this.routeName = routeName;
+    constructor(controller:Controller){
         this.router = Router();
         this.router.get("/" , this.default)
     }

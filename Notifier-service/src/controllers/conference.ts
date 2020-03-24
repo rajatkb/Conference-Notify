@@ -3,8 +3,10 @@ import { ConferenceService } from '../interfaces/services/conference';
 import { Controller } from '../interfaces/controller';
 import { Response, Request } from 'express'
 import { Logger } from '../utility/log';
+import { injectable } from 'inversify';
 
 
+@injectable()
 export class ConferenceController extends Controller {
 
     private logger = new Logger(this.constructor.name).getLogger();
