@@ -1,15 +1,16 @@
-import mongoose from 'mongoose';
+import {Model} from 'mongoose';
 import { Connection } from 'mongoose';
 import { Conference, ConferenceDocument, ConferenceSchema } from '../schemas/conferences';
 import { Database } from '../interfaces/database';
 import { ConferenceModel } from '../interfaces/models/conference';
 import { Logger } from '../utility/log';
+import { injectable } from 'inversify';
 
 
-
-export class ConferenceModelI extends ConferenceModel {
+@injectable()
+export class ConferenceModelMongo extends ConferenceModel {
     modelName = "conference"
-    private model: Promise<mongoose.Model<ConferenceDocument, {}>>;
+    private model: Promise<Model<ConferenceDocument, {}>>;
     private connection: Promise<Connection>;
     private logger = new Logger(this.constructor.name).getLogger();
     constructor(database: Database) {
@@ -37,7 +38,8 @@ export class ConferenceModelI extends ConferenceModel {
 
     }
 
-    private async  makeQuery<T>(callback: (model: mongoose.Model<ConferenceDocument, {}>) => Promise<T>): Promise<T> {
+
+    public async  makeQuery<T>(callback: (model: Model<ConferenceDocument, {}>) => Promise<T>): Promise<T> {
         return this.model
             .then(callback)
             .catch(error => {

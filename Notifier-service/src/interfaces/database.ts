@@ -1,7 +1,7 @@
+import { injectable } from "inversify";
+
+@injectable()
 export abstract class Database {
-    protected dbName:string;
-    constructor(dbName:string){
-        this.dbName = dbName;
-    };
+    protected abstract dbName:string;
     public abstract getConnection():Promise<any>;
 }

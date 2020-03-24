@@ -16,6 +16,14 @@ note: *may add more feature*
 * NodeJs
 * Mongodb (remote/local)
 
+### MongoDb Replication setup
+* For development purpose , you will have to setup your mongodb , with replication.
+* You can resort to using single replication for now , which can scale later on.
+* To create replication after installing in windows you can follow [this](https://stackoverflow.com/questions/48139224/mongodb-change-stream-replica-set-limitation)
+* For linux , follow the official [docs](https://docs.mongodb.com/manual/reference/configuration-options/#replication-options) , and restart the mongod service or start it with replication option. For quick help look [here](https://www.tutorialspoint.com/mongodb/mongodb_replication.htm)
+
+
+
 ## Installation
 
 **Development**
@@ -41,15 +49,15 @@ note: *may add more feature*
 
 //For dev
 
->> npm run-script build
+>> npm run build
 
 >> npm start 
 
 //For prod
 
->> npm run-script build
+>> npm run build
 
->> npm run-script run
+>> npm run deploy
 
 ```
     

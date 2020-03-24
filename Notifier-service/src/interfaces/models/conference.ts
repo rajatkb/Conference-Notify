@@ -1,5 +1,7 @@
-import { Model } from '../model';
+import mongoose from 'mongoose';
 import { ConferenceDocument } from '../../schemas/conferences';
+import { injectable } from 'inversify';
+import { Model } from '../model';
 
 /**
  *  The conference model that needs to be implemented  
@@ -10,10 +12,12 @@ import { ConferenceDocument } from '../../schemas/conferences';
  * @class ConferenceModel
  * @extends {Model}
  */
+@injectable()
 export abstract class ConferenceModel extends Model{
     protected abstract modelName:string;
     abstract async getOne():Promise<ConferenceDocument | null>
     abstract async getConferences(offset:number , range:number):Promise<ConferenceDocument[] | null>
     abstract async getConferencesFromCategory(category:string , offset:number , range:number):Promise<ConferenceDocument[] | null>
     abstract async getCategories():Promise<Array<string> | null>
+    abstract async  makeQuery<T>(callback: (model: mongoose.Model<ConferenceDocument, {}>) => Promise<T>): Promise<T> 
 }
