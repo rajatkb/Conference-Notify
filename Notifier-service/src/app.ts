@@ -4,7 +4,8 @@ import { Server } from 'http';
 import { Logger } from './utility/log';
 import { Route } from './interfaces/route';
 import { Container } from 'inversify'
-import { ConferenceStream } from './interfaces/services/conferenceStream';
+import { Listener } from './interfaces/listener';
+
 
 
 export class App {
@@ -13,24 +14,22 @@ export class App {
     private app:Application;
     private server:Server|undefined;
     
+    // Routes for registering toe express application
     private routes:Route[] =[];
+    // listeners to instantiate for listening
+    private listeners:Listener[] = [];
+
 
     constructor(private container:Container){
         this.app = express();
         this.routes = container.getAll<Route>(Route)
-
-        
-
+        this.listeners = container.getAll<Listener>(Listener)
     }
 
     init():void{
         this.routes.forEach( (route:Route) => {
             this.app.use("/"+route.getRouteName() , route.getRouter())
         })
-
-        // let stream = this.container.get<ConferenceStream>(ConferenceStream)
-
-
         /*
             Default path for anything
         */

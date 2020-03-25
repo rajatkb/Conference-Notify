@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import * as dotenv from 'dotenv-safe';
 import { App } from './app';
 import { container } from './inversify.config'

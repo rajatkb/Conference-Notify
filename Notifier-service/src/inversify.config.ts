@@ -8,8 +8,11 @@ import { ConferenceService } from "./interfaces/services/conference";
 import { ConferenceController } from "./controllers/conference";
 import { Route } from "./interfaces/route";
 import { ConferenceRoute } from "./routes/conference";
-import { ConferenceStream } from "./interfaces/services/conferenceStream";
-import { ConferenceStreamMongo } from "./services/conferenceStream";
+import { ConferenceStream } from "./interfaces/services/streams/conferenceStream";
+import { ConferenceStreamMongo } from "./services/streams/conferenceStream";
+import { Listener } from "./interfaces/listener";
+import { ConferenceListenerMongo } from "./services/listeners/conferenceListener";
+
 
 
 
@@ -20,7 +23,7 @@ container.bind<ConferenceService>(ConferenceService).to(ConferenceServiceI).inSi
 container.bind<ConferenceController>(ConferenceController).to(ConferenceController).inSingletonScope();
 container.bind<Route>(Route).to(ConferenceRoute).inSingletonScope();
 container.bind<ConferenceStream>(ConferenceStream).to(ConferenceStreamMongo).inSingletonScope();
-
+container.bind<Listener>(Listener).to(ConferenceListenerMongo).inSingletonScope();
 
 
 export { container }
