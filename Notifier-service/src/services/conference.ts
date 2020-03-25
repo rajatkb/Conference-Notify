@@ -2,32 +2,31 @@ import { ConferenceService } from '../interfaces/services/conference'
 import { ConferenceModel } from '../interfaces/models/conference'
 import { Conference } from '../schemas/conferences';
 import { Logger } from '../utility/log';
+import { injectable } from 'inversify';
 
-export class ConferenceServiceI extends ConferenceService{
-    
+@injectable()
+export class ConferenceServiceI extends ConferenceService {
     private logger = new Logger(this.constructor.name).getLogger()
-
-    constructor(private conferenceModel:ConferenceModel){
+    constructor(private conferenceModel: ConferenceModel) {
         super()
     }
-    
-    async getOne():Promise<Conference | null>{
+    async getOne(): Promise<Conference | null> {
         this.logger.debug("getOne invoked")
-        return new Promise<Conference | null>((resolve , reject) => {
-            this.conferenceModel.getOne().then( value => {
-                if(value == null){
+        return new Promise<Conference | null>((resolve, reject) => {
+            this.conferenceModel.getOne().then(value => {
+                if (value == null) {
                     resolve(null)
                 }
-                else{
+                else {
                     let result = value.toObject()
-                    let conference:Conference = result 
+                    let conference: Conference = result
                     resolve(conference)
                 }
             }).catch(err => {
-                this.logger.error("getOne retrieval failed: "+ err)
+                this.logger.error("getOne retrieval failed: " + err)
                 reject(err)
             })
-        }) 
+        })
     }
 
 
@@ -82,5 +81,4 @@ export class ConferenceServiceI extends ConferenceService{
             })
         }) 
     }
-
 }

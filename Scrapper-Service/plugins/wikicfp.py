@@ -19,7 +19,7 @@ class WikiCfpScrapper(Scrapper):
     def extract_and_put(self ,linkSet:set , category:str , link:str):
         base_address= self.base_address
         for name , clink in self.iterate_links(category , link):
-                if hash(clink) in linkSet:
+                if clink in linkSet:
                     continue
                 try:
                     qlink = base_address + clink
@@ -30,8 +30,7 @@ class WikiCfpScrapper(Scrapper):
                         ## Since this means there is fault in data or connection
                         ## Process must be restarted
                         self.push_todb(conference_data)
-
-                        linkSet.add(hash(clink))
+                        linkSet.add(clink)
                         totalLink = len(linkSet)
                         self.logger.debug("Total unique conference links till now :{}".format(totalLink))
                         if totalLink % 500 == 0:
@@ -205,8 +204,8 @@ class WikiCfpScrapper(Scrapper):
         
         metadata = self.create_metadata(qlink , self.base_address , self.site_name )
 
-        return Conference(**info , **{  "title":title , "url":url , 
-                                        "categories":categories , "bulkText":bulk_text  , "metadata":metadata})
+        return Conference( **{  "title":title , "url":url , 
+                                        "categories":categories , "bulkText":bulk_text  , "metadata":metadata} , **info )
 
     
 

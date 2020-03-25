@@ -2,6 +2,7 @@ import { Router , Request , Response } from 'express';
 import { ConferenceController } from '../controllers/conference';
 import { Conference } from '../schemas/conferences';
 import { Route } from '../interfaces/route';
+import { injectable } from 'inversify';
 
 
 /**
@@ -11,11 +12,14 @@ import { Route } from '../interfaces/route';
  * @class ConferenceRoute
  * @extends {Route}
  */
+
+@injectable()
 export class ConferenceRoute extends Route{
 
-
+    protected routeName:string;
     constructor(private controller: ConferenceController){
-        super("conferences" , controller)
+        super(controller)
+        this.routeName = "conferences" ;
         this.setRoutes()
     }
 
