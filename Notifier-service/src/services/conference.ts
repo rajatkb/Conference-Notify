@@ -30,14 +30,55 @@ export class ConferenceServiceI extends ConferenceService {
     }
 
 
-    async getConferences(offset: Number, count: Number): Promise<Conference[]> {
-        return Promise.resolve([])
+    async getConferences(offset:number , count:number):Promise<Conference[]>{
+        this.logger.debug("getConferences invoked")
+        return new Promise<Conference[] | []>((resolve , reject) => {
+            this.conferenceModel.getConferences(offset, count).then( value => {
+                if(value == []){
+                    resolve([])
+                }
+                else{
+                    let conference:Conference[] = value!?.map(val => val.toObject()); 
+                    resolve(conference)
+                }
+            }).catch(err => {
+                this.logger.error("getConferences retrieval failed: "+ err)
+                reject(err)
+            })
+        }) 
     }
-    async getConferencesFromCategory(category: String, offset: Number, count: Number): Promise<Conference[]> {
-        return Promise.resolve([])
+    async getConferencesFromCategory(category:string , offset:number , count:number):Promise<Conference[]>{
+        this.logger.debug("getConferencesFromCategory invoked")
+        return new Promise<Conference[] | []>((resolve , reject) => {
+            this.conferenceModel.getConferencesFromCategory(category, offset, count).then( value => {
+                if(value == []){
+                    resolve([])
+                }
+                else{
+                    let conference:Conference[] = value!?.map(val => val.toObject()); 
+                    resolve(conference)
+                }
+            }).catch(err => {
+                this.logger.error("getConferencesFromCategory retrieval failed: "+ err)
+                reject(err)
+            })
+        }) 
     }
-    async getCategories(): Promise<Array<String>> {
-        return Promise.resolve([])
+    async getCategories():Promise<Array<string>>{
+        this.logger.debug("getCategories invoked")
+        return new Promise<string[] | []>((resolve , reject) => {
+            this.conferenceModel.getCategories().then( value => {
+                if(value == []){
+                    resolve([])
+                }
+                else{
+                    let conference:string[] = value!;
+                    resolve(conference)
+                }
+            }).catch(err => {
+                this.logger.error("getCategories retrieval failed: "+ err)
+                reject(err)
+            })
+        }) 
     }
-
 }
