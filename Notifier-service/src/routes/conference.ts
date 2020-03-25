@@ -37,7 +37,7 @@ export class ConferenceRoute extends Route{
     protected setRoutes(){
         this.router.get("/getone",this.controller.getOne)
         this.router.get("/:offset/:count" , this.controller.getConferences)
-        this.router.get("/:category/:offset/:count" , this.controller.getConferences)
+        this.router.get("/:category/:offset/:count" , this.controller.getConferencesFomCategory)
         this.router.get("/categories" , this.controller.getCategories)
     }
     

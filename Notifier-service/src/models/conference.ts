@@ -1,4 +1,4 @@
-import {Model} from 'mongoose';
+import { Model } from 'mongoose';
 import { Connection } from 'mongoose';
 import { Conference, ConferenceDocument, ConferenceSchema } from '../schemas/conferences';
 import { Database } from '../interfaces/database';
@@ -43,7 +43,7 @@ export class ConferenceModelMongo extends ConferenceModel {
         return this.model
             .then(callback)
             .catch(error => {
-                this.logger.debug("Failed at"+ callback.name + ": error:" + error);
+                this.logger.debug("Failed at" + callback.name + ": error:" + error);
                 this.logger.error("Failed at" + callback.name + " : model must have failed to initialize , or something error :" + error);
                 return Promise.reject(new Error("model failed to be initialised"));
             });
@@ -51,6 +51,7 @@ export class ConferenceModelMongo extends ConferenceModel {
 
 
     async getOne(): Promise<ConferenceDocument | null> {
+        this.logger.debug("getOne invoked")
         let result = this.makeQuery((model) => {
             return new Promise<ConferenceDocument | null>((resolve, reject) => {
                 model.findOne({}, (err, res) => {
@@ -67,44 +68,11 @@ export class ConferenceModelMongo extends ConferenceModel {
     }
 
     async getConferences(offset: number, range: number): Promise<ConferenceDocument[] | null> {
-
+        this.logger.debug("getConferences invoked")
         let result = this.makeQuery((model) => {
             return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
                 model.find({ "deadline": { $gte: new Date() } })
-                     .sort({ 'deadline': 1 }).skip(offset).limit(range).exec((err, res) => {
-                            if (!err) {
-                                resolve(res);
-                            }
-                            else {
-                                reject(err);
-                            }
-                     })
-            })
-        })
-        return result
-    }
-
-    async getConferencesFromCategory(category: string, offset: number, range: number): Promise<ConferenceDocument[] | null> {
-        let result = this.makeQuery((model) => {
-                return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
-                    model.find({ 'categories': { $in: [category] } , "deadline": { $gte: new Date() } })
-                         .sort({ 'deadline': 1 }).skip(offset).limit(range).exec((err, res) => {
-                             if (!err) {
-                            resolve(res);
-                        }
-                        else {
-                            reject(err);
-                        }
-                    })
-                })
-            })
-        return result
-    }
-
-    async getCategories(): Promise<any> {
-        let result = this.makeQuery((model) => {
-                return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
-                    model.distinct(('categories'), (err, res) => {
+                    .sort({ 'deadline': 1 }).skip(offset).limit(range).exec((err, res) => {
                         if (!err) {
                             resolve(res);
                         }
@@ -112,8 +80,43 @@ export class ConferenceModelMongo extends ConferenceModel {
                             reject(err);
                         }
                     })
+            })
+        })
+        return result
+    }
+
+    async getConferencesFromCategory(category: string, offset: number, range: number): Promise<ConferenceDocument[] | null> {
+        this.logger.debug("getConferencesFromCategory invoked")
+        let result = this.makeQuery((model) => {
+            return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
+                model.find({ 'categories': { '$in': [category] }, "deadline": { $gte: new Date() } })
+                    .sort({ 'deadline': 1 }).skip(offset).limit(range).exec((err, res) => {
+                        if (!err) {
+                            resolve(res);
+                        }
+                        else {
+                            reject(err);
+                        }
+                    })
+            })
+        })
+        return result
+    }
+
+    async getCategories(): Promise<any> {
+        this.logger.debug("getCategories invoked")
+        let result = this.makeQuery((model) => {
+            return new Promise<ConferenceDocument[] | null>((resolve, reject) => {
+                model.distinct(('categories'), (err, res) => {
+                    if (!err) {
+                        resolve(res);
+                    }
+                    else {
+                        reject(err);
+                    }
                 })
             })
+        })
         return result
     }
 

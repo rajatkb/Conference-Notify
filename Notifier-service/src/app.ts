@@ -23,7 +23,7 @@ export class App {
     constructor(private container:Container){
         this.app = express();
         this.routes = container.getAll<Route>(Route)
-        this.listeners = container.getAll<Listener>(Listener)
+        // this.listeners = container.getAll<Listener>(Listener)
     }
 
     init():void{

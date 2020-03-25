@@ -8,7 +8,7 @@ export abstract class ConferenceService extends Service{
 
     abstract async getConferences(offset:Number , count:Number):Promise<Conference[]>;
     abstract async getConferencesFromCategory(category:String , offset:Number , count:Number):Promise<Conference[]>
-    abstract async getCategories():Promise<Array<String>>
+    abstract async getCategories():Promise<Array<string>>
 
     abstract async getOne():Promise<Conference | null>
 }

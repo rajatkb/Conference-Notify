@@ -65,7 +65,7 @@ export class ConferenceController extends Controller {
         let offset: string = request.params.offset;
         let count: string = request.params.count;
         let category: string = request.params.category;
-        let requester = request.connection.address
+        let requester = request.ip
         try {
             let offseti = Number.parseFloat(offset);
             let counti =  Number.parseFloat(count);
@@ -95,11 +95,11 @@ export class ConferenceController extends Controller {
 
     getCategories = async (request: Request, response: Response) => {
         let category: string = request.params.category;
-        let requester = request.connection.address
+        let requester = request.ip
         try {
             this.logger.info(this.success("getCategories", requester))
-            let result: Array<String> = await this.conferenceService.getCategories();
-            this.successResponse(result)
+            let result: Array<string> = await this.conferenceService.getCategories();
+            response.json(this.successResponse(result))
         } catch (e) {
             this.logger.error(this.fail("getCategories" , requester , e));
             response.json(this.failResponse())
