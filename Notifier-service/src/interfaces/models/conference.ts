@@ -19,5 +19,5 @@ export abstract class ConferenceModel extends Model{
     abstract async getConferences(offset:number , range:number):Promise<ConferenceDocument[] | null>
     abstract async getConferencesFromCategory(category:string , offset:number , range:number):Promise<ConferenceDocument[] | null>
     abstract async getCategories():Promise<Array<string> | null>
-    abstract async  makeQuery<T>(callback: (model: mongoose.Model<ConferenceDocument, {}>) => Promise<T>): Promise<T> 
+    abstract async makeQuery<T>(callback: (model: mongoose.Model<ConferenceDocument, {}>) => Promise<T>): Promise<T> 
 }

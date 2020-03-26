@@ -4,7 +4,7 @@
   "description": "Notification service for Conference-Notify",
   "main": "server.js",
   "scripts": {
-    "test": "jest --setupFiles dotenv/config",
+    "test": "jest --setupFiles dotenv/config reflect-metadata",
     "build": "rm -rf build && tsc --build tsconfig.prod.json",
     "start": "ts-node-dev --respawn src/server.ts",
     "deploy": "ts-node src/server.ts"
