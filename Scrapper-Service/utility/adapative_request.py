@@ -1,20 +1,15 @@
 import requests
 import math
+import backoff
 
 class AdaptiveRequest:
     def __init__(self):
         self.max_wait_time = 10
-        self.num_fail = 0
-        self.num_success = 0
+
+    @backoff.on_exception(
+        backoff.expo, #exponential backoff
+        (requests.HTTPError , requests.ConnectionError), #retry if errors encountered
+        max_time=300 #give up after 300 seconds time
+    )
     def get(self , link ):
-        try:
-            res = requests.get(link , timeout = self.max_wait_time)
-            self.num_success +=1
-            return res
-        except (requests.HTTPError , requests.ConnectionError) as err:
-            self.num_fail= self.num_fail+1
-            if self.num_fail != self.num_success:
-                self.max_wait_time = math.pow( 10 + 1/(self.num_success - self.num_fail) , self.num_fail)
-            else:
-                self.max_wait_time += 1
-            raise err
+        return requests.get(link , timeout = self.max_wait_time)
