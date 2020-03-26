@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import * as dotenv from 'dotenv-safe';
 import { App } from './app';
-import { container } from './inversify.config'
+import { AppContainer } from './inversify.config'
 
 /* 
 Load the .env file into the process environment variable scope
@@ -12,18 +12,15 @@ dotenv.config({
     example: './.env'
 });
 
-
 /*
-    Instantiate the App with
-    * Controllers
-    * Database instance for sharing connection
-    * 
+    * Creating Application Container for all class
+    * Passing the container to App ,  for route attachment
 */
 
-
+let container = new AppContainer()
 let app = new App(container);
 app.init()
 app.start((port) => {
-console.log("Listening on port :"+port);
+    console.log("Listening on port :" + port);
 })
 

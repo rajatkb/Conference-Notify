@@ -15,15 +15,24 @@ import { ConferenceListenerMongo } from "./services/listeners/conferenceListener
 
 
 
+export class AppContainer{
+    private container:Container;
+    constructor(){
+        this.container = new Container()
+        this.container.bind<Database>(Database).to(MongoDb).inSingletonScope();
+        this.container.bind<ConferenceModel>(ConferenceModel).to(ConferenceModelMongo).inSingletonScope();
+        this.container.bind<ConferenceService>(ConferenceService).to(ConferenceServiceI).inSingletonScope();
+        this.container.bind<ConferenceController>(ConferenceController).to(ConferenceController).inSingletonScope();
+        this.container.bind<Route>(Route).to(ConferenceRoute).inSingletonScope();
+        this.container.bind<ConferenceStream>(ConferenceStream).to(ConferenceStreamMongo).inSingletonScope();
+        this.container.bind<Listener>(Listener).to(ConferenceListenerMongo).inSingletonScope();
+    }
 
-let container = new Container()
-container.bind<Database>(Database).to(MongoDb).inSingletonScope();
-container.bind<ConferenceModel>(ConferenceModel).to(ConferenceModelMongo).inSingletonScope();
-container.bind<ConferenceService>(ConferenceService).to(ConferenceServiceI).inSingletonScope();
-container.bind<ConferenceController>(ConferenceController).to(ConferenceController).inSingletonScope();
-container.bind<Route>(Route).to(ConferenceRoute).inSingletonScope();
-container.bind<ConferenceStream>(ConferenceStream).to(ConferenceStreamMongo).inSingletonScope();
-container.bind<Listener>(Listener).to(ConferenceListenerMongo).inSingletonScope();
+    public getRoutes():Route[]{
+        return this.container.getAll<Route>(Route)
+    }
 
-
-export { container }
+    public getListeners():Listener[]{
+        return this.container.getAll<Listener>(Listener)
+    }
+}

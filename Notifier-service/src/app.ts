@@ -3,8 +3,8 @@ import { Application , Request , Response } from 'express';
 import { Server } from 'http';
 import { Logger } from './utility/log';
 import { Route } from './interfaces/route';
-import { Container } from 'inversify'
 import { Listener } from './interfaces/listener';
+import { AppContainer } from './inversify.config';
 
 
 
@@ -20,9 +20,9 @@ export class App {
     private listeners:Listener[] = [];
 
 
-    constructor(private container:Container){
+    constructor(private container:AppContainer){
         this.app = express();
-        this.routes = container.getAll<Route>(Route)
+        this.routes = container.getRoutes()
         // this.listeners = container.getAll<Listener>(Listener)
     }
 

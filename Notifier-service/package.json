@@ -4,10 +4,10 @@
   "description": "Notification service for Conference-Notify",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf build && tsc",
+    "test": "jest --setupFiles dotenv/config",
+    "build": "rm -rf build && tsc --build tsconfig.prod.json",
     "start": "ts-node-dev --respawn src/server.ts",
-    "deploy": "node build/server.js"
+    "deploy": "ts-node src/server.ts"
   },
   "author": "",
   "license": "ISC",
@@ -23,8 +23,11 @@
   "devDependencies": {
     "@types/dotenv-safe": "^8.1.0",
     "@types/express": "^4.17.2",
+    "@types/jest": "^25.1.4",
     "@types/mongoose": "^5.7.3",
     "@types/node": "^13.7.6",
+    "jest": "^25.2.0",
+    "ts-jest": "^25.2.1",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.2"
