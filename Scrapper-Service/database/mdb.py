@@ -56,16 +56,37 @@ class MongoDatabase(Database):
         self.logger.info("Closing connection to mongodb !!")
         self.client.close()
         self.logger.info("Succesfully Closed connection to mongodb !!")
-
+        
+    def getDateRange(self,_id):
+        data = self.collection.find({'_id':_id})
+        date = None 
+        for dt in data:
+            date = dt['dateRange']
+        return date
+            
     def put(self , conference_data):
         if not isinstance(conference_data , Conference):
             raise ValueError("Provided data is not in proper format as required by db")
         else:
             _id = conference_data._id
             try:
-                if(self.collection.find({'_id':_id}).count()==0):
-                    res = self.collection.update_one( {'_id':_id,'deadline':{'$gte':conference_data.querydata['deadline']}}  ,conference_data.get_query(), upsert = True)
-                    self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
-                                      .format(res.matched_count , res.modified_count , res.upserted_id))
+                dateRange = self.getDateRange(_id)
+                res = self.collection.update_one( {'_id':_id,'$or':[ {'deadline':{'$gte':conference_data.querydata['deadline']}}, {'dateRange':{'$ne':dateRange}}] }  ,conference_data.get_query(), upsert = True)
+                self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
+                                  .format(res.matched_count , res.modified_count , res.upserted_id))
             except Exception as e:
                 self.logger.error("Failed to commit data error : {}".format(e))
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
