@@ -47,6 +47,7 @@ export class ConferenceServiceI extends ConferenceService {
             })
         }) 
     }
+    
     async getConferencesFromCategory(category:string , offset:number , count:number):Promise<Conference[]>{
         this.logger.debug("getConferencesFromCategory invoked")
         return new Promise<Conference[] | []>((resolve , reject) => {
@@ -64,6 +65,7 @@ export class ConferenceServiceI extends ConferenceService {
             })
         }) 
     }
+
     async getCategories():Promise<Array<string>>{
         this.logger.debug("getCategories invoked")
         return new Promise<string[] | []>((resolve , reject) => {
