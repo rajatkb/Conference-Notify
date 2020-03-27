@@ -4,6 +4,7 @@ import logging
 from logging import Logger
 from datamodels import Conference, Metadata
 from commons import Database
+import time
 
 class MongoDatabase(Database):
     
@@ -56,13 +57,6 @@ class MongoDatabase(Database):
         self.logger.info("Closing connection to mongodb !!")
         self.client.close()
         self.logger.info("Succesfully Closed connection to mongodb !!")
-        
-    def getDateRange(self,_id):
-        data = self.collection.find({'_id':_id})
-        date = None 
-        for dt in data:
-            date = dt['dateRange']
-        return date
             
     def put(self , conference_data):
         if not isinstance(conference_data , Conference):
@@ -70,23 +64,8 @@ class MongoDatabase(Database):
         else:
             _id = conference_data._id
             try:
-                dateRange = self.getDateRange(_id)
-                res = self.collection.update_one( {'_id':_id,'$or':[ {'deadline':{'$gte':conference_data.querydata['deadline']}}, {'dateRange':{'$ne':dateRange}}] }  ,conference_data.get_query(), upsert = True)
+                res = self.collection.update_one( {'_id':_id,'$or':[ {'deadline':{'$gte':conference_data.querydata['deadline']}}, {'dateRange':{'$ne':conference_data.querydata['dateRange']}}] }  ,conference_data.get_query(), upsert = True)
                 self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
                                   .format(res.matched_count , res.modified_count , res.upserted_id))
             except Exception as e:
                 self.logger.error("Failed to commit data error : {}".format(e))
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                

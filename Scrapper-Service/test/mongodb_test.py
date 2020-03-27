@@ -1,16 +1,26 @@
 import unittest
 from mdb import MongoDatabase
-# Scrapper-Service/datamodels
+from datamodels import Conference
+from datamodels import Metadata
+from datetime import datetime
 
 class MongoDbTestCase(unittest.TestCase):
     def __init__(self, methodName):
         super().__init__(methodName)
     
     def get_valid_data(self):
-        return MongoDatabase(database_name="Conference_Notify" , collection_name="conferences")
+        conference = Conference(  title="something", 
+                            url="anything", deadline=datetime.now(), 
+                            metadata=Metadata(__name__, datetime.now(), "something.com/something", "something.com","anythingProd" ))
+        
+        return MongoDatabase(database_name="Conference_Notify" , collection_name="conferences").put(conference)
 
     def get_invalid_data(self):
-        return MongoDatabase(database_name="any_database" , collection_name="any_collection")      
+        conference = Conference(  title="something", 
+                            url="anything", deadline="anything", 
+                            metadata="anything")
+        
+        return MongoDatabase(database_name="any_database" , collection_name="any_collection").put(conference)
 
     def test_valid_data(self):
         self.get_valid_data()
