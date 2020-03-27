@@ -41,7 +41,7 @@ class Scrapper(ABC):
         else:
             raise ValueError("No database parameter given")
 
-    def get_page(self, qlink , debug_msg = "failed to extract page"):
+    def get_page(self, qlink , debug_msg = "failed to extract page", **kwargs):
         """[summary]
         
         Arguments:
@@ -56,7 +56,7 @@ class Scrapper(ABC):
         Returns:
             [request] -- request page
         """
-        req = self.arequest.get(qlink)
+        req = self.arequest.get(qlink, **kwargs)
         if 200 <= req.status_code <=299:
             self.logger.debug(debug_msg)
         else:
