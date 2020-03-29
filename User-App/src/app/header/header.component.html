@@ -1,14 +1,18 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
   <span>
-    <a routerLink="/">Notification App</a>
+    <a routerLink="/"><img src="../../assets/Proj_Conf_ntfy_logo-01.png" alt=""></a>
   </span>
   <span class="spacer"></span>
   <ul>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/about">About</a>
     </li>
     <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+      <a mat-button routerLink="/conference" routerLinkActive="mat-accent">Conference</a>
+    </li>
+    <div class="vl"></div>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/login" routerLinkActive="active-link">Login</a>
     </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
