@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { Application , Request , Response } from 'express';
 import { Server } from 'http';
 import { Logger } from './utility/log';
@@ -22,6 +23,7 @@ export class App {
 
     constructor(private container:AppContainer){
         this.app = express();
+        this.app.use(cors());
         this.routes = container.getRoutes()
         // this.listeners = container.getAll<Listener>(Listener)
     }
