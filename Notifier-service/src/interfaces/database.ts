@@ -4,4 +4,5 @@ import { injectable } from "inversify";
 export abstract class Database {
     protected abstract dbName:string;
     public abstract getConnection():Promise<any>;
+    public abstract close():void;
 }
