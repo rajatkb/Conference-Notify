@@ -26,8 +26,8 @@ export class MongoDb extends Database  {
          return Promise.reject(err)
       });
    }
-   public getConnection():Promise<mongoose.Connection>{
-      return this.databaseConnection;
+   public async getConnection():Promise<mongoose.Connection>{
+      return await this.databaseConnection;
    };
    public async close():Promise<void>{
       await this.databaseConnection.then(database => {
