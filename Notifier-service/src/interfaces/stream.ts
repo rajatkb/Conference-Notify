@@ -10,5 +10,9 @@ import { Observable } from "rxjs";
  * @interface Stream
  */
 export interface Stream{
-    getStream():Observable<any>
+    getStream():Observable<any>;
+    getInsertStream():Observable<any>;
+    getUpdateStream():Observable<any>;
+    getDeleteStream():Observable<any>;
+    getReplaceStream():Observable<any>;
 }

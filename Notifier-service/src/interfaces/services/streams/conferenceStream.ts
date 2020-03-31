@@ -16,5 +16,9 @@ import { injectable } from "inversify";
 @injectable()
 export abstract class ConferenceStream implements Stream{
     constructor(private conferenceModel:ConferenceModel){}
-    abstract getStream():Observable<any>
+    abstract getStream():Observable<any>;
+    abstract getInsertStream():Observable<any>;
+    abstract getUpdateStream():Observable<any>;
+    abstract getDeleteStream():Observable<any>;
+    abstract getReplaceStream():Observable<any>;
 }
