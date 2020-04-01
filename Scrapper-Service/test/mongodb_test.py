@@ -11,17 +11,18 @@ class MongoDbTestCase(unittest.TestCase):
     
     def get_valid_data(self):
         conference = Conference(title="something", 
-                            url="anything", deadline=datetime.now(), 
+                            url="anything", deadline=datetime.now(), dateRange=[datetime.now(),datetime.now()],
                             metadata=Metadata(__name__, datetime.now(), "something.com/something", "something.com","anythingProd" ))
-        
-        return mdb.MongoDatabase(logger=Logger,database_name="Conference_Notify" , collection_name="conferences").put(conference)
+        mdb.MongoDatabase(logger=Logger,database_name="Conference_Notify" , collection_name="conferences").put(conference)
+        print("Test Run sucessfully")
 
     def get_invalid_data(self):
         conference = Conference(title="something", 
                             url="anything", deadline="anything", 
                             metadata="anything")
         
-        return mdb.MongoDatabase(logger=Logger,database_name="any_database" , collection_name="any_collection").put(conference)
+        mdb.MongoDatabase(logger=Logger,database_name="any_database" , collection_name="any_collection").put(conference)
+        print("Test fail sucessfully")
 
     def test_valid_data(self):
         self.get_valid_data()
