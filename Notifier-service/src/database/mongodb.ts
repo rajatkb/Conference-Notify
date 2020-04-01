@@ -20,18 +20,20 @@ export class MongoDb extends Database  {
          useUnifiedTopology: true
       } )
       .then((res) => {
+         this.logger.info(" Connection established succsessfully :) ")
          return Promise.resolve(res)
       })
       .catch((err) => {
+         this.logger.info(" Connection Failed!! ")
          return Promise.reject(err)
       });
    }
    public async getConnection():Promise<mongoose.Connection>{
-      return await this.databaseConnection;
+      return this.databaseConnection;
    };
    public async close():Promise<void>{
       await this.databaseConnection.then(database => {
-         this.logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>> Connection closed!! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+         this.logger.info(" MongoDatabase Connection closed!! ");
          database.close()
       })
    }
