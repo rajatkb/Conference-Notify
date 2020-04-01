@@ -43,7 +43,8 @@ export class ConferenceStreamMongo extends ConferenceStream {
             })
         })
             .pipe(
-                filter()
+                share(),
+                filter(())
             )
         this.insertstreamObs$ = Observable.create((observer: Observer<any>) => {
             changeStream.then(stream => {
@@ -55,7 +56,9 @@ export class ConferenceStreamMongo extends ConferenceStream {
                 observer.error(error)
                 observer.complete()
             })
-        })
+        }).pipe(
+            share()
+        )
 
         this.updatestreamObs$ = Observable.create((observer: Observer<any>) => {
             changeStream.then(stream => {
