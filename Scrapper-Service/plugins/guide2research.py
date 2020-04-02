@@ -12,9 +12,9 @@ from datamodels import Conference, Metadata
 class Guide2ResearchScrapper(Scrapper):
     def __init__(self, **config):
         super().__init__(context_name=__name__, **config)
-        self.base_address = "http://www.guide2research.com/"
+        self.base_address = "http://www.guide2research.com"
         self.top_conf_address = self.base_address + "topconf/"
-        self.all_confs_base_address = self.base_address + "conferences/"
+        self.all_confs_base_address = self.base_address + "/conferences"
         self.all_conf_page_links = [self.all_confs_base_address]
         self.all_conf_page_count = 1
         self.site_name = __name__
@@ -34,16 +34,22 @@ class Guide2ResearchScrapper(Scrapper):
         for i, link in enumerate(top_conference_links):
             try:
                 conf_data = self._parse_top_conference(link=link)
-                self.push_todb(conf_data)
-                self.logger.info(f"Number of Top Conferences added: {i} ")
+                if not conf_data:
+                    pass
+                else:
+                    self.push_todb(conf_data)
+                self.logger.info(f"Number of Top Conferences added: {i+1} ")
             except Exception as e:
                 self.logger.error(
                     f"Error while parsing page {link}, find full trace {e}")
         for i, link in enumerate(all_conference_links):
             try:
                 conf_data = self._parse_all_conference(link=link)
-                self.push_todb(conf_data)
-                self.logger.info(f"Number of All Conferences added: {i}")
+                if not conf_data:
+                    pass
+                else:
+                    self.push_todb(conf_data)
+                self.logger.info(f"Number of All Conferences added: {i+1}")
             except Exception as e:
                 self.logger.error(
                     f"Error while parsing {link}, full trace {e}"
@@ -56,13 +62,10 @@ class Guide2ResearchScrapper(Scrapper):
         """
         if which == 'all':
             self._get_all_conf_pages(url=self.all_confs_base_address)
-            links = []
             for link in self.all_conf_page_links:
                 content = self.get_page(
                     qlink=link, debug_msg=f"Extracted links from {link}").content
-                links.append(self._parse_all_conference_base(content=content))
-            all_links = list(itertools.chain(*links))
-            return all_links
+                yield from self._parse_all_conference_base(content=content)
         elif which == 'top':
             content = self.get_page(
                 qlink=self.top_conf_address, debug_msg=f"Extracted links from{self.top_conf_address}").content
@@ -110,10 +113,8 @@ class Guide2ResearchScrapper(Scrapper):
         ---
         Conference: object
         """
-        self.logger.debug(f'Parsing {link}')
-        page = requests.get(link, allow_redirects=True)
-        if not page.status_code == 200:
-            self.logger.error(f"loading {link} failed with {page.status_code}")
+        page = self.get_page(qlink=link, debug_msg=f'Parsing {link}',
+                             allow_redirects=True)
         try:
             content = page.content
         except Exception as e:
@@ -141,11 +142,16 @@ class Guide2ResearchScrapper(Scrapper):
         additional_data["location"] = conf_info.get("location")
         additional_data["bulkText"] = bulk_text
         self.logger.debug(f"{title} is now added to the database")
-        return Conference(title=title,
-                          url=url,
-                          deadline=deadline,
-                          metadata=metadata,
-                          **additional_data)
+        if not deadline:
+            self.logger.debug(
+                f"{title} not added, because, deadline info not available")
+            return None
+        else:
+            return Conference(title=title,
+                              url=url,
+                              deadline=deadline,
+                              metadata=metadata,
+                              **additional_data)
 
     def _get_top_conf_info(self, name: str, table: bs) -> Dict[str, object]:
         """
@@ -166,7 +172,7 @@ class Guide2ResearchScrapper(Scrapper):
             if deadline_string != "be confirmed":
                 deadline = self.get_date(deadline_string, fmt="%d %b %Y")
             else:
-                deadline = "to be confirmed"
+                deadline = None
             dateRange = [self.get_date(string=date)
                          for date in tds[4].text.strip().split("-")]
             location = tds[6].text.strip()
@@ -259,18 +265,16 @@ class Guide2ResearchScrapper(Scrapper):
         conference_div = soup.find("div", attrs={"id": "ajax_content"})
         conf_tables = conference_div.findAll(
             "table", attrs={"cellspacing": "0"})
-        links = []
         try:
             for conf in conf_tables:
                 details = conf.findAll("td")
                 anchor = details[1].h4.a
                 if anchor:
                     link = self.base_address + anchor['href']
-                    links.append(link)
+                    yield(link)
                 else:
                     self.logger.error(f'Conference link not found')
             self.logger.debug('Successfully scraped links of all conferences')
-            return links
         except Exception as e:
             self.logger.error(
                 f"Failed to parse links in all conferences page with error {e}")
@@ -288,10 +292,8 @@ class Guide2ResearchScrapper(Scrapper):
         ---
         Conference: object
         """
-        self.logger.debug(f'Parsing {link}')
-        page = requests.get(link, allow_redirects=True)
-        if not page.status_code == 200:
-            self.logger.error(f"loading {link} failed with {page.status_code}")
+        page = self.get_page(qlink=link, debug_msg=f'Parsing {link}',
+                             allow_redirects=True)
         try:
             content = page.content
         except Exception as e:
@@ -313,13 +315,19 @@ class Guide2ResearchScrapper(Scrapper):
         additional_data["bulkText"] = bulk_text
         additional_data["dateRange"] = conf_info.get("dateRange")
         additional_data["location"] = conf_info.get("location")
+        deadline = conf_info.get("deadline")
         self.logger.debug(f"{title} is now added to database")
-        return Conference(title=title,
-                          url=conf_info.get("link"),
-                          deadline=conf_info.get("deadline"),
-                          metadata=metadata,
-                          **additional_data
-                          )
+        if not deadline:
+            self.logger.debug(
+                f"{title} not added because, deadline info not available")
+            return None
+        else:
+            return Conference(title=title,
+                              url=conf_info.get("link"),
+                              deadline=deadline,
+                              metadata=metadata,
+                              **additional_data
+                              )
 
     def _get_all_conf_info(self, name: str, infotable: bs) -> Dict[str, object]:
         """
@@ -340,7 +348,7 @@ class Guide2ResearchScrapper(Scrapper):
             if deadline_string != "be confirmed":
                 deadline = self.get_date(deadline_string, fmt="%d %b %Y")
             else:
-                deadline = "to be confirmed"
+                deadline = None
             dateRange = [self.get_date(date)
                          for date in tds[4].text.strip().split("-")]
             location = tds[6].text.strip()
