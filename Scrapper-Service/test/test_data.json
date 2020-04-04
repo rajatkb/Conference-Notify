@@ -1,0 +1,90 @@
+[{ 
+    "_id" : "c8c5e0ec-925b-5d9c-972c-7df9acd36bc6", 
+    "bulkText" : "\nEAI MONAMI 2020 - 10th EAI International Conference on Mobile Networks and Management:\r\"Intelligent Mobility and Edge Computing  for a Smarter World\"\r Five reasons for submitting to MONAMI 2020:\r 1. Top-class Keynote Speakers:\r  - Prof. Jiangchuan Liu, Simon Fraser University, British Columbia, Canada\r          (IEEE fellow, fellow of the Canadian Academy of Engineering, \r          Visiting Chair Professor of Tsinghua University, China)\r  - Prof. Mianxiong Dong, Professor and Vice President, Muroran Institute \r          of Technology, Japan\r  - Prof. Jianping Wang, City University of Hong Kong, China Hong Kong\r  - Prof. Yusheng Ji, National Institute of Informatics (NII), Japan\r  2. Springer's LNICST Publication:\r  - The proceedings will be published as Springer’s LNICST, which is indexed \rby EI, ISI, Scopus, CrossRef, Google Scholar, dblp, MAS, EBSCO, Microsoft \rAcademic Search, CiteSeerX, and more.\r  3. Collaborated Journals:\r  – Springer Mobile Networks and Applications (MONET) (IF: 2.39) \r  – MDPI Sensors (IF: 3.031), SI: \"Emerging Blockchain Technology Solutions \r    for Real-world Applications (EBTSRA)\"\r  - Springer Peer-to-Peer Networking and Applications (IF: 2.397), SI: \"Blockchain \r    for Peer-to-Peer Computing\"\r  – Some others waiting for approval\r 4. Awards and social events for Ten Years Ceremony of MONAMI conference\r  - A variety of paper awards\r  - A number of young invited speakers\r  - Possible social events in the Tokyo Disney Resort\r 5. Attendees first\r  - Considering the coronavirus, MONAMI 2020 has a flexible policy to protect\rour health, including postponing the conference date and permitting online\rpresentation if necessary.\r   OVERVIEW\r========\r MONAMI 2020 offers the opportunity to leading researchers, industry \rprofessionals and academics around the world to meet and discuss the \rlatest advances in these areas and present results related to technologies \rfor realizing the sustainable ecosystem of the future mobile computing systems. \rThe aim of the forum is to disseminate the latest innovative mobile network \rsolutions for increased competition and cooperation in an environment with \ra multitude of access technologies, network operators and business actors. \rPotential topics include but are not limited to the following:\r   – Multiaccess networks and resource management \r  – Blockchain technologies in mobile environment \r  – Cooperative communications \r  – V2X (vehicular to everything) technologies \r  – Mobile network management and virtualization \r  – Software defined networks for mobile networking \r  – Routing and resource allocation for hybrid network (hNets) \r  – Game-theoretical analysis for the future mobile networking market \r  – 5G network architecture, management technologies, and services \r  – Operation and management of virtualized network functions \r  – Network function virtualization and software defined networking \r  – Information-Centric Networking and Named-Data-Networking technologies \r    for mobile networks \r  – Joint management and orchestration of cloud and networking \r  – Energy efficiency for multiaccess networks \r  – Energy harvesting technologies for mobile networks \r  – Advanced algorithms such as Deep Learning for mobile network management \r  – Security and privacy issues for emerging mobile services \r  – Emerging multimedia services, service enablers and management \r  – Mobile edge computing (MEC) architecture, protocol, and services \r  – Design, implementation, and testbed/experimental evaluations \r   WEB SITE\r========\r http://mon-ami.org/\r  GENERAL CHAIRS\r==================\r   – Xun Shao (Kitami Institute of Technology, Japan)\r  Email: x-shao@mail.kitami-it.ac.jp\r  – Kui Wu (University of Victoria, Canada)  \r  Email: wkui@uvic.ca \r  – Tan Hwee Pink (Singapore Management University, Singapore)  \r  Email: hptan@smu.edu.sg \r  TPC CHAIRS\r==================\r   – Seng Loke (Deakin University, Australia)    \r  – Zhi Liu (Shizuoka University, Japan)\r  – Kien Nguyen (Chiba University, Japan)  \r  Workshops Chair\r==================\r   – Zhen Ling (Southeast University, China)\r  Workshops\r==================\r (1) Workshop on Edge Intelligence\r  - Chair: Prof. Peng Li, The University of Aizu, Japan\r  - Chair: Prof. Celimuge Wu, The University of Electro-Communications, Japan\r (2) Workshop on 5G/B5G Security\r  - Chair: Prof. Zhixin Liu, Yanshan University, China\r (3) Workshop on IoT Robot\r  - Chair: Prof. Cheng Zhang, Waseda University, Japan\r (4) Workshop on Enabling Real-time Edge Data Analytics through Edge Device \r    Cloud for Intelligent Applications\r  - Chair: Dr. Pethuru Raj, Reliance Jio Infocomm. Ltd. (RJIL), India\r  - Chair: Prof. chellammal Surianarayanan, Bharathidasan University Constituent \r           Arts & Science College, India\r   Publicity and Social Media Chairs\r=================================\r   – Wei Zhao (Anhui University of Technology, China)\r  – Nguyen Huu Thanh (Hanoi University of Science and Technology, Vietnam)\r   Publications Chair\r==================\r   – Guoming Tang (National University of Defense Technology, China)\r  WEB CHAIR\r==================\r   – Phi Le Nguyen (Hanoi University of Science and Technology, Vietnam)\r   IMPORTANT DATES\r==================\r   – Paper submission:  Apr. 20\r  – Notification: 30 May 2020  \r  – Final submission: 25 June 2020  \r\n", 
+    "categories" : [
+        "mobile networks", 
+        "management", 
+        "mobile edge computing", 
+        "5G"
+    ], 
+    "dateRange" : [
+        "2020-08-25T00:00:00.000+0000", 
+        "2020-08-27T00:00:00.000+0000"
+    ], 
+    "deadline" : "2020-04-10T00:00:00.000+0000", 
+    "finalDue" : "2020-06-25T00:00:00.000+0000", 
+    "location" : "Chiba, Japan", 
+    "metadata" : {
+        "plugins" : {
+            "wikicfp" : {
+                "dateExtracted" : "2020-04-04T23:23:30.978+0000", 
+                "websiteUrl" : "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=94233&copyownerid=110304", 
+                "website" : "http://www.wikicfp.com", 
+                "domain" : "wikicfp"
+            }
+        }
+    }, 
+    "notificationDue" : "2020-05-22T00:00:00.000+0000", 
+    "title" : " MONAMI  2020 : MONAMI 2020 - 10th EAI International Conference on Mobile Networks and Management", 
+    "url" : "http://mon-ami.org/"
+},
+{ 
+    "_id" : "c902fe3b-c70c-56c5-a25c-9e8d242136cd", 
+    "bulkText" : "\n11th International Conference on Internet Engineering & Web Services (InWeS 2020) December 19 ~ 20, 2020, Sydney, AustraliaScope & Topics11th International Conference on Internet Engineering & Web Services (InWeS 2020)  will provide an excellent international forum for sharing knowledge and results in theory, methodology and applications of Internet Engineering & Web services environment. Current information age is witnessing a dramatic use of digital and electronic devices in the workplace and beyond. Internet Engineering & Web services present a rather arduous requirement of robustness, reliability and availability to the end user. Internet Engineering & Web services has received a significant and sustained research interest in terms of designing and deploying large scale and high performance computational applications in real life. The aim of the conference is to provide a platform to the researchers and practitioners from both academia as well as industry to meet and share cutting-edge development in the field.Topics of Interest :Architectures and Frameworks\rCoding and Compression\rCollaborative Systems & Techniques\rDistance Learning\rE-business Modeling and Applications\rE-commerce Applications\rFault Tolerance\rInformation Retrieval\rInternet Architecture Design\rInternet Search Methods\rInternet Security & Applications\rKnowledge-Based Web Systems\rMultimedia Web Tools, Architectures, and Broadcasting\rOntology and Web services\rOptimization Methods\rSecurity and Protection\rSemantic Web\rSoftware Agents\rWeb Data Mining and Database Management\rWeb Java-based Applications\rWeb Languages\rWeb Service Applications & Foundation\rWeb Services-Driven Business Process Management\rWireless & Mobile Based Applications, ServicesPaper SubmissionAuthors are invited to submit papers through the Submission System by  April 11, 2020. Submissions must be original and should not have been published previously or be under consideration for publication while being evaluated for this conference. The proceedings of the onference will be published by Computer Science Conference Proceedings in Computer Science & Information Technology (CS & IT) series (Confirmed).Selected papers from InWeS 2020, after further revisions, will be published in the special issues of the following journals.International Journal of Web & Semantic Technology (IJWesT)International Journal on Web Service Computing (IJWSC)International Journal on Cloud Computing: Services and Architecture (IJCCSA)Information Technology in Industry (ITII)New-ESCI(WOS) IndexedImportant DatesSubmission Deadline: April 11, 2020Authors Notification:  June 22, 2020Final Manuscript Due: July 01, 2020", 
+    "categories" : [
+        "semantic web", 
+        "wireless", 
+        "web services", 
+        "internet"
+    ], 
+    "dateRange" : [
+        "2020-12-19T00:00:00.000+0000", 
+        "2020-12-20T00:00:00.000+0000"
+    ], 
+    "deadline" : "2020-04-11T00:00:00.000+0000", 
+    "finalDue" : "2020-07-01T00:00:00.000+0000", 
+    "location" : "Sydney, Australia", 
+    "metadata" : {
+        "plugins" : {
+            "wikicfp" : {
+                "dateExtracted" : "2020-04-04T23:23:31.912+0000", 
+                "websiteUrl" : "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=88588&copyownerid=46167", 
+                "website" : "http://www.wikicfp.com", 
+                "domain" : "wikicfp"
+            }
+        }
+    }, 
+    "notificationDue" : "2020-06-22T00:00:00.000+0000", 
+    "title" : " InWeS  2020 : 11th International Conference on Internet Engineering & Web Services", 
+    "url" : "https://iccsea2020.org/inwes/index.html"
+},
+{ 
+    "_id" : "b84b02a5-31cf-5169-9524-e0174defb5ec", 
+    "bulkText" : "\nThe Advanced Computing and Communication Society (ACCS) in association with The National Institute of Technology Silchar announces the 26th annual International Conference on Advanced Computing and Communications (ADCOM 2020) at National Institute of Technology Silchar during 26-29 August 2020.\rADCOM, the flagship Systems Conference of the ACCS, is a major annual international meeting that draws leading scientists and researchers in computational and communications engineering from across industry and academia. ADCOM highlights the growing importance of Large Scale Systems Engineering and provides the platform to share, discuss and witness leading edge research and trends.\rThe main theme of ADCOM 2020 is the \"Edge Analytics\". Edge Analytics is a future research area where people needs to discuss the issues and challenges. This conferences aims to brings various people from India and abroad working in the area of Edge Analytics as an academician, Indutrialist or practitioner to share their knowledges. This conference will foster future perspectives of Edge Analytics. Moreover, ADCOM 2020 focuses on 5G Systems, those are expected to be fully operational by 2020 through its wide range of applications and services. Most importantly, 5G will serve as the enabling architecture and standard for Internet of Things (IoT) systems, Low Power-Wide Area networks and high-speed cellular systems leading to a variety of wireless applications with needs of few bits per seconds to gigabits per seconds with very low latency. This will also significantly extend geographic coverage with delay-sensitive communications. 5G is expected to utilize and exploit new technologies, techniques and protocols at the different communication layers such as software-defined radio, massive antenna systems, MIMO systems, mmWave, optical communications and performance-energy efficient communications protocols.\rImportants Dates\rPaper Submissions due: \t15/04/2020\rAuthor notification: \t15/07/2020\rCamera-ready paper due: \t25/07/2020\rRegistration deadline: \t30/07/2020\rConference date: \t26-28 August 2020\rSubmission Guidelines\r All papers must be original and not simultaneously submitted to another journal or conference. Submission policies for ADCOM 2020 are stated below. Author must strict follow the following rules while submitting paper.\r     Sumission: Sumbit your paper via EasyChair.\r    Plagarism policy: Any form of plagiarism is not tolerated at any cost. However, the plagiarism score must be less than 15%.\r    Dual Submission: Simultaneous submission to anywhere else is strictly prohibited.\r    Page length:\r        Maximum pages for full paper : 12 pages\r        Additional pages for full paper: 4 pages\r        Maximum pages for short paper : 6 pages\r        Additional pages for short paper: 2 pages\r    Note: Paper format must comply LNCS format. Please refer to the registration fees for additional page charges.\r    Single blind review: Author must include authors names, affiliations, acknowledgement, and funding source.\r    Review policy: All papers are reviewed by at least three reviewers.\r    Paper template: Download Microsft Word, and Latex from LNCS .\r    Camera-ready (CRC) paper submission: All the accepted papers should address reviewers comments and final version should be submitted in MS-Word or Latex source including all figures. CRC must contains authors name, and affiliations. Acknowledgement and Funding source can be included in the final CRC.\r List of Topics\r     Edge Analytics\r    Edge Analytics in Cloud Computing\r    Machine Learning for Edge Computing\r    Video Edge Analytics\r    Architecture of Edge Computing systems\r    Public and Private Mobile Clouds in Edge Computing\r    Software of Edge Computing\r    Hybrid Clouds in Edge Computing\r    Programming the Edge Computing\r    Functionality of Edge Computing Systems\r    Communication Among Edges of an Edge Computing System\r    Communication Between Edges and Central Cloud in an Edge Computing System\r    Migration Services in Edge Computing Systems\r    Workflows in Edge Computing\r    Green Edge Computing and Analytics\r    Reliability in Edge Computing Systems\r    Availability in Edge Computing Systems\r    Security and Privacy in Edge Computing Systems\r    Trust in Edge Computing\r    Quality of Service in Edge Computing and Analytics\r    Pricing and Billing in Edge Computing and Analytics\r    Applications of Edge Computing\r    Mission Critical Edge Computing\r    5G Networks\r    Internet of Things\r    Industrial Internet of Things\r    Recent issues and challenges\r Publication\r ADCOM 2020 proceedings will be published in LNCS, Springer. Proposal is yet to be submitted LNCS, Springer. Submission link: https://easychair.org/conferences/?conf=adcom2020\r Venue\r National Institute of Technology Silchar\r Assam, India.\rContact\r All questions about submissions should be emailed to patgiri@ieee.org\n\t", 
+    "categories" : [
+        "computer networking", 
+        "edge analytics", 
+        "5G", 
+        "internet of things"
+    ], 
+    "dateRange" : [
+        "2020-08-26T00:00:00.000+0000", 
+        "2020-08-28T00:00:00.000+0000"
+    ], 
+    "deadline" : "2020-04-15T00:00:00.000+0000", 
+    "finalDue" : "2020-07-25T00:00:00.000+0000", 
+    "location" : "NIT Silchar", 
+    "metadata" : {
+        "plugins" : {
+            "wikicfp" : {
+                "dateExtracted" : "2020-04-04T23:23:33.572+0000", 
+                "websiteUrl" : "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=98972&copyownerid=73375", 
+                "website" : "http://www.wikicfp.com", 
+                "domain" : "wikicfp"
+            }
+        }
+    }, 
+    "notificationDue" : "2020-07-15T00:00:00.000+0000", 
+    "title" : " ADCOM  2020 : 26th annual International Conference on Advanced Computing and Communications", 
+    "url" : "http://adcom.nits.ac.in"
+}]
