@@ -13,8 +13,8 @@ class Guide2ResearchScrapper(Scrapper):
     def __init__(self, **config):
         super().__init__(context_name=__name__, **config)
         self.base_address = "http://www.guide2research.com"
-        self.top_conf_address = self.base_address + "topconf/"
-        self.all_confs_base_address = self.base_address + "/conferences"
+        self.top_conf_address = self.base_address + "/topconf/"
+        self.all_confs_base_address = self.base_address + "/conferences/"
         self.all_conf_page_links = [self.all_confs_base_address]
         self.all_conf_page_count = 1
         self.site_name = __name__
@@ -69,7 +69,7 @@ class Guide2ResearchScrapper(Scrapper):
         elif which == 'top':
             content = self.get_page(
                 qlink=self.top_conf_address, debug_msg=f"Extracted links from{self.top_conf_address}").content
-            return self._parse_top_conf_base(content)
+            yield from self._parse_top_conf_base(content=content)
 
     # Parsers for top conferences
 
@@ -127,6 +127,7 @@ class Guide2ResearchScrapper(Scrapper):
         conf_info = self._get_top_conf_info(name=title, table=post_tables[0])
         rating_info = self._get_top_conf_ranking(
             name=title, table=post_tables[1])
+        categories = list(rating_info.keys())[1:-1] if rating_info else []
         bulk_text = self._get_top_conf_bulk_text(soup)
         url = conf_info.get("link")
         deadline = conf_info.get("deadline")
@@ -138,9 +139,7 @@ class Guide2ResearchScrapper(Scrapper):
                             )
         additional_data = {}
         additional_data["dateRange"] = conf_info.get("dateRange")
-        additional_data["rankings"] = rating_info
         additional_data["location"] = conf_info.get("location")
-        additional_data["bulkText"] = bulk_text
         self.logger.debug(f"{title} is now added to the database")
         if not deadline:
             self.logger.debug(
@@ -151,6 +150,9 @@ class Guide2ResearchScrapper(Scrapper):
                               url=url,
                               deadline=deadline,
                               metadata=metadata,
+                              bulkText = bulk_text,
+                              categories=categories ,
+                              rankings=rating_info,
                               **additional_data)
 
     def _get_top_conf_info(self, name: str, table: bs) -> Dict[str, object]:
@@ -201,20 +203,19 @@ class Guide2ResearchScrapper(Scrapper):
         """
         try:
             tds = table.findAll("td")
-            g2rranking = tds[2].text
-            category_a = tds[5].text.strip()
-            category_a_value = tds[6].text.strip()
-            category_b = tds[7].text.strip()
-            category_b_value = tds[8].text.strip()
-            category_c = tds[9].text.strip()
-            category_c_value = tds[10].text.strip()
-            hindex = tds[-1].font.text
-            self.logger.debug(f"Generated ranking info for {name}")
-            return ({"Guide2Research Overall Ranking": g2rranking,
-                     category_a: category_a_value,
-                     category_b: category_b_value,
-                     category_c: category_c_value,
-                     "g_scholar_h5_index": hindex})
+            hindex = tds[-1].b.text
+            keys = []
+            values = []
+            for i, td in enumerate(tds):
+                if i != 0 and i!= 3 and i%2 == 1:
+                    keys.append(td.text.strip().replace('\n','').replace('\t',''))
+                if i != 0 and i!=4 and i%2 == 0:
+                    values.append(td.text.strip().replace('\n','').replace('\t',''))
+            keys.pop()
+            values.pop()
+            ranking_dict=dict(zip(keys,values))
+            ranking_dict["Google Scholar H5-index"]=hindex
+            return ranking_dict
         except Exception as e:
             self.logger.error(
                 f"Error occured when generating ranking information for {name}, full error {e}")
@@ -235,7 +236,7 @@ class Guide2ResearchScrapper(Scrapper):
             paragraphs = soup.find_all("p")
             bulk_text = ""
             for p in paragraphs:
-                bulk_text += p.text.strip()
+                bulk_text += p.text.strip().replace('\n','')
             return bulk_text
         except Exception as e:
             self.logger.error(f"Error parsing bulk text{e}")
@@ -351,7 +352,7 @@ class Guide2ResearchScrapper(Scrapper):
                 deadline = None
             dateRange = [self.get_date(date)
                          for date in tds[4].text.strip().split("-")]
-            location = tds[6].text.strip()
+            location = tds[6].text.strip().replace('/n','').replace('\t','')
             link = tds[-1].a["href"]
             self.logger.debug(f'Generated info for {name}')
             return ({"deadline": deadline,
@@ -379,7 +380,7 @@ class Guide2ResearchScrapper(Scrapper):
             paragraphs = post.findAll("p")
             bulk_text = ""
             for p in paragraphs:
-                bulk_text + p.text.strip()
+                bulk_text + p.text.strip().replace('\n','').replace('\t','')
             return bulk_text
         except Exception as e:
             self.logger.error(
