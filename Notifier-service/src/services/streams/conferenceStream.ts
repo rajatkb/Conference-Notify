@@ -3,8 +3,8 @@ import { ConferenceModel } from "../../interfaces/models/conference";
 import { ConferenceDocument } from "../../schemas/conferences";
 import { injectable } from "inversify";
 import { Logger } from "../../utility/log";
-import { Observable, Observer } from 'rxjs'
-import { share, filter } from 'rxjs/operators'
+import { Observable, Observer, observable } from 'rxjs'
+import { share, filter, map } from 'rxjs/operators'
 
 import { ConferenceStream } from "../../interfaces/services/streams/conferenceStream";
 
@@ -43,8 +43,7 @@ export class ConferenceStreamMongo extends ConferenceStream {
             })
         })
             .pipe(
-                share(),
-                filter(())
+                share()
             )
         this.insertstreamObs$ = Observable.create((observer: Observer<any>) => {
             changeStream.then(stream => {
