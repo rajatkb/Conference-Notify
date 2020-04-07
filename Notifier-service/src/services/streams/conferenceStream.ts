@@ -3,8 +3,8 @@ import { ConferenceModel } from "../../interfaces/models/conference";
 import { ConferenceDocument } from "../../schemas/conferences";
 import { injectable } from "inversify";
 import { Logger } from "../../utility/log";
-import { Observable, Observer, observable } from 'rxjs'
-import { share, filter, map } from 'rxjs/operators'
+import { Observable, Observer } from 'rxjs'
+import { share, filter } from 'rxjs/operators'
 
 import { ConferenceStream } from "../../interfaces/services/streams/conferenceStream";
 
@@ -30,7 +30,6 @@ export class ConferenceStreamMongo extends ConferenceStream {
                 return Promise.reject(err)
             }
         })
-
         this.streamObs$ = Observable.create((observer: Observer<any>) => {
             changeStream.then(stream => {
                 stream.on("change", (data:Object) => {
@@ -45,6 +44,19 @@ export class ConferenceStreamMongo extends ConferenceStream {
             .pipe(
                 share()
             )
+        let isInsert = this.getStream().pipe(filter(data => {
+            return data.operationType == 'insert'
+        }))
+        let isUpdate = this.getStream().pipe(filter(data => {
+            return data.operationType == 'update'
+        }))
+        let isDelete = this.getStream().pipe(filter(data => {
+            return data.operationType == 'delete'
+        }))
+        let isReplace = this.getStream().pipe(filter(data => {
+            return data.operationType == 'replace' 
+        }))
+            
         this.insertstreamObs$ = Observable.create((observer: Observer<any>) => {
             changeStream.then(stream => {
                 stream.on("insert", (data:Object) => {
@@ -55,9 +67,7 @@ export class ConferenceStreamMongo extends ConferenceStream {
                 observer.error(error)
                 observer.complete()
             })
-        }).pipe(
-            share()
-        )
+        })
 
         this.updatestreamObs$ = Observable.create((observer: Observer<any>) => {
             changeStream.then(stream => {
