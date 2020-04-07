@@ -23,7 +23,10 @@ export class App {
 
     constructor(private container:AppContainer){
         this.app = express();
-        this.app.use(cors());
+        this.app.use(cors({
+            origin: process.env.ORIGIN,
+            methods: ["GET", "POST", "PATCH", "PUT"]
+        }));
         this.routes = container.getRoutes()
         // this.listeners = container.getAll<Listener>(Listener)
     }
