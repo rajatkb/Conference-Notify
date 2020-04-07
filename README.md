@@ -72,6 +72,81 @@ Download Angular 6+ from command line
 
 For more information about Angular, Visit [Docs](https://angular.io/guide/setup-local)
 
+### Elastic Search
+Elasticsearch is a real-time, distributed storage, search, and analytics engine. 
+#### Installation
+1. Verify that your system meets the [minimum JVM requirements](https://www.elastic.co/support/matrix#matrix_jvm) for Elasticsearch.
+
+2. Installation process for different systems:
+
+    #### Windows:
+    a.  Download the Elasticsearch 7.6.2 Windows zip file from the [Elasticsearch download](https://www.elastic.co/downloads/elasticsearch) page.  
+    b. Extract the contents of the zip file to a directory on your computer, for example, C:\Program Files.  
+    c. Open a command prompt as an Administrator and navigate to the directory that contains the extracted files,  
+      For example:  
+      `cd C:\Program Files\elasticsearch-7.6.2`  
+    d. Start Elasticsearch:    
+      `bin\elasticsearch.bat`
+
+    #### Debian (Ubuntu):
+
+    `curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.2-amd64.deb`  
+    `sudo dpkg -i elasticsearch-7.6.2-amd64.deb`  
+    `sudo /etc/init.d/elasticsearch start`  
+
+    #### rpm (Redhat/Centos/Fedora):
+
+    `curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.2-x86_64.rpm`  
+    `sudo rpm -i elasticsearch-7.6.2-x86_64.rpm`    
+    `sudo service elasticsearch start`  
+
+    #### mac (MAC OS X):
+
+    `curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.2-darwin-x86_64.tar.gz`  
+    `tar -xzvf elasticsearch-7.6.2-darwin-x86_64.tar.gz`  
+    `cd elasticsearch-7.6.2`  
+    `./bin/elasticsearch`  
+
+    #### brew (MAC OS X):
+
+    `brew tap elastic/tap`  
+    `brew install elastic/tap/elasticsearch-full`  
+    `elasticsearch`  
+
+    #### linux :
+
+    `curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.2-linux-x86_64.tar.gz`  
+    `tar -xzvf elasticsearch-7.6.2-linux-x86_64.tar.gz`  
+    `cd elasticsearch-7.6.2`  
+    `./bin/elasticsearch`  
+  
+3. Make sure Elastic search is up and running:  
+a. To test that the Elasticsearch daemon is up and running, try sending an HTTP GET request on port 9200.  
+  `curl http://127.0.0.1:9200`  
+b. On Windows, if you don’t have cURL installed, point your browser to the URL.  
+c. The output appears similar to this:  
+<code>
+<pre>
+{    
+  "name" : "QtI5dUu",  
+  "cluster_name" : "elasticsearch",  
+  "cluster_uuid" : "DMXhqzzjTGqEtDlkaMOzlA",  
+  "version" : {  
+    "number" : "7.6.2",  
+    "build_flavor" : "default",  
+    "build_type" : "tar",  
+    "build_hash" : "00d8bc1",  
+    "build_date" : "2018-06-06T16:48:02.249996Z",  
+    "build_snapshot" : false,  
+    "lucene_version" : "7.3.1",  
+    "minimum_wire_compatibility_version" : "5.6.0",  
+    "minimum_index_compatibility_version" : "5.0.0"  
+  },  
+  "tagline" : "You Know, for Search"  
+}
+</pre>
+</code> 
+
 ### Installing
 
 The project is divided into several components, i.e services
