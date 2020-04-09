@@ -49,7 +49,7 @@ class MongoDatabase(Database):
                 collection.create_index([(idx , pymongo.ASCENDING )] , unique = unique )
                 
         except Exception as e:
-            self.logger.error("Failed to initiate mongodb client error: {}".format(e),)
+            self.logger.error("Failed to initiate mongodb client error: {}".format(e))
             raise e
     
 
