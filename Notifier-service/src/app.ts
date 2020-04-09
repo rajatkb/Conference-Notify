@@ -35,6 +35,7 @@ export class App {
             
         });
         this.listeners = container.getListeners()
+        // this.listeners = container.getAll<Listener>(Listener)
     }
 
     init():void{
