@@ -44,66 +44,66 @@ export class ConferenceStreamMongo extends ConferenceStream {
             .pipe(
                 share()
             )
-        let isInsert = this.getStream().pipe(filter(data => {
+        this.insertstreamObs$ = this.getStream().pipe(filter(data => {
             return data.operationType == 'insert'
         }))
-        let isUpdate = this.getStream().pipe(filter(data => {
+        this.updatestreamObs$ = this.getStream().pipe(filter(data => {
             return data.operationType == 'update'
         }))
-        let isDelete = this.getStream().pipe(filter(data => {
+        this.deletestreamObs$ = this.getStream().pipe(filter(data => {
             return data.operationType == 'delete'
         }))
-        let isReplace = this.getStream().pipe(filter(data => {
+        this.replacestreamObs$ = this.getStream().pipe(filter(data => {
             return data.operationType == 'replace' 
         }))
             
-        this.insertstreamObs$ = Observable.create((observer: Observer<any>) => {
-            changeStream.then(stream => {
-                stream.on("insert", (data:Object) => {
-                    observer.next(data)
-                })
-            }).catch(error => {
-                this.logger.error(`insert stream failed:${error}`)
-                observer.error(error)
-                observer.complete()
-            })
-        })
+        // this.insertstreamObs$ = Observable.create((observer: Observer<any>) => {
+        //     changeStream.then(stream => {
+        //         stream.on("insert", (data:Object) => {
+        //             observer.next(data)
+        //         })
+        //     }).catch(error => {
+        //         this.logger.error(`insert stream failed:${error}`)
+        //         observer.error(error)
+        //         observer.complete()
+        //     })
+        // })
 
-        this.updatestreamObs$ = Observable.create((observer: Observer<any>) => {
-            changeStream.then(stream => {
-                stream.on("update", (data:Object) => {
-                    observer.next(data)
-                })
-            }).catch(error => {
-                this.logger.error(`update stream failed:${error}`)
-                observer.error(error)
-                observer.complete()
-            })
-        })
+        // this.updatestreamObs$ = Observable.create((observer: Observer<any>) => {
+        //     changeStream.then(stream => {
+        //         stream.on("update", (data:Object) => {
+        //             observer.next(data)
+        //         })
+        //     }).catch(error => {
+        //         this.logger.error(`update stream failed:${error}`)
+        //         observer.error(error)
+        //         observer.complete()
+        //     })
+        // })
 
-        this.deletestreamObs$ = Observable.create((observer: Observer<any>) => {
-            changeStream.then(stream => {
-                stream.on("delete", (data:Object) => {
-                    observer.next(data)
-                })
-            }).catch(error => {
-                this.logger.error(`delete stream failed:${error}`)
-                observer.error(error)
-                observer.complete()
-            })
-        })
+        // this.deletestreamObs$ = Observable.create((observer: Observer<any>) => {
+        //     changeStream.then(stream => {
+        //         stream.on("delete", (data:Object) => {
+        //             observer.next(data)
+        //         })
+        //     }).catch(error => {
+        //         this.logger.error(`delete stream failed:${error}`)
+        //         observer.error(error)
+        //         observer.complete()
+        //     })
+        // })
 
-        this.replacestreamObs$ = Observable.create((observer: Observer<any>) => {
-            changeStream.then(stream => {
-                stream.on("replace", (data:Object) => {
-                    observer.next(data)
-                })
-            }).catch(error => {
-                this.logger.error(`replace stream failed:${error}`)
-                observer.error(error)
-                observer.complete()
-            })
-        })
+        // this.replacestreamObs$ = Observable.create((observer: Observer<any>) => {
+        //     changeStream.then(stream => {
+        //         stream.on("replace", (data:Object) => {
+        //             observer.next(data)
+        //         })
+        //     }).catch(error => {
+        //         this.logger.error(`replace stream failed:${error}`)
+        //         observer.error(error)
+        //         observer.complete()
+        //     })
+        // })
     }
 
     public getStream(): Observable<any> {
