@@ -49,7 +49,7 @@ class MongoDatabase(Database):
                 collection.create_index([(idx , pymongo.ASCENDING )] , unique = unique )
                 
         except Exception as e:
-            self.logger.error("Failed to initiate mongodb client error: {}".format(e))
+            self.logger.error("Failed to initiate mongodb client error: {}".format(e),)
             raise e
     
 
@@ -69,3 +69,6 @@ class MongoDatabase(Database):
                                   .format(res.matched_count , res.modified_count , res.upserted_id))
             except Exception as e:
                 self.logger.error("Failed to commit data error : {}".format(e))
+#                print("Failed to commit data error : {}".format(e))
+                
+        return self.collection.find({}).count()
