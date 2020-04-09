@@ -40,13 +40,18 @@ class MongoDbTestCase(unittest.TestCase):
             x = self.cvtDate(x)
             id_lst.append(x)
         return id_lst 
-        
+    
     def test_data(self):
+        """
+            Here data is test with three different json, 
+            1st json is normal json
+            2nd json has modified dateRange
+            3rd json has modified deadline
+        """
         self.assertDictEqual.__self__.maxDiff = None
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             data =  self.read("test_data.json")
-#            print(data[0]['metadata']['plugins']['wikicfp']['domain'])
             for i in range(len(data)):
                 conf = Conference(title=data[i]['title'], 
                                   url=data[i]['url'],
@@ -65,7 +70,7 @@ class MongoDbTestCase(unittest.TestCase):
                                 ) 
             
                 count =  mdb.MongoDatabase(Logger,"Conference_Notify","conferences").put(conf)
-                self.assertEqual(i+1,count)
+                self.assertEqual(1,count)
            
 if __name__ == '__main__':
     unittest.main()
