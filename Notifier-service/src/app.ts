@@ -34,7 +34,7 @@ export class App {
             process.exit(0);
             
         });
-        // this.listeners = container.getAll<Listener>(Listener)
+        this.listeners = container.getListeners()
     }
 
     init():void{
