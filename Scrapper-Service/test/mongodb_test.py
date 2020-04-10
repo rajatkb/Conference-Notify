@@ -8,9 +8,10 @@ from datetime import datetime
 from logging import Logger
 
 class MongoDbTestCase(unittest.TestCase):
-#    def __init__(self, methodName):
-#        super().__init__(methodName)
-    
+    def __init__(self, methodName):
+        super().__init__(methodName)
+        self.mongo_db = mdb.MongoDatabase(Logger,"Conference_Notify","conferences")
+        
     def cvt(self,dt):
         dt = dt.split('+')
         time = dt[0]+'Z'
@@ -52,6 +53,7 @@ class MongoDbTestCase(unittest.TestCase):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             data =  self.read("test_data.json")
+            count = 0
             for i in range(len(data)):
                 conf = Conference(title=data[i]['title'], 
                                   url=data[i]['url'],
@@ -69,8 +71,9 @@ class MongoDbTestCase(unittest.TestCase):
                                   bulkText = data[i]['bulkText']
                                 ) 
             
-                count =  mdb.MongoDatabase(Logger,"Conference_Notify","conferences").put(conf)
-                self.assertEqual(1,count)
+#                count =  mdb.MongoDatabase(Logger,"Conference_Notify","conferences").put(conf)
+                count = self.mongo_db.put(conf)
+            self.assertEqual(0,count)
            
 if __name__ == '__main__':
     unittest.main()

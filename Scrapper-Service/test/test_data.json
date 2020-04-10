@@ -2,12 +2,9 @@
 
     "_comment": "This is normal json",
     "_id" : "c8c5e0ec-925b-5d9c-972c-7df9acd36bc6", 
-    "bulkText" : "\nEAI MONAMI 2020 - 10th EAI International Conference on Mobile Networks and Management:\r\"Intelligent Mobility and Edge Computing  for a Smarter World\"\r Five reasons for submitting to MONAMI 2020:\r 1. Top-class Keynote Speakers:\r  - Prof. Jiangchuan Liu, Simon Fraser University, British Columbia, Canada\r          (IEEE fellow, fellow of the Canadian Academy of Engineering, \r          Visiting Chair Professor of Tsinghua University, China)\r  - Prof. Mianxiong Dong, Professor and Vice President, Muroran Institute \r          of Technology, Japan\r  - Prof. Jianping Wang, City University of Hong Kong, China Hong Kong\r  - Prof. Yusheng Ji, National Institute of Informatics (NII), Japan\r  2. Springer's LNICST Publication:\r  - The proceedings will be published as Springer’s LNICST, which is indexed \rby EI, ISI, Scopus, CrossRef, Google Scholar, dblp, MAS, EBSCO, Microsoft \rAcademic Search, CiteSeerX, and more.\r  3. Collaborated Journals:\r  – Springer Mobile Networks and Applications (MONET) (IF: 2.39) \r  – MDPI Sensors (IF: 3.031), SI: \"Emerging Blockchain Technology Solutions \r    for Real-world Applications (EBTSRA)\"\r  - Springer Peer-to-Peer Networking and Applications (IF: 2.397), SI: \"Blockchain \r    for Peer-to-Peer Computing\"\r  – Some others waiting for approval\r 4. Awards and social events for Ten Years Ceremony of MONAMI conference\r  - A variety of paper awards\r  - A number of young invited speakers\r  - Possible social events in the Tokyo Disney Resort\r 5. Attendees first\r  - Considering the coronavirus, MONAMI 2020 has a flexible policy to protect\rour health, including postponing the conference date and permitting online\rpresentation if necessary.\r   OVERVIEW\r========\r MONAMI 2020 offers the opportunity to leading researchers, industry \rprofessionals and academics around the world to meet and discuss the \rlatest advances in these areas and present results related to technologies \rfor realizing the sustainable ecosystem of the future mobile computing systems. \rThe aim of the forum is to disseminate the latest innovative mobile network \rsolutions for increased competition and cooperation in an environment with \ra multitude of access technologies, network operators and business actors. \rPotential topics include but are not limited to the following:\r   – Multiaccess networks and resource management \r  – Blockchain technologies in mobile environment \r  – Cooperative communications \r  – V2X (vehicular to everything) technologies \r  – Mobile network management and virtualization \r  – Software defined networks for mobile networking \r  – Routing and resource allocation for hybrid network (hNets) \r  – Game-theoretical analysis for the future mobile networking market \r  – 5G network architecture, management technologies, and services \r  – Operation and management of virtualized network functions \r  – Network function virtualization and software defined networking \r  – Information-Centric Networking and Named-Data-Networking technologies \r    for mobile networks \r  – Joint management and orchestration of cloud and networking \r  – Energy efficiency for multiaccess networks \r  – Energy harvesting technologies for mobile networks \r  – Advanced algorithms such as Deep Learning for mobile network management \r  – Security and privacy issues for emerging mobile services \r  – Emerging multimedia services, service enablers and management \r  – Mobile edge computing (MEC) architecture, protocol, and services \r  – Design, implementation, and testbed/experimental evaluations \r   WEB SITE\r========\r http://mon-ami.org/\r  GENERAL CHAIRS\r==================\r   – Xun Shao (Kitami Institute of Technology, Japan)\r  Email: x-shao@mail.kitami-it.ac.jp\r  – Kui Wu (University of Victoria, Canada)  \r  Email: wkui@uvic.ca \r  – Tan Hwee Pink (Singapore Management University, Singapore)  \r  Email: hptan@smu.edu.sg \r  TPC CHAIRS\r==================\r   – Seng Loke (Deakin University, Australia)    \r  – Zhi Liu (Shizuoka University, Japan)\r  – Kien Nguyen (Chiba University, Japan)  \r  Workshops Chair\r==================\r   – Zhen Ling (Southeast University, China)\r  Workshops\r==================\r (1) Workshop on Edge Intelligence\r  - Chair: Prof. Peng Li, The University of Aizu, Japan\r  - Chair: Prof. Celimuge Wu, The University of Electro-Communications, Japan\r (2) Workshop on 5G/B5G Security\r  - Chair: Prof. Zhixin Liu, Yanshan University, China\r (3) Workshop on IoT Robot\r  - Chair: Prof. Cheng Zhang, Waseda University, Japan\r (4) Workshop on Enabling Real-time Edge Data Analytics through Edge Device \r    Cloud for Intelligent Applications\r  - Chair: Dr. Pethuru Raj, Reliance Jio Infocomm. Ltd. (RJIL), India\r  - Chair: Prof. chellammal Surianarayanan, Bharathidasan University Constituent \r           Arts & Science College, India\r   Publicity and Social Media Chairs\r=================================\r   – Wei Zhao (Anhui University of Technology, China)\r  – Nguyen Huu Thanh (Hanoi University of Science and Technology, Vietnam)\r   Publications Chair\r==================\r   – Guoming Tang (National University of Defense Technology, China)\r  WEB CHAIR\r==================\r   – Phi Le Nguyen (Hanoi University of Science and Technology, Vietnam)\r   IMPORTANT DATES\r==================\r   – Paper submission:  Apr. 20\r  – Notification: 30 May 2020  \r  – Final submission: 25 June 2020  \r\n", 
+    "bulkText" : "Something", 
     "categories" : [
-        "mobile networks", 
-        "management", 
-        "mobile edge computing", 
-        "5G"
+        "Something"
     ], 
     "dateRange" : [
         "2020-08-25T00:00:00.000+0000", 
@@ -15,83 +12,47 @@
     ], 
     "deadline" : "2020-04-10T00:00:00.000+0000", 
     "finalDue" : "2020-06-25T00:00:00.000+0000", 
-    "location" : "Chiba, Japan", 
+    "location" : "Something", 
     "metadata" : {
         "plugins" : {
             "wikicfp" : {
                 "dateExtracted" : "2020-04-04T23:23:30.978+0000", 
-                "websiteUrl" : "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=94233&copyownerid=110304", 
-                "website" : "http://www.wikicfp.com", 
+                "websiteUrl" : "http://www.something.com/something", 
+                "website" : "http://www.something.com", 
                 "domain" : "wikicfp"
             }
         }
     }, 
     "notificationDue" : "2020-05-22T00:00:00.000+0000", 
-    "title" : " MONAMI  2020 : MONAMI 2020 - 10th EAI International Conference on Mobile Networks and Management", 
-    "url" : "http://mon-ami.org/"
+    "title" : "Something", 
+    "url" : "http://www.something.com"
 },
 { 
-    "_comment":"modified Date Range",
-    "_id" : "c8c5e0ec-925b-5d9c-972c-7df9acd36bc6", 
-    "bulkText" : "\nEAI MONAMI 2020 - 10th EAI International Conference on Mobile Networks and Management:\r\"Intelligent Mobility and Edge Computing  for a Smarter World\"\r Five reasons for submitting to MONAMI 2020:\r 1. Top-class Keynote Speakers:\r  - Prof. Jiangchuan Liu, Simon Fraser University, British Columbia, Canada\r          (IEEE fellow, fellow of the Canadian Academy of Engineering, \r          Visiting Chair Professor of Tsinghua University, China)\r  - Prof. Mianxiong Dong, Professor and Vice President, Muroran Institute \r          of Technology, Japan\r  - Prof. Jianping Wang, City University of Hong Kong, China Hong Kong\r  - Prof. Yusheng Ji, National Institute of Informatics (NII), Japan\r  2. Springer's LNICST Publication:\r  - The proceedings will be published as Springer’s LNICST, which is indexed \rby EI, ISI, Scopus, CrossRef, Google Scholar, dblp, MAS, EBSCO, Microsoft \rAcademic Search, CiteSeerX, and more.\r  3. Collaborated Journals:\r  – Springer Mobile Networks and Applications (MONET) (IF: 2.39) \r  – MDPI Sensors (IF: 3.031), SI: \"Emerging Blockchain Technology Solutions \r    for Real-world Applications (EBTSRA)\"\r  - Springer Peer-to-Peer Networking and Applications (IF: 2.397), SI: \"Blockchain \r    for Peer-to-Peer Computing\"\r  – Some others waiting for approval\r 4. Awards and social events for Ten Years Ceremony of MONAMI conference\r  - A variety of paper awards\r  - A number of young invited speakers\r  - Possible social events in the Tokyo Disney Resort\r 5. Attendees first\r  - Considering the coronavirus, MONAMI 2020 has a flexible policy to protect\rour health, including postponing the conference date and permitting online\rpresentation if necessary.\r   OVERVIEW\r========\r MONAMI 2020 offers the opportunity to leading researchers, industry \rprofessionals and academics around the world to meet and discuss the \rlatest advances in these areas and present results related to technologies \rfor realizing the sustainable ecosystem of the future mobile computing systems. \rThe aim of the forum is to disseminate the latest innovative mobile network \rsolutions for increased competition and cooperation in an environment with \ra multitude of access technologies, network operators and business actors. \rPotential topics include but are not limited to the following:\r   – Multiaccess networks and resource management \r  – Blockchain technologies in mobile environment \r  – Cooperative communications \r  – V2X (vehicular to everything) technologies \r  – Mobile network management and virtualization \r  – Software defined networks for mobile networking \r  – Routing and resource allocation for hybrid network (hNets) \r  – Game-theoretical analysis for the future mobile networking market \r  – 5G network architecture, management technologies, and services \r  – Operation and management of virtualized network functions \r  – Network function virtualization and software defined networking \r  – Information-Centric Networking and Named-Data-Networking technologies \r    for mobile networks \r  – Joint management and orchestration of cloud and networking \r  – Energy efficiency for multiaccess networks \r  – Energy harvesting technologies for mobile networks \r  – Advanced algorithms such as Deep Learning for mobile network management \r  – Security and privacy issues for emerging mobile services \r  – Emerging multimedia services, service enablers and management \r  – Mobile edge computing (MEC) architecture, protocol, and services \r  – Design, implementation, and testbed/experimental evaluations \r   WEB SITE\r========\r http://mon-ami.org/\r  GENERAL CHAIRS\r==================\r   – Xun Shao (Kitami Institute of Technology, Japan)\r  Email: x-shao@mail.kitami-it.ac.jp\r  – Kui Wu (University of Victoria, Canada)  \r  Email: wkui@uvic.ca \r  – Tan Hwee Pink (Singapore Management University, Singapore)  \r  Email: hptan@smu.edu.sg \r  TPC CHAIRS\r==================\r   – Seng Loke (Deakin University, Australia)    \r  – Zhi Liu (Shizuoka University, Japan)\r  – Kien Nguyen (Chiba University, Japan)  \r  Workshops Chair\r==================\r   – Zhen Ling (Southeast University, China)\r  Workshops\r==================\r (1) Workshop on Edge Intelligence\r  - Chair: Prof. Peng Li, The University of Aizu, Japan\r  - Chair: Prof. Celimuge Wu, The University of Electro-Communications, Japan\r (2) Workshop on 5G/B5G Security\r  - Chair: Prof. Zhixin Liu, Yanshan University, China\r (3) Workshop on IoT Robot\r  - Chair: Prof. Cheng Zhang, Waseda University, Japan\r (4) Workshop on Enabling Real-time Edge Data Analytics through Edge Device \r    Cloud for Intelligent Applications\r  - Chair: Dr. Pethuru Raj, Reliance Jio Infocomm. Ltd. (RJIL), India\r  - Chair: Prof. chellammal Surianarayanan, Bharathidasan University Constituent \r           Arts & Science College, India\r   Publicity and Social Media Chairs\r=================================\r   – Wei Zhao (Anhui University of Technology, China)\r  – Nguyen Huu Thanh (Hanoi University of Science and Technology, Vietnam)\r   Publications Chair\r==================\r   – Guoming Tang (National University of Defense Technology, China)\r  WEB CHAIR\r==================\r   – Phi Le Nguyen (Hanoi University of Science and Technology, Vietnam)\r   IMPORTANT DATES\r==================\r   – Paper submission:  Apr. 20\r  – Notification: 30 May 2020  \r  – Final submission: 25 June 2020  \r\n", 
-    "categories" : [
-        "mobile networks", 
-        "management", 
-        "mobile edge computing", 
-        "5G"
-    ], 
-    "dateRange" : [
-        "2020-08-24T00:00:00.000+0000", 
-        "2020-08-27T00:00:00.000+0000"
-    ], 
-    "deadline" : "2020-04-10T00:00:00.000+0000", 
-    "finalDue" : "2020-06-25T00:00:00.000+0000", 
-    "location" : "Chiba, Japan", 
-    "metadata" : {
-        "plugins" : {
-            "wikicfp" : {
-                "dateExtracted" : "2020-04-04T23:23:30.978+0000", 
-                "websiteUrl" : "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=94233&copyownerid=110304", 
-                "website" : "http://www.wikicfp.com", 
-                "domain" : "wikicfp"
-            }
-        }
-    }, 
-    "notificationDue" : "2020-05-22T00:00:00.000+0000", 
-    "title" : " MONAMI  2020 : MONAMI 2020 - 10th EAI International Conference on Mobile Networks and Management", 
-    "url" : "http://mon-ami.org/"
-},
-{ 
-    "_comment":"modify deadline date",
-    "_id" : "c8c5e0ec-925b-5d9c-972c-7df9acd36bc6", 
-    "bulkText" : "\nEAI MONAMI 2020 - 10th EAI International Conference on Mobile Networks and Management:\r\"Intelligent Mobility and Edge Computing  for a Smarter World\"\r Five reasons for submitting to MONAMI 2020:\r 1. Top-class Keynote Speakers:\r  - Prof. Jiangchuan Liu, Simon Fraser University, British Columbia, Canada\r          (IEEE fellow, fellow of the Canadian Academy of Engineering, \r          Visiting Chair Professor of Tsinghua University, China)\r  - Prof. Mianxiong Dong, Professor and Vice President, Muroran Institute \r          of Technology, Japan\r  - Prof. Jianping Wang, City University of Hong Kong, China Hong Kong\r  - Prof. Yusheng Ji, National Institute of Informatics (NII), Japan\r  2. Springer's LNICST Publication:\r  - The proceedings will be published as Springer’s LNICST, which is indexed \rby EI, ISI, Scopus, CrossRef, Google Scholar, dblp, MAS, EBSCO, Microsoft \rAcademic Search, CiteSeerX, and more.\r  3. Collaborated Journals:\r  – Springer Mobile Networks and Applications (MONET) (IF: 2.39) \r  – MDPI Sensors (IF: 3.031), SI: \"Emerging Blockchain Technology Solutions \r    for Real-world Applications (EBTSRA)\"\r  - Springer Peer-to-Peer Networking and Applications (IF: 2.397), SI: \"Blockchain \r    for Peer-to-Peer Computing\"\r  – Some others waiting for approval\r 4. Awards and social events for Ten Years Ceremony of MONAMI conference\r  - A variety of paper awards\r  - A number of young invited speakers\r  - Possible social events in the Tokyo Disney Resort\r 5. Attendees first\r  - Considering the coronavirus, MONAMI 2020 has a flexible policy to protect\rour health, including postponing the conference date and permitting online\rpresentation if necessary.\r   OVERVIEW\r========\r MONAMI 2020 offers the opportunity to leading researchers, industry \rprofessionals and academics around the world to meet and discuss the \rlatest advances in these areas and present results related to technologies \rfor realizing the sustainable ecosystem of the future mobile computing systems. \rThe aim of the forum is to disseminate the latest innovative mobile network \rsolutions for increased competition and cooperation in an environment with \ra multitude of access technologies, network operators and business actors. \rPotential topics include but are not limited to the following:\r   – Multiaccess networks and resource management \r  – Blockchain technologies in mobile environment \r  – Cooperative communications \r  – V2X (vehicular to everything) technologies \r  – Mobile network management and virtualization \r  – Software defined networks for mobile networking \r  – Routing and resource allocation for hybrid network (hNets) \r  – Game-theoretical analysis for the future mobile networking market \r  – 5G network architecture, management technologies, and services \r  – Operation and management of virtualized network functions \r  – Network function virtualization and software defined networking \r  – Information-Centric Networking and Named-Data-Networking technologies \r    for mobile networks \r  – Joint management and orchestration of cloud and networking \r  – Energy efficiency for multiaccess networks \r  – Energy harvesting technologies for mobile networks \r  – Advanced algorithms such as Deep Learning for mobile network management \r  – Security and privacy issues for emerging mobile services \r  – Emerging multimedia services, service enablers and management \r  – Mobile edge computing (MEC) architecture, protocol, and services \r  – Design, implementation, and testbed/experimental evaluations \r   WEB SITE\r========\r http://mon-ami.org/\r  GENERAL CHAIRS\r==================\r   – Xun Shao (Kitami Institute of Technology, Japan)\r  Email: x-shao@mail.kitami-it.ac.jp\r  – Kui Wu (University of Victoria, Canada)  \r  Email: wkui@uvic.ca \r  – Tan Hwee Pink (Singapore Management University, Singapore)  \r  Email: hptan@smu.edu.sg \r  TPC CHAIRS\r==================\r   – Seng Loke (Deakin University, Australia)    \r  – Zhi Liu (Shizuoka University, Japan)\r  – Kien Nguyen (Chiba University, Japan)  \r  Workshops Chair\r==================\r   – Zhen Ling (Southeast University, China)\r  Workshops\r==================\r (1) Workshop on Edge Intelligence\r  - Chair: Prof. Peng Li, The University of Aizu, Japan\r  - Chair: Prof. Celimuge Wu, The University of Electro-Communications, Japan\r (2) Workshop on 5G/B5G Security\r  - Chair: Prof. Zhixin Liu, Yanshan University, China\r (3) Workshop on IoT Robot\r  - Chair: Prof. Cheng Zhang, Waseda University, Japan\r (4) Workshop on Enabling Real-time Edge Data Analytics through Edge Device \r    Cloud for Intelligent Applications\r  - Chair: Dr. Pethuru Raj, Reliance Jio Infocomm. Ltd. (RJIL), India\r  - Chair: Prof. chellammal Surianarayanan, Bharathidasan University Constituent \r           Arts & Science College, India\r   Publicity and Social Media Chairs\r=================================\r   – Wei Zhao (Anhui University of Technology, China)\r  – Nguyen Huu Thanh (Hanoi University of Science and Technology, Vietnam)\r   Publications Chair\r==================\r   – Guoming Tang (National University of Defense Technology, China)\r  WEB CHAIR\r==================\r   – Phi Le Nguyen (Hanoi University of Science and Technology, Vietnam)\r   IMPORTANT DATES\r==================\r   – Paper submission:  Apr. 20\r  – Notification: 30 May 2020  \r  – Final submission: 25 June 2020  \r\n", 
-    "categories" : [
-        "mobile networks", 
-        "management", 
-        "mobile edge computing", 
-        "5G"
-    ], 
-    "dateRange" : [
-        "2020-08-24T00:00:00.000+0000", 
-        "2020-08-27T00:00:00.000+0000"
-    ], 
-    
-    "deadline" : "2020-05-10T00:00:00.000+0000", 
-    "finalDue" : "2020-06-25T00:00:00.000+0000", 
-    "location" : "Chiba, Japan", 
-    "metadata" : {
-        "plugins" : {
-            "wikicfp" : {
-                "dateExtracted" : "2020-04-04T23:23:30.978+0000", 
-                "websiteUrl" : "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=94233&copyownerid=110304", 
-                "website" : "http://www.wikicfp.com", 
-                "domain" : "wikicfp"
-            }
-        }
-    }, 
-    "notificationDue" : "2020-05-22T00:00:00.000+0000", 
-    "title" : " MONAMI  2020 : MONAMI 2020 - 10th EAI International Conference on Mobile Networks and Management", 
-    "url" : "http://mon-ami.org/"
-}
 
-]
+    "_comment": "This is normal json",
+    "_id" : "c8c5e0ec-925b-5d9c-972c-7df9acd36bc6", 
+    "bulkText" : "Something", 
+    "categories" : [
+        "Something"
+    ], 
+    "dateRange" : [
+        "2020-08-25T00:00:00.000+0000", 
+        "2020-08-27T00:00:00.000+0000"
+    ], 
+    "deadline" : "2020-01-10T00:00:00.000+0000", 
+    "finalDue" : "2020-06-25T00:00:00.000+0000", 
+    "location" : "Something", 
+    "metadata" : {
+        "plugins" : {
+            "wikicfp" : {
+                "dateExtracted" : "2020-01-04T23:23:30.978+0000", 
+                "websiteUrl" : "http://www.something.com/something", 
+                "website" : "http://www.something.com", 
+                "domain" : "wikicfp"
+            }
+        }
+    }, 
+    "notificationDue" : "2020-05-22T00:00:00.000+0000", 
+    "title" : "Something", 
+    "url" : "http://www.something.com"
+}]
