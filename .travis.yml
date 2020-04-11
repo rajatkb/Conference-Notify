@@ -33,8 +33,7 @@ matrix:
         - npm run test --watch=false --browsers=ChromeHeadless
         - npm run build --prod
       
-      # Uncomment these after adding tests and proper build script for Search-Service
-
+      # Uncomment the line below after adding proper test script for Search-Service
       before_script: 
         - cd Search-Service
         - npm install
@@ -42,7 +41,7 @@ matrix:
       node_js: 
         - "10"
       script:
-        - npm run test --watch=false --browsers=ChromeHeadless
+        # - npm run test --watch=false --browsers=ChromeHeadless
         - npm run build --prod
 
  
