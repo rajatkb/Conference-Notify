@@ -23,6 +23,26 @@ matrix:
         - ng test --watch=false --browsers=ChromeHeadless
         - ng build --prod
 
+      before_script:
+        - cd Notifier-Service
+      language: node_js
+      node_js: 
+        - "10"
+      script:
+        - ng lint
+        - ng test --watch=false --browsers=ChromeHeadless
+        - ng build --prod
+
+      before_script:
+        - cd Search-Service
+      language: node_js
+      node_js: 
+        - "10"
+      script:
+        - ng lint
+        - ng test --watch=false --browsers=ChromeHeadless
+        - ng build --prod
+
       # before_script:
       #   - cd Notifier-Service
       #   - ng lint
