@@ -22,17 +22,9 @@ matrix:
         - ng lint
         - ng test --watch=false --browsers=ChromeHeadless
         - ng build --prod
-        - cd Notifier-Service
-        - ng lint
-        - ng test --watch=false --browsers=ChromeHeadless
-        - npm run build
-        - cd Search-Service
-        - ng lint
-        - ng test --watch=false --browsers=ChromeHeadless
-        - npm run build
 
-      # before_script:
-      #   - cd Notifier-Service
+      before_script:
+        - cd Notifier-Service
       #   - ng lint
       #   - ng test --watch=false --browsers=ChromeHeadless
       #   - npm run build
