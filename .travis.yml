@@ -5,8 +5,6 @@ matrix:
       install: 
         - sudo python -m pip install pymongo
         - pip install -r Scrapper-Service/requirements.txt --user
-        - npm install typescript -g
-        - npm i jest @types/jest ts-jest -g
       language: python
       python: 
         - "3.6"
@@ -27,22 +25,24 @@ matrix:
       
       before_script: 
         - cd Notifier-service
+        - npm install
+      language: node_js
+      node_js: 
+        - "10"
+      script:
+        - npm run test --watch=false --browsers=ChromeHeadless
+        - npm run build --prod
+      
+      # Uncomment these after adding tests and proper build script for Search-Service
+
+      before_script: 
+        - cd Search-Service
+        - npm install
       language: node_js
       node_js: 
         - "10"
       script:
         # - npm run test --watch=false --browsers=ChromeHeadless
         - npm run build --prod
-      
-      # Uncomment these after adding tests and proper build script for Search-Service
-
-      # before_script: 
-      #   - cd Search-Service
-      # language: node_js
-      # node_js: 
-      #   - "10"
-      # script:
-      #   - npm run test --watch=false --browsers=ChromeHeadless
-      #  - npm run build --prod
 
  
