@@ -15,6 +15,7 @@ matrix:
         - cd User-App
         - npm install --save-dev @angular-devkit/build-angular
         - npm install -g --silent @angular/cli
+        - cd Notifier-service
       language: node_js
       node_js: 
         - "10"
@@ -23,13 +24,13 @@ matrix:
         - ng test --watch=false --browsers=ChromeHeadless
         - ng build --prod
 
-      before_script:
-        - cd Notifier-service
-        - ng lint
-        - ng test --watch=false --browsers=ChromeHeadless
-        - npm run build
-        - cd Search-Service
-        - ng lint
-        - ng test --watch=false --browsers=ChromeHeadless
-        - npm run build
+      # before_script:
+      #   - cd Notifier-service
+      #   - ng lint
+      #   - ng test --watch=false --browsers=ChromeHeadless
+      #   - npm run build
+      #   - cd Search-Service
+      #   - ng lint
+      #   - ng test --watch=false --browsers=ChromeHeadless
+      #   - npm run build
  
