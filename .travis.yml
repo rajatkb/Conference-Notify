@@ -39,16 +39,9 @@ matrix:
       node_js: 
         - "10"
       script:
+        - npm run lint
         - npm run test --watch=false --browsers=ChromeHeadless
-        - npm run build --prod
+        # 'tsc' not specified as no proper build srcipt provided for Search-Service
+        # - npm run build --prod
 
-      # before_script:
-      #   - cd Notifier-service
-      #   - ng lint
-      #   - ng test --watch=false --browsers=ChromeHeadless
-      #   - npm run build
-      #   - cd Search-Service
-      #   - ng lint
-      #   - ng test --watch=false --browsers=ChromeHeadless
-      #   - npm run build
  
