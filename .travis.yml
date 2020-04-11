@@ -39,8 +39,8 @@ matrix:
       node_js: 
         - "10"
       script:
-        - ng test --watch=false --browsers=ChromeHeadless
-        - ng build --prod
+        - npm run test --watch=false --browsers=ChromeHeadless
+        - npm run build --prod
 
       # before_script:
       #   - cd Notifier-service
