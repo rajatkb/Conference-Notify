@@ -29,12 +29,11 @@ matrix:
       node_js: 
         - "10"
       script:
-        - ng lint
-        - ng test --watch=false --browsers=ChromeHeadless
-        - ng build --prod
+        - npm run test --watch=false --browsers=ChromeHeadless
+        - npm run build --prod
       
       # Uncomment these after adding tests and proper build script for Search-Service
-      
+
       # before_script: 
       #   - cd Search-Service
       # language: node_js
