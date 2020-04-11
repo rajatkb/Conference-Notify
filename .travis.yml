@@ -33,14 +33,15 @@ matrix:
         - ng test --watch=false --browsers=ChromeHeadless
         - ng build --prod
       
-      before_script: 
-        - cd Search-Service
-      language: node_js
-      node_js: 
-        - "10"
-      script:
-        - npm run test --watch=false --browsers=ChromeHeadless
-        # 'tsc' not specified as no proper build srcipt provided for Search-Service
-        # - npm run build --prod
+      # Uncomment these after adding tests and proper build script for Search-Service
+      
+      # before_script: 
+      #   - cd Search-Service
+      # language: node_js
+      # node_js: 
+      #   - "10"
+      # script:
+      #   - npm run test --watch=false --browsers=ChromeHeadless
+      #   - npm run build --prod
 
  
