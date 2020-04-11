@@ -15,7 +15,26 @@ matrix:
         - cd User-App
         - npm install --save-dev @angular-devkit/build-angular
         - npm install -g --silent @angular/cli
+      language: node_js
+      node_js: 
+        - "10"
+      script:
+        - ng lint
+        - ng test --watch=false --browsers=ChromeHeadless
+        - ng build --prod
+      
+      before_script: 
         - cd Notifier-service
+      language: node_js
+      node_js: 
+        - "10"
+      script:
+        - ng lint
+        - ng test --watch=false --browsers=ChromeHeadless
+        - ng build --prod
+      
+      before_script: 
+        - cd Search-Service
       language: node_js
       node_js: 
         - "10"
