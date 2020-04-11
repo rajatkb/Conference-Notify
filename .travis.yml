@@ -36,13 +36,13 @@ matrix:
       
       # Uncomment these after adding tests and proper build script for Search-Service
 
-      before_script: 
-        - cd Search-Service
-      language: node_js
-      node_js: 
-        - "10"
+      # before_script: 
+      #   - cd Search-Service
+      # language: node_js
+      # node_js: 
+      #   - "10"
       # script:
       #   - npm run test --watch=false --browsers=ChromeHeadless
-        - npm run build --prod
+      #  - npm run build --prod
 
  
