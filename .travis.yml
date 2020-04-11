@@ -42,7 +42,7 @@ matrix:
       node_js: 
         - "10"
       script:
-        # - npm run test --watch=false --browsers=ChromeHeadless
+        - npm run test --watch=false --browsers=ChromeHeadless
         - npm run build --prod
 
  
