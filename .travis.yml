@@ -3,10 +3,9 @@ matrix:
   include: 
 
       install: 
-        - python -m pip install pymongo
+        - sudo python -m pip install pymongo
         - pip install -r Scrapper-Service/requirements.txt
       language: python
-      sudo: true
       python: 
         - "3.6"
       script: 
