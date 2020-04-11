@@ -39,7 +39,6 @@ matrix:
       node_js: 
         - "10"
       script:
-        - ng lint
         - ng test --watch=false --browsers=ChromeHeadless
         - ng build --prod
 
