@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { SearchPageComponent } from './search-page/search-page.component';
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    RouterModule
     ],
   providers: [],
   bootstrap: [AppComponent]
