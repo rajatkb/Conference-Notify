@@ -25,11 +25,11 @@ matrix:
         - ng build --prod
 
       before_script:
-        - cd Notifier-Service
+        - cd ./Notifier-Service
         - ng lint
         - ng test --watch=false --browsers=ChromeHeadless
         - npm run build
-        - cd Search-Service
+        - cd ./Search-Service
         - ng lint
         - ng test --watch=false --browsers=ChromeHeadless
         - npm run build
