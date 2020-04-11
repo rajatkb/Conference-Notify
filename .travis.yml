@@ -5,6 +5,9 @@ matrix:
       install: 
         - sudo python -m pip install pymongo
         - pip install -r Scrapper-Service/requirements.txt --user
+        - npm install typescript -g
+        - npm i jest @types/jest ts-jest -D
+        - npm i ts-jest
       language: python
       python: 
         - "3.6"
