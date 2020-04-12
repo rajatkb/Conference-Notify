@@ -26,7 +26,7 @@ export class App {
     constructor(private container:AppContainer){
         this.app = express();
         this.app.use(cors({
-            origin: [process.env.USER_ORIGIN],
+            origin: [ `http://localhost:${process.env.SERVER_PORT}`, process.env.USER_ORIGIN],
             methods: ["GET", "POST", "PATCH", "PUT"]
         }));
         this.routes = container.getRoutes()
