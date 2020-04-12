@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { Application} from 'express';
 import { Server } from 'http';
 import { Logger } from './utility/log';
@@ -16,15 +17,19 @@ export class App {
     private server:Server|undefined;
     public databaseobj:Database;
     
-    // Routes for registering toe express application
-    private routes:Route[] =[];
     // listeners to instantiate for listening
     private listeners:Listener[] = [];
 
-
+    // Routes for registering toe express application
+    private routes:Route[] =[];
+    
     constructor(private container:AppContainer){
         this.app = express();
-        this.routes = container.getRoutes();
+        this.app.use(cors({
+            origin: [ `http://localhost:${process.env.SERVER_PORT}`, process.env.USER_ORIGIN],
+            methods: ["GET", "POST", "PATCH", "PUT"]
+        }));
+        this.routes = container.getRoutes()
         this.databaseobj=container.getDatabase();
 
         // EventHandler to trigger Interrupt signal and close the database
