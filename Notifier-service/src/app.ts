@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { Application , Request , Response } from 'express';
+import { Application} from 'express';
 import { Server } from 'http';
 import { Logger } from './utility/log';
 import { Route } from './interfaces/route';
@@ -16,14 +16,13 @@ export class App {
     private app:Application;
     private server:Server|undefined;
     public databaseobj:Database;
-
     
-    // Routes for registering toe express application
-    private routes:Route[] =[];
     // listeners to instantiate for listening
     private listeners:Listener[] = [];
 
-
+    // Routes for registering toe express application
+    private routes:Route[] =[];
+    
     constructor(private container:AppContainer){
         this.app = express();
         this.app.use(cors({

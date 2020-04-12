@@ -20,6 +20,10 @@
         {
             "filename":"plugins.demo",
             "class":"DemoScrapper"
+        },
+        {
+            "filename": "plugins.guide2research",
+            "class": "Guide2ResearchScrapper"
         }
     ]
 }

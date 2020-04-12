@@ -35,4 +35,8 @@ export class AppContainer{
     public getListeners():Listener[]{
         return this.container.getAll<Listener>(Listener)
     }
+    public getDatabase():Database{
+        let databaseobj=this.container.get(Database);
+        return databaseobj;
+    }
 }
