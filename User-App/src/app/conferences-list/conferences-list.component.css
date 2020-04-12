@@ -1,0 +1,14 @@
+.main{
+  background-color: rgb(218, 214, 214);
+  height: 100%;
+  width: 100%;
+}
+.head{
+  text-align: center;
+  padding:8px;
+}
+mat-card {
+  height: 200px;
+  width: 250px;
+  margin: 2%;
+}
