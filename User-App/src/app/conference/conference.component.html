@@ -1,0 +1,19 @@
+<div class="conference" *ngFor="let val of conference">
+<mat-card>
+  <mat-card-title>
+    {{val.title}}
+  </mat-card-title>
+  <mat-card-content>
+    <br>
+    {{val.bulkText}} <br> <br>
+    <b>Categories:</b>[ {{val.categories}} ]<br>
+    DateRange: [ {{val.dateRange}} ] <br>
+    For more detail visit <a href="{{val.url}}">website here</a> <br>
+    FinalDue: {{val.finalDue}} <br>
+    Location: {{val.location}}
+  </mat-card-content>
+  <mat-card-footer>
+    <b>Deadline: {{val.deadline}} </b>
+  </mat-card-footer>
+</mat-card>
+</div>

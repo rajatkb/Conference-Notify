@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Conference } from '../models/conference.model';
+import { ConferencesService } from '../services/conferences.service';
 
 @Component({
   selector: 'app-conferences-list',
@@ -9,15 +11,11 @@ import { HttpClient } from '@angular/common/http';
 
 
 export class ConferencesListComponent implements OnInit {
-
-constructor(private http: HttpClient) { }
+public conferences: Conference[];
+constructor(private http: HttpClient, public conferencesservice: ConferencesService) { }
 
 ngOnInit() {
-    let conferences: any[];
-    this.http.get('http://localhost:3000/conferences/0/10').subscribe((conference) => {
-      conferences.push(conference);
-    });
-    console.log(conferences);
+  this.conferences = this.conferencesservice.getConferences();
   }
 
 }

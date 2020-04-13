@@ -19,6 +19,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { ConferencesListComponent } from './conferences-list/conferences-list.component';
+import { ConferenceComponent } from './conference/conference.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ConferencesListComponent } from './conferences-list/conferences-list.co
     SignupComponent,
     HomeComponent,
     SearchPageComponent,
-    ConferencesListComponent
+    ConferencesListComponent,
+    ConferenceComponent
   ],
   imports: [
     BrowserModule,
