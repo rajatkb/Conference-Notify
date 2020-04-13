@@ -61,7 +61,7 @@ class Conference:
         
         if categories is not None:
             category_query = {"categories":{"$each":categories}}
-            self.query["$push"]=category_query
+            self.query["$addToSet"]=category_query
         
         
     def __generate_uuid(self):
