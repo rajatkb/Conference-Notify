@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Conference } from '../models/conference.model';
 import { ConferencesService } from '../services/conferences.service';
@@ -10,12 +10,30 @@ import { ConferencesService } from '../services/conferences.service';
 })
 
 
-export class ConferencesListComponent implements OnInit {
+export class ConferencesListComponent implements OnInit, OnDestroy {
 public conferences: Conference[];
-constructor(private http: HttpClient, public conferencesservice: ConferencesService) { }
+offset = 0;
+count = 3;
+constructor( public conferencesservice: ConferencesService) { }
+
+@HostListener('window:scroll', ['$event'])
+    scrollHandler(event) {
+      console.log('Scroll Event');
+      console.log(this.offset, this.count);
+      this.getConferenceslist(this.offset, this.count);
+    }
 
 ngOnInit() {
-  this.conferences = this.conferencesservice.getConferences();
+  this.getConferenceslist(this.offset, this.count);
+  }
+
+  getConferenceslist(offSet, Count) {
+    this.conferences = this.conferencesservice.getConferences(offSet, Count);
+    this.offset += this.count;
+    this.count += this.count;
+  }
+  ngOnDestroy() {
+
   }
 
 }

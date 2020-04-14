@@ -8,9 +8,9 @@ import { Conference } from '../models/conference.model';
 export class ConferencesService {
   constructor(private http: HttpClient) { }
 
-  getConferences() {
+  getConferences(offset, count) {
     const conferences: Conference[] = [];
-    this.http.get('http://localhost:3000/conferences/0/3').subscribe((conference) => {
+    this.http.get('http://localhost:3000/conferences/' + offset + '/' + count).subscribe((conference) => {
       const key = 'payload';
       conference[key].forEach(
         val => {

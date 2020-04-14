@@ -2,7 +2,7 @@
   <div class="head">
     <h1>List of Conferences near you</h1>
   </div>
-  <div class="conference-list" class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="centre">
+  <div class="conference-list" (scroll)="scrollHandler($event)" class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="centre">
     <div class="conference" *ngFor="let conference of conferences">
       <a routerLink = "conference">
       <mat-card>
