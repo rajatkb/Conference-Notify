@@ -14,12 +14,13 @@ export class ConferenceServiceI extends ConferenceService {
     }
     async getOne(queryKey: string, queryValue: string): Promise<Conference | null> {
         this.logger.debug("getOne invoked")
+        let queryObj: {[key: string]: any} = {}
+        queryObj[queryKey] = queryValue
         return new Promise<Conference | null>((resolve, reject) => {
-            this.conferenceModelMongo.getOne({queryKey: queryValue}).then((value)=>{
+            this.conferenceModelMongo.getOne(queryObj).then((value)=>{
                 if(value == null){
                     resolve(null)
                 }else{
-                    //let result = value.toObject()
                     let conference: Conference = value.toObject()
                     resolve(conference)
                 }
@@ -28,21 +29,7 @@ export class ConferenceServiceI extends ConferenceService {
                 reject(error)
             })
         })
-        // return new Promise<Conference | null>((resolve, reject) => {
-        //     this.conferenceModel.getOne().then(value => {
-        //         if (value == null) {
-        //             resolve(null)
-        //         }
-        //         else {
-        //             let result = value.toObject()
-        //             let conference: Conference = result
-        //             resolve(conference)
-        //         }
-        //     }).catch(err => {
-        //         this.logger.error("getOne retrieval failed: " + err)
-        //         reject(err)
-        //     })
-        // })
+
     }
 
 
