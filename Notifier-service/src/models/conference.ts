@@ -50,11 +50,11 @@ export class ConferenceModelMongo extends ConferenceModel {
     }
 
 
-    async getOne(): Promise<ConferenceDocument | null> {
+    async getOne(query:any = {}): Promise<ConferenceDocument | null> {
         this.logger.debug("getOne invoked")
         let result = this.makeQuery((model) => {
             return new Promise<ConferenceDocument | null>((resolve, reject) => {
-                model.findOne({}, (err, res) => {
+                model.findOne(query, (err, res) => {
                     if (!err) {
                         resolve(res);
                     }

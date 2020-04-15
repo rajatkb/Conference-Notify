@@ -3,30 +3,46 @@ import { ConferenceModel } from '../interfaces/models/conference'
 import { Conference } from '../schemas/conferences';
 import { Logger } from '../utility/log';
 import { injectable } from 'inversify';
+import { ConferenceModelMongo } from '../models/conference';
 
 @injectable()
 export class ConferenceServiceI extends ConferenceService {
     private logger = new Logger(this.constructor.name).getLogger()
-    constructor(private conferenceModel: ConferenceModel) {
+    constructor(private conferenceModel: ConferenceModel,
+                private conferenceModelMongo:ConferenceModelMongo) {
         super()
     }
-    async getOne(): Promise<Conference | null> {
+    async getOne(queryKey: string, queryValue: string): Promise<Conference | null> {
         this.logger.debug("getOne invoked")
         return new Promise<Conference | null>((resolve, reject) => {
-            this.conferenceModel.getOne().then(value => {
-                if (value == null) {
+            this.conferenceModelMongo.getOne({queryKey: queryValue}).then((value)=>{
+                if(value == null){
                     resolve(null)
-                }
-                else {
-                    let result = value.toObject()
-                    let conference: Conference = result
+                }else{
+                    //let result = value.toObject()
+                    let conference: Conference = value.toObject()
                     resolve(conference)
                 }
-            }).catch(err => {
-                this.logger.error("getOne retrieval failed: " + err)
-                reject(err)
+            },(error)=>{
+                this.logger.error("getOne retrieval failed: " + error)
+                reject(error)
             })
         })
+        // return new Promise<Conference | null>((resolve, reject) => {
+        //     this.conferenceModel.getOne().then(value => {
+        //         if (value == null) {
+        //             resolve(null)
+        //         }
+        //         else {
+        //             let result = value.toObject()
+        //             let conference: Conference = result
+        //             resolve(conference)
+        //         }
+        //     }).catch(err => {
+        //         this.logger.error("getOne retrieval failed: " + err)
+        //         reject(err)
+        //     })
+        // })
     }
 
 
