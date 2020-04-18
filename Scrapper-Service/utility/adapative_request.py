@@ -11,5 +11,5 @@ class AdaptiveRequest:
         (requests.HTTPError , requests.ConnectionError), #retry if errors encountered
         max_time=300 #give up after 300 seconds time
     )
-    def get(self , link ):
-        return requests.get(link , timeout = self.max_wait_time)
+    def get(self , link , **kwargs):
+        return requests.get(link , timeout = self.max_wait_time , **kwargs)
