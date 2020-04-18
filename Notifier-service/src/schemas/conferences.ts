@@ -10,11 +10,11 @@ type Conference = {
     };
     
     categories?:Array<string>;
-    dataRange?:Array<Date>;
+    dateRange?:Array<Date>;
     finalDue?:string;
     location?:string;
     notificationDue?:Date;
-    bulkTest?:string; // optional field
+    bulkText?:string; // optional field
 }
 
 interface ConferenceDocument extends Document {
@@ -26,18 +26,17 @@ interface ConferenceDocument extends Document {
     };
     
     categories?:Array<string>;
-    dataRange?:Array<Date>;
+    dateRange?:Array<Date>;
     finalDue?:string;
     location?:string;
     notificationDue?:Date;
-    bulkTest?:string; // optional field
+    bulkText?:string; // optional field
 } 
 
 let ConferenceSchema = new Schema({
     title:{type:String , required:true},
     url:{type:String , required:true},
     deadline:{type:Date , required:true},
-
 } , {strict : false});
 
 export {Conference , ConferenceDocument , ConferenceSchema}

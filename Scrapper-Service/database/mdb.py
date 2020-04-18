@@ -7,7 +7,7 @@ from commons import Database
 
 class MongoDatabase(Database):
     
-    def __init__(   self  , logger:Logger ,  database_name:str , collection_name:str  , 
+    def __init__(   self  , logger:Logger ,  database_name:str , collection_name:str , 
                     host:str ='localhost' , port:int=27017 , maxPoolSize:int = None , **kwargs):
         """Mongo database object
         Arguments:
@@ -35,7 +35,7 @@ class MongoDatabase(Database):
             ## Quirks of pymongo client , any error from this statement below
             ## leads to unsuported operation for database , where as intended
             ## strcuture is a collection. Should be addressed in the pymongo
-            self.logger.debug("Using Collection name {}".format(collection_name))
+            self.logger.debug("Using Collection name {}".format("conferences"))
             collection = db[collection_name]
             client.server_info()
             self.logger.info("Succefully created mongodb client connection on host:{} , port:{} ".format(host , port))
@@ -63,7 +63,7 @@ class MongoDatabase(Database):
         else:
             _id = conference_data._id
             try:
-                res = self.collection.update_one( {'_id':_id}  ,{'$set' :conference_data.query_dict()} , upsert = True)
+                res = self.collection.update_one( {'_id':_id}  ,conference_data.get_query(), upsert = True)
                 self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
                                     .format(res.matched_count , res.modified_count , res.upserted_id))
             except Exception as e:

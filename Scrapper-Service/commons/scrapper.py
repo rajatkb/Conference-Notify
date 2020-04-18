@@ -1,6 +1,6 @@
 import logging
 import datetime
-from utility import get_logger , print_start
+from utility import get_logger , print_start , AdaptiveRequest
 from datamodels import Conference, Metadata
 from abc import ABC , abstractclassmethod , abstractmethod , abstractproperty
 import requests
@@ -27,17 +27,21 @@ class Scrapper(ABC):
             return string
 
 
-    def __init__(self , context_name , log_level , log_stream  , getDatabaseObject = lambda logger: None ,  **kwargs):
-        self.logger = get_logger(context_name , log_level , log_stream)  
+
+
+    def __init__(self , context_name , log_level , log_stream , log_folder , database_module , db_configuration ,   **kwargs):
+        self.logger = get_logger(context_name , log_level , log_stream , log_folder)  
         print_start(self.logger)   
-        self.db = getDatabaseObject(self.logger)
+        self.db = database_module(self.logger , **db_configuration)
         self.logger.info("{} setup complete !!".format(context_name))
+        self.arequest = AdaptiveRequest()
+
         if self.db != None:
             self.push_todb = self.db.put
         else:
             raise ValueError("No database parameter given")
 
-    def get_page(self, qlink , debug_msg = "failed to extract page"):
+    def get_page(self, qlink , debug_msg = "failed to extract page", **kwargs):
         """[summary]
         
         Arguments:
@@ -52,7 +56,7 @@ class Scrapper(ABC):
         Returns:
             [request] -- request page
         """
-        req = requests.get(qlink , timeout = 1)
+        req = self.arequest.get(qlink, **kwargs)
         if 200 <= req.status_code <=299:
             self.logger.debug(debug_msg)
         else:

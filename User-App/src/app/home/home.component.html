@@ -1,1 +1,53 @@
-<p>Welcometo Home page :)</p>
+<div class="container" fxLayout.xs="column">
+<mat-card class="heading">
+  <span class="txt">The real world is calling</span> <br> <br>
+  <p class="subhead">Attend a conference to meet people, try something new, or do moreof what you love</p>
+  <button class="attend-btn"><b>Attend Conference</b></button>
+</mat-card>
+</div>
+<div class="searchbox">
+<input type="text" placeholder="Explore conferences here ⮕" (click)="navigateToSearchPage()"><button class="fa fa-user icon">Search</button>
+</div>
+<div class="conference-head">
+<p class="head">Conferences near you</p>
+<div>
+  <span class="nrml-txt">
+    Explore knowledge in your area in future
+  </span>
+ <span class = "view-txt">
+   <a routerLink = "">view all</a>
+ </span>
+</div >
+</div>
+<div id="conference-list" class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="centre">
+  <mat-card fxFlex="20%">
+    <mat-card-title><img src="../../assets/people_gathering_inside_white_.png" alt=""></mat-card-title>
+    <mat-card-content>
+      Friday, March 13, 2020 <br>
+      <div class="title-dir" fxLayout="row">
+        <span  fxFlex="80%" class= "title-txt">Women Welfare and education conference<br><br> Kalanmassy, Kochi-672732</span>
+        <span  fxFlex="20%" class="dir"><img src="../../assets/Ref_Google_Maps_25_10_2017.png" alt=""> <br>Directions</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex="20%">
+    <mat-card-title><img src="../../assets/crowded_people_standing_watchi.png" alt=""></mat-card-title>
+    <mat-card-content>
+      Friday, March 13, 2020 <br>
+      <div class="title-dir" fxLayout="row">
+        <span  fxFlex="80%" class= "title-txt">Women Welfare and education conference<br><br> Kalanmassy, Kochi-672732</span>
+        <span  fxFlex="20%" class="dir"><img src="../../assets/Ref_Google_Maps_25_10_2017.png" alt=""> <br>Directions</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card fxFlex="20%">
+    <mat-card-title><img src="../../assets/man_standing_in_front_of_peopl.png" alt=""></mat-card-title>
+    <mat-card-content>
+      Friday, March 13, 2020 <br>
+      <div class="title-dir" fxLayout="row">
+        <span  fxFlex="80%" class= "title-txt">Women Welfare and education conference<br><br> Kalanmassy, Kochi-672732</span>
+        <span  fxFlex="20%" class="dir"><img src="../../assets/Ref_Google_Maps_25_10_2017.png" alt=""> <br>Directions</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

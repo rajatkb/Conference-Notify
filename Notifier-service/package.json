@@ -4,23 +4,32 @@
   "description": "Notification service for Conference-Notify",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "test": "jest --setupFiles dotenv/config reflect-metadata",
+    "build": "rm -rf build && tsc --build tsconfig.prod.json",
     "start": "ts-node-dev --respawn src/server.ts",
-    "run": "node build/server.js"
+    "deploy": "ts-node src/server.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^8.2.0",
+    "@types/cors": "^2.8.6",
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
+    "inversify": "^5.0.1",
     "mongoose": "^5.9.3",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.5.4",
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@types/dotenv-safe": "^8.1.0",
     "@types/express": "^4.17.2",
+    "@types/jest": "^25.1.4",
     "@types/mongoose": "^5.7.3",
     "@types/node": "^13.7.6",
+    "jest": "^25.2.0",
+    "ts-jest": "^25.2.1",
     "ts-node": "^8.6.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.2"

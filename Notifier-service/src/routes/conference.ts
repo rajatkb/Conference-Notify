@@ -2,6 +2,7 @@ import { Router , Request , Response } from 'express';
 import { ConferenceController } from '../controllers/conference';
 import { Conference } from '../schemas/conferences';
 import { Route } from '../interfaces/route';
+import { injectable } from 'inversify';
 
 
 /**
@@ -11,75 +12,33 @@ import { Route } from '../interfaces/route';
  * @class ConferenceRoute
  * @extends {Route}
  */
+
+@injectable()
 export class ConferenceRoute extends Route{
-    protected routeName :string = "conferences";
-    protected router:Router = Router();
-    private controller:ConferenceController | undefined = undefined;
 
-    init(controller:ConferenceController) {
-        this.controller = controller;
+    protected routeName:string;
+    constructor(private controller: ConferenceController){
+        super(controller)
+        this.routeName = "conferences" ;
+        this.setRoutes()
+    }
 
-        this.router.get("/" , async (request:Request , response:Response) => {
-            response.redirect("/")
-        })
-
-        // added for testing routes purposes
-        this.router.get("/one", async (request:Request , response:Response) => {
-            try{
-                let result = await controller.getOne()
-                response.json(result);
-            }catch(e){
-                console.log()
-                throw e
-            }
-        })
-
-        this.router.get("/:offset/:count",async  (request:Request , response:Response) => {
-            let offset:string = request.params.offset;
-            let count:string = request.params.count;
-            try{
-                let result:Conference[] =  await controller.getConferences( Number.parseFloat(offset) , Number.parseFloat(count));
-                response.json(result);
-            }catch(e){
-                //TO-DO
-                // report error in log
-                // Call alternative route
-            }
-        });
+    /**
+     * Routes for Conference routes 
+     * base route : /conferences
+     * 
+     * - /getOne returns one conference data
+     * - /:offset/:count (offset[int], count[int]) , returns several conferences , on bad argument returns empty payload
+     * - /:category/:offset/:count (category[string] , offset[int], count[int]) , returns several conferences , on bad argument returns empty payload
+     * - /:categories , returns list of categories, returns null payload on fail
+     * @protected
+     * @memberof ConferenceRoute
+     */
+    protected setRoutes(){
+        this.router.get("/getone",this.controller.getOne)
+        this.router.get("/:offset/:count" , this.controller.getConferences)
+        this.router.get("/:category/:offset/:count" , this.controller.getConferencesFomCategory)
+        this.router.get("/categories" , this.controller.getCategories)
+    }
     
-        this.router.get("/:category/:offset/:count", async (request:Request , response:Response) => {
-            let offset:string = request.params.offset;
-            let count:string = request.params.count;
-            let category:string = request.params.category;
-            try{
-                let result:Conference[] = await controller.getConferencesFromCategory( category , Number.parseFloat(offset) , Number.parseFloat(count));
-                response.json(result);
-            }catch(e){
-                //TO-DO
-                // report error in log
-                // Call alternative route
-            }
-        });
-
-        this.router.get("/categories", async  (request:Request , response:Response) => {
-            let category:string = request.params.category;
-            try{
-                let result:Array<String> = await controller.getCategories();
-                response.json(result);
-            }catch(e){
-                //TO-DO
-                // report error in log
-                // Call alternative default
-            }
-        });
-        
-    }
-
-    getRouter():Router {
-        return this.router;
-    }
-
-    getRouteName():string{
-        return this.routeName;
-    }
 } 

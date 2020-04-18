@@ -1,33 +1,5 @@
 import winston from 'winston';
 
-const FileConfig = (filename:string) =>{ 
-    return {
-            level: process.env.LOG_LEVEL,
-            filename: `${process.env.LOG_FOLDER}/${filename}.log`,
-            handleExceptions: true,
-            json: true,
-            colorize: false,
-            timestamp:true
-        } 
-}
-
-const ConsoleConfig = {
-    level: process.env.LOG_LEVEL,
-    handleExceptions: true,
-    colorize: true,
-                timestamp: function () {
-                    return (new Date()).toLocaleTimeString();
-                },
-    prettyPrint: true
-}
-
-winston.addColors({
-    error: 'red',
-    warn: 'yellow',
-    info: 'cyan',
-    debug: 'green'
-});
-
 export class Logger{
 
 
@@ -35,15 +7,22 @@ export class Logger{
     constructor(filename:string){
         this.logger = winston.createLogger({
             level: process.env.LOG_LEVEL,
-            format: winston.format.combine(
-                winston.format.json(),
-                winston.format.timestamp(),
-                winston.format.colorize()
-            ),
             transports: [
-                new winston.transports.Console(ConsoleConfig),
-                new winston.transports.File(FileConfig(filename))
-            ]
+                new winston.transports.Console({ format: winston.format.colorize({all:true}),}),
+                new winston.transports.File({ filename: `${process.env.LOG_FOLDER}/${filename}.log` })
+            ] , 
+
+            format: winston.format.combine(
+                         winston.format.label({
+                            label: filename
+                         }),
+                         
+                         winston.format.timestamp(),
+                         winston.format.printf((info) => {
+                             return `${info.timestamp} - ${info.label}:[${info.level}]: ${info.message}`;
+                         })
+                     )
+
         })
     }    
 

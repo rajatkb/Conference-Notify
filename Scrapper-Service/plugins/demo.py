@@ -35,6 +35,9 @@ class DemoScrapper(Scrapper):
         pass
         ## Initialize
 
+    def __del__(self):
+        self.logger.info("{} done scrapping !!!".format(__name__))
+
     def parse_action(self):
 
         meta = Metadata(__name__ , datetime.datetime.now() , 

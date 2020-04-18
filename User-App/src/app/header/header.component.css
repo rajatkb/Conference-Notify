@@ -3,14 +3,32 @@ ul {
   padding: 0;
   margin: 0;
 }
+img {
+  padding-top: 10px;
+  width: 200px;
+  height: 60px;
+}
 
 a {
   text-decoration: none;
-  color: white;
+  font-size: 18px;
+}
+/* a routerLinkActive {
+  color: #6652FF;
+} */
+
+.vl {
+  margin-top: 2px;
+  border-left: 4px solid #6652FF;
+  height: 30px;
 }
 
 ul {
   display: flex;
+}
+mat-toolbar {
+  height: 60px;
+  background-color: white;
 }
 
 .spacer {

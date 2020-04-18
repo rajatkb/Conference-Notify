@@ -7,23 +7,20 @@ import datetime
 
 
 class WikiCfpScrapper(Scrapper):
-    def __init__(self , **config):
-        super().__init__( context_name = __name__ , **config)
+    def __init__(self , **kwargs):
+        super().__init__( context_name = __name__ , **kwargs)
         self.base_address = "http://www.wikicfp.com"
         self.site_name = "wikicfp"
+        self.logger.info("{} initialized !!!".format(__name__))
 
-        # http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=61171&copyownerid=6818
-    
+    def __del__(self):
+        self.logger.info("{} done scrapping !!!".format(__name__))
+
     def extract_and_put(self ,linkSet:set , category:str , link:str):
         base_address= self.base_address
         for name , clink in self.iterate_links(category , link):
-                if hash(clink) in linkSet:
+                if clink in linkSet:
                     continue
-                linkSet.add(hash(clink))
-                totalLink = len(linkSet)
-                self.logger.debug("Total unique conference links till now :{}".format(totalLink))
-                if totalLink % 500 == 0:
-                    self.logger.info("Total unique conference links till now :{}".format(totalLink))
                 try:
                     qlink = base_address + clink
                     req = self.get_page(qlink , "Page extracted for conference : {} , category : {} ,  link: {}  extracted".format(name ,category, clink))
@@ -33,6 +30,12 @@ class WikiCfpScrapper(Scrapper):
                         ## Since this means there is fault in data or connection
                         ## Process must be restarted
                         self.push_todb(conference_data)
+                        linkSet.add(clink)
+                        totalLink = len(linkSet)
+                        self.logger.debug("Total unique conference links till now :{}".format(totalLink))
+                        if totalLink % 500 == 0:
+                            self.logger.info("Total unique conference links till now :{}".format(totalLink))
+                            
                     except Exception as e:
                         self.logger.error("Error when parsing link: {} exception: {}".format(clink, e))
                 except requests.HTTPError as e:
@@ -40,20 +43,18 @@ class WikiCfpScrapper(Scrapper):
                 except requests.Timeout as e:
                     self.logger.error("Timeout when requesting html : {}".format(e))
                 except Exception as e:
-                    self.logger.error("Error occured where requesting html :{}".format(e))            
+                    self.logger.error("Error occured where requesting html :{}".format(e))
+                    
     
 
     def parse_action(self):
         linkSet = set()
-
-        for category ,link in self.category_list():
-            self.extract_and_put(linkSet , category , link)
-            ##
-            ## The dbaction is a visitor function which must be called with a conference object argument
-            ## The function extract and put can now be run in thread or asyncio
-            ## however it is recommended to use locks for accessing linkSet
-            ## you can threads as many categories there are 
-
+        try:
+            c_list = self.category_list()
+            for category ,link in c_list:
+                self.extract_and_put(linkSet , category , link)
+        except Exception as e:
+            self.logger.error("Failed at extracting category page of {} error: {}".format(self.base_address , e))
 
 
     def category_list(self ):
@@ -78,7 +79,22 @@ class WikiCfpScrapper(Scrapper):
         return links
 
     def next_anchor(self , base_address:str , category:str ,  link:str):
-        req = self.get_page(base_address+link , "{} page extracted".format(category))
+        """ Gives the next anchor from a particular page to the next page
+            Also parses the page for relevant information and gives the table container
+
+        Arguments:
+            base_address {str} -- the anchor link to visit
+            category {str} -- the category we are working with . used for logging
+            link {str} -- the link used for extraction
+        
+        Raises:
+            self.PageParsingError: When is fails to parse
+        
+        Returns:
+            [(BeautifulSoup, str)]
+        """
+        
+        req = self.get_page(base_address+link , "{} : {} page extracted".format(category , link))
         page_dom = BeautifulSoup(req.content , 'html.parser')
         page_dom = page_dom.find(attrs={"class":"contsec"})
         page_dom = page_dom.find(name = "center")
@@ -188,8 +204,8 @@ class WikiCfpScrapper(Scrapper):
         
         metadata = self.create_metadata(qlink , self.base_address , self.site_name )
 
-        return Conference(**info , **{  "title":title , "url":url , 
-                                        "categories":categories , "bulkText":bulk_text  , "metadata":metadata})
+        return Conference( **{  "title":title , "url":url , 
+                                        "categories":categories , "bulkText":bulk_text  , "metadata":metadata} , **info )
 
     
 

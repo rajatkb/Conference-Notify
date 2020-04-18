@@ -1,38 +1,26 @@
-import * as dotenv from 'dotenv';
-import { MongoDb } from './database/mongodb'; 
+import "reflect-metadata"
+import * as dotenv from 'dotenv-safe';
 import { App } from './app';
-import { ConferenceController } from './controllers/conference'
-import { ConferenceRoute} from './routes/conference';
-import { ConferenceModel } from './models/conference';
+import { AppContainer } from './inversify.config'
+
 /* 
 Load the .env file into the process environment variable scope
 It's necessary to keep a .env file in the project root
 along side package.json
 */
-dotenv.config()
-
+dotenv.config({
+    example: './.env'
+});
 
 /*
-    Instantiate the App with
-    * Controllers
-    * Database instance for sharing connection
-    * 
+    * Creating Application Container for all class
+    * Passing the container to App ,  for route attachment
 */
 
-
-let app = new App(  [
-                        new ConferenceRoute()
-                    ] , 
-                    [   
-                        new ConferenceController()
-                    ] , 
-                    [   
-                        new ConferenceModel()
-                    ] ,  
-                    new MongoDb() );
-
+let container = new AppContainer()
+let app = new App(container);
 app.init()
 app.start((port) => {
-    console.log("Listening on port :"+port);
+    console.log("Listening on port :" + port);
 })
 

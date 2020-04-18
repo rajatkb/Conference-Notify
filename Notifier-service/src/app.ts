@@ -1,53 +1,63 @@
 import express from 'express';
-import { Application , Request , Response } from 'express';
-import { Route } from './interfaces/route';
-import { Database} from './interfaces/database';
+import cors from 'cors';
+import { Application} from 'express';
 import { Server } from 'http';
-import { Controller } from './interfaces/controller';
-import { Model } from './interfaces/model';
 import { Logger } from './utility/log';
+import { Route } from './interfaces/route';
+import { Listener } from './interfaces/listener';
+import { AppContainer } from './inversify.config';
+import { Database } from './interfaces/database';
+
 
 
 export class App {
 
     private logger = new Logger(this.constructor.name).getLogger();
-
-
     private app:Application;
     private server:Server|undefined;
-    constructor(private routes:Array<Route>,
-                private controllers:Array<Controller>,
-                private models:Array<Model>,
-                private database:Database){
+    public databaseobj:Database;
+    
+    // listeners to instantiate for listening
+    private listeners:Listener[] = [];
+
+    // Routes for registering toe express application
+    private routes:Route[] =[];
+    
+    constructor(private container:AppContainer){
         this.app = express();
+        this.app.use(cors({
+            origin: [ `http://localhost:${process.env.SERVER_PORT}`, process.env.USER_ORIGIN],
+            methods: ["GET", "POST", "PATCH", "PUT"]
+        }));
+        this.routes = container.getRoutes()
+        this.databaseobj=container.getDatabase();
+
+        // EventHandler to trigger Interrupt signal and close the database
+        process.on('SIGINT', async() => {
+            this.logger.info("Closing the Database!");
+            await this.databaseobj.close();
+            process.exit(0);
+            
+        });
+        // this.listeners = container.getAll<Listener>(Listener)
     }
 
-    async init(){
-        try{
-            let connection = await this.database.init(process.env.MONGO_DB_NAME) 
-
-            this.models.forEach(model => {
-                model.init(connection)
+    init():void{
+        this.routes.forEach( (route:Route) => {
+            this.app.use("/"+route.getRouteName() , route.getRouter())
+        })
+        /*
+            Default path for anything
+        */
+        this.app.get("/**" , (request , response) => {
+            response.json({
+                status:404,
+                payload:" (ノಠ益ಠ)ノ彡┻━┻ "
             })
-
-            this.controllers.forEach((controller , index) => {
-                controller.init(this.models[index])
-            })
-
-            this.routes.forEach((route,index) => {
-                route.init(this.controllers[index])
-                this.app.use('/'+route.getRouteName() ,route.getRouter())
-            })
-
-            this.app.get("/*", (req:Request, res:Response) => {
-                res.json({"error": "route Not available"})
-            })
-        }catch(e){
-            //TO-DO Logg error for not being able to create the mongo db or any of the routes
-            console.log(e);
-
-        }
+        })
     }
+
+
 
 
     start(callback:(port:Number) => void){
@@ -55,6 +65,7 @@ export class App {
             throw new Error("No proper port for server found , configure in .env file")
         let port = Number.parseInt(process.env.SERVER_PORT)
         this.server = this.app.listen( port , () => {
+            this.logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>> APPLICATION STARTED <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
             this.logger.info("Application listening at port :"+ port);
             callback(port);
         })
