@@ -1,8 +1,8 @@
 --- 
 matrix: 
+  services: 
+  - mongodb
   include: 
-
-    services: mongodb
       install: 
         - sudo python -m pip install pymongo
         - pip install -r Scrapper-Service/requirements.txt --user
