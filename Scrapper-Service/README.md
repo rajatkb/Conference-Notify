@@ -38,6 +38,30 @@ optional arguments:
 (base)
 ```
 
+## Deploying Scraper service in different modes
+
+```bash
+# running the scraper with a custom configuration file
+>> python app.py -c <path/to/config.json>
+or
+>> python app.py --config <path/to/config.json>
+
+# running the scraper service with logs of specific type
+>> python app.py -l debug # for only debug logs
+>> python app.py -l warn # for only warn logs
+>> python app.py -l error # for only error logs
+>> python app.py -l info # for only info logs
+
+# running the scraper service with different test modes
+>> python app.py --t False
+or 
+>> python app.py --test False 
+
+# running the scraper service with different logstream settings
+>> python app.py -ls console # for logging to console
+>> python app.py -ls file # to save logs to file
+```
+
 Jump to `demo.py` for implementing a scrapper from scratch and configuring it to run. 
 
 ## Test
@@ -67,7 +91,7 @@ If this succeeds , you can move forward with deployment. If this fails. Please m
 
 ## How to Contribute ?
 
-* Add new scrappers by implementing the interface Scrapper.py and add the new scrapper information inside the config.json file so that the main.py file can pick up the required class when starting
+* Add new scrappers by implementing the interface Scrapper.py and add the new scrapper information inside the config.json file so that the app.py file can pick up the required class when starting
 
 * Provide better implementation changes to the base design of the service.
 
