@@ -17,7 +17,6 @@ class MongoDbTestCase(unittest.TestCase):
         self.assertDictEqual.__self__.maxDiff = None
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            count = 0
             conf = Conference(title="Something", 
                                   url="www.something.com",
                                   deadline=datetime.now(), 
@@ -34,14 +33,19 @@ class MongoDbTestCase(unittest.TestCase):
                                   bulkText = "somthing"
                                 ) 
             
-            count = self.mongo_db.put(conf)
-            self.assertEqual(0,count)
+            flag = None
+            is_inserted = self.mongo_db.put(conf)
+            if(is_inserted !=None):
+                flag = True
+            else:
+                flag = False
+                
+            self.assertEqual(True,flag)
         
     def test_valid_datetime(self):
         self.assertDictEqual.__self__.maxDiff = None
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            count =0
             conf = Conference(title="Something", 
                                   url="www.something.com",
                                   deadline=datetime.now()+timedelta(days=10), 
@@ -58,14 +62,19 @@ class MongoDbTestCase(unittest.TestCase):
                                   bulkText = "somthing"
                                 ) 
             
-            count = self.mongo_db.put(conf)
-            self.assertEqual(1,count)
+            flag = None
+            is_inserted = self.mongo_db.put(conf)
+            if(is_inserted !=None):
+                flag = True
+            else:
+                flag = False
+                
+            self.assertEqual(True,flag)
             
         def test_invalid_datetime(self):
             self.assertDictEqual.__self__.maxDiff = None
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
-                count = 0
                 conf = Conference(title="Something", 
                                   url="www.something.com",
                                   deadline=datetime.now()-timedelta(days=10), 
@@ -82,8 +91,8 @@ class MongoDbTestCase(unittest.TestCase):
                                       bulkText = "somthing"
                                 ) 
                     
-                count = self.mongo_db.put(conf)
-                self.assertEqual(0,count)
+                is_inserted = self.mongo_db.put(conf)
+                self.assertEqual(None,is_inserted)
             
 if __name__ == '__main__':
     unittest.main()

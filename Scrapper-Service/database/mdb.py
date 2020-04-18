@@ -27,8 +27,8 @@ class MongoDatabase(Database):
         """
         self.logger = logger
         try:
-            self.logger.debug("Using Database name {}".format(database_name))
-            self.logger.debug("Using address {}:{}".format(host , port))    
+#            self.logger.debug("Using Database name {}".format(database_name))
+#            self.logger.debug("Using address {}:{}".format(host , port))    
             client =  MongoClient(host , int(port) , maxPoolSize = maxPoolSize)
             self.client = client
             db = client[database_name] ## Create a new database if not existing
@@ -36,10 +36,10 @@ class MongoDatabase(Database):
             ## Quirks of pymongo client , any error from this statement below
             ## leads to unsuported operation for database , where as intended
             ## strcuture is a collection. Should be addressed in the pymongo
-            self.logger.debug("Using Collection name {}".format("conferences"))
+#            self.logger.debug("Using Collection name {}".format("conferences"))
             collection = db[collection_name]
             client.server_info()
-            self.logger.info("Succefully created mongodb client connection on host:{} , port:{} ".format(host , port))
+#            self.logger.info("Succefully created mongodb client connection on host:{} , port:{} ".format(host , port))
             self.db = db
             self.collection = collection
             index_info = collection.index_information()
@@ -49,14 +49,14 @@ class MongoDatabase(Database):
                 collection.create_index([(idx , pymongo.ASCENDING )] , unique = unique )
                 
         except Exception as e:
-            self.logger.error("Failed to initiate mongodb client error: {}".format(e))
+#            self.logger.error("Failed to initiate mongodb client error: {}".format(e))
             raise e
     
 
     def __del__(self):
-        self.logger.info("Closing connection to mongodb !!")
+#        self.logger.info("Closing connection to mongodb !!")
         self.client.close()
-        self.logger.info("Succesfully Closed connection to mongodb !!")
+#        self.logger.info("Succesfully Closed connection to mongodb !!")
             
     def put(self , conference_data):
         res = 0 
@@ -66,11 +66,10 @@ class MongoDatabase(Database):
             _id = conference_data._id
             try:
                 res = self.collection.update_one( {'_id':_id,'deadline':{'$lte':conference_data.querydata['deadline']}}  ,conference_data.get_query(), upsert = True)
-                self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
-                                  .format(res.matched_count , res.modified_count , res.upserted_id))
-                return res.modified_count
+#                self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
+#                                  .format(res.matched_count , res.modified_count , res.upserted_id))
+                return res
             except Exception as e:
-                self.logger.error("Failed to commit data error : {}".format(e))
-#                print("Failed to commit data error : {}".format(e))
-                return 0
+#                self.logger.error("Failed to commit data error : {}".format(e))
+                print("Failed to commit data error : {}".format(e))
                 
