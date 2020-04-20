@@ -25,10 +25,19 @@ export class App {
     
     constructor(private container:AppContainer){
         this.app = express();
-        this.app.use(cors({
-            origin: [ `http://localhost:${process.env.SERVER_PORT}`, process.env.USER_ORIGIN!],
-            methods: ["GET", "POST", "PATCH", "PUT"]
-        }));
+        var allowedCORS = [ `http://localhost:${process.env.SERVER_PORT}`, process.env.USER_ORIGIN ];
+        var corsOptions = {
+            origin: (origin: any, callback: any) => {
+              if (!origin || allowedCORS.indexOf(origin) !== -1) {
+                callback(null, true)
+              } else {
+                callback(new Error('Not allowed by CORS'))
+              }
+            }
+          }
+        this.app.use(cors(
+            corsOptions
+        ));
         this.routes = container.getRoutes()
         this.databaseobj=container.getDatabase();
 
