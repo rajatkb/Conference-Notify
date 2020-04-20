@@ -1,6 +1,6 @@
 import { ConferenceService } from '../interfaces/services/conference'
 import { ConferenceModel } from '../interfaces/models/conference'
-import { Conference } from '../schemas/conferences';
+import { Conference, mongoQueryType } from '../schemas/conferences';
 import { Logger } from '../utility/log';
 import { injectable } from 'inversify';
 import { ConferenceModelMongo } from '../models/conference';
@@ -12,10 +12,10 @@ export class ConferenceServiceI extends ConferenceService {
                 private conferenceModelMongo:ConferenceModelMongo) {
         super()
     }
-    async getOne(queryKey: string, queryValue: string): Promise<Conference | null> {
+    async getOne(_id: string): Promise<Conference | null> {
         this.logger.debug("getOne invoked")
-        let queryObj: {[key: string]: any} = {}
-        queryObj[queryKey] = queryValue
+        let queryObj: mongoQueryType = {}
+         queryObj['_id'] = _id
         return new Promise<Conference | null>((resolve, reject) => {
             this.conferenceModelMongo.getOne(queryObj).then((value)=>{
                 if(value == null){
