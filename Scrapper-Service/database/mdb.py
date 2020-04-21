@@ -4,6 +4,7 @@ import logging
 from logging import Logger
 from datamodels import Conference, Metadata
 from commons import Database
+import time
 
 class MongoDatabase(Database):
     
@@ -35,7 +36,7 @@ class MongoDatabase(Database):
             ## Quirks of pymongo client , any error from this statement below
             ## leads to unsuported operation for database , where as intended
             ## strcuture is a collection. Should be addressed in the pymongo
-            self.logger.debug("Using Collection name {}".format("conferences"))
+#            self.logger.debug("Using Collection name {}".format("conferences"))
             collection = db[collection_name]
             client.server_info()
             self.logger.info("Succefully created mongodb client connection on host:{} , port:{} ".format(host , port))
@@ -56,15 +57,21 @@ class MongoDatabase(Database):
         self.logger.info("Closing connection to mongodb !!")
         self.client.close()
         self.logger.info("Succesfully Closed connection to mongodb !!")
-
+            
     def put(self , conference_data):
+        res = 0 
         if not isinstance(conference_data , Conference):
             raise ValueError("Provided data is not in proper format as required by db")
         else:
             _id = conference_data._id
             try:
-                res = self.collection.update_one( {'_id':_id}  ,conference_data.get_query(), upsert = True)
+                res = self.collection.update_one( {'_id':_id,'deadline':{'$lte':conference_data.querydata['deadline']}}  ,conference_data.get_query(), upsert = True)
                 self.logger.debug("""   Value inserted message matched count: {} modified count: {} upserted id: {}"""
-                                    .format(res.matched_count , res.modified_count , res.upserted_id))
+                                  .format(res.matched_count , res.modified_count , res.upserted_id))
+                return res
             except Exception as e:
                 self.logger.error("Failed to commit data error : {}".format(e))
+                print("Failed to commit data error : {}".format(e))
+                
+                
+                
