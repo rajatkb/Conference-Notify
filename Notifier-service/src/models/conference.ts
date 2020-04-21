@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model} from 'mongoose';
 import { Connection } from 'mongoose';
 import { Conference, ConferenceDocument, ConferenceSchema, mongoQueryType } from '../schemas/conferences';
 import { Database } from '../interfaces/database';

@@ -5,6 +5,8 @@ import { MongoDb } from '../database/mongodb'
 import { ConferenceModelMongo } from '../models/conference'
 import { ConferenceDocument } from '../schemas/conferences'
 
+var mongoose = require('mongoose');
+
 describe("Testing Conferences Service Implementation " ,() => {
     dotenv.config()
     let ModelMock = jest.fn<ConferenceModel , []>()
@@ -17,7 +19,9 @@ describe("Testing Conferences Service Implementation " ,() => {
     let queryKey = "url"
     let queryValue = "https://www.kdd.org/kdd2020/"
     let service = new ConferenceServiceI(model,confModelMongo)
-
+    //let id= '8bd11a96-ac06-58f5-8727-2ab7f12899c2'
+    //let id = '8bd11a96ac0658f587272ab7'
+    let id = '8bd11a96ac0658f587272ab7f12899c2'
 
     test("service instantiation" , () => {
         expect(service).toBeDefined()
@@ -30,10 +34,12 @@ describe("Testing Conferences Service Implementation " ,() => {
         expect(service.getConferences).toBeDefined()
         expect(await service.getConferences(1 , 2)).toEqual([])
         expect(service.getOne).toBeDefined()
+        //console.log(mongoose.Types.ObjectId(id))
         let queriedObj = (await confModelMongo
-        .getOne({url: queryValue }) as ConferenceDocument).toObject()
-        expect(await service.getOne(queryKey,queryValue)).toEqual(queriedObj)
-        expect(await service.getOne(queryKey,"random-text")).toBeNull()
+        .getOne({_id: id }) as ConferenceDocument).toObject()
+        console.log(queriedObj)
+        // expect(await service.getOne(id)).toEqual(queriedObj)
+        // expect(await service.getOne("random-text")).toBeNull()
     })
 })
 

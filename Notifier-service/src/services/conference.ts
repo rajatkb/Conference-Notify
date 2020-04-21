@@ -5,6 +5,8 @@ import { Logger } from '../utility/log';
 import { injectable } from 'inversify';
 import { ConferenceModelMongo } from '../models/conference';
 
+var mongoose = require('mongoose');
+
 @injectable()
 export class ConferenceServiceI extends ConferenceService {
     private logger = new Logger(this.constructor.name).getLogger()
@@ -15,7 +17,7 @@ export class ConferenceServiceI extends ConferenceService {
     async getOne(_id: string): Promise<Conference | null> {
         this.logger.debug("getOne invoked")
         let queryObj: mongoQueryType = {}
-         queryObj['_id'] = _id
+         queryObj['_id'] = mongoose.Types.ObjectId(_id)
         return new Promise<Conference | null>((resolve, reject) => {
             this.conferenceModelMongo.getOne(queryObj).then((value)=>{
                 if(value == null){
