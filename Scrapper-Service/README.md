@@ -12,7 +12,17 @@ It's the service responsible for scrapping information about conferences and put
 * Requests
 * logging (python default)
 * unittest (for unit test of course)
-
+* bs4
+* certifi
+* chardet
+* idna
+* linecache2
+* six
+* soupsieve
+* traceback2
+* urllib3
+* dill
+* html5lib
 
 ## Deploying the service
 
@@ -41,6 +51,13 @@ optional arguments:
 Jump to `demo.py` for implementing a scrapper from scratch and configuring it to run. 
 
 ## Test
+
+Test whether the initialization is working or not
+>> python app.py -l debug -ls console  --test True
+
+Test whether the run is working or not
+>> python app.py -l debug -ls file --test False
+
 We are focusing on doing test driven development, so downn the line things are not unpredicatable.  
 
 Before deploying the current build , it's recommended that you run the test suite once. 
