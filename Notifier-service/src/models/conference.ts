@@ -1,6 +1,6 @@
 import { Model} from 'mongoose';
 import { Connection } from 'mongoose';
-import { Conference, ConferenceDocument, ConferenceSchema, mongoQueryType } from '../schemas/conferences';
+import { Conference, ConferenceDocument, ConferenceSchema } from '../schemas/conferences';
 import { Database } from '../interfaces/database';
 import { ConferenceModel } from '../interfaces/models/conference';
 import { Logger } from '../utility/log';
@@ -50,8 +50,9 @@ export class ConferenceModelMongo extends ConferenceModel {
     }
 
 
-    async getOne(query: mongoQueryType = {}): Promise<ConferenceDocument | null> {
+    async getOne(id: string): Promise<ConferenceDocument | null> {
         this.logger.debug("getOne invoked")
+        let query = {_id:id}
         let result = this.makeQuery((model) => {
             return new Promise<ConferenceDocument | null>((resolve, reject) => {
                 model.findOne(query, (err, res) => {

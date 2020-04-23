@@ -17,10 +17,6 @@ type Conference = {
     bulkText?:string; // optional field
 }
 
-type mongoQueryType = {
-    _id?: string;
-}
-
 interface ConferenceDocument extends Document {
     title:string;
     url:string;
@@ -44,7 +40,7 @@ let ConferenceSchema = new Schema({
     deadline:{type:Date , required:true},
 } , {strict : false});
 
-export {Conference , ConferenceDocument , ConferenceSchema, mongoQueryType}
+export {Conference , ConferenceDocument , ConferenceSchema}
 
 
 
