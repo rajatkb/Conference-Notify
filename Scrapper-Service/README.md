@@ -70,11 +70,17 @@ Jump to `demo.py` for implementing a scrapper from scratch and configuring it to
 
 ## Test
 
+
+```shell
+
 Test whether the initialization is working or not
 >> python app.py -l debug -ls console  --test True
 
 Test whether the run is working or not
 >> python app.py -l debug -ls file --test False
+
+
+```
 
 We are focusing on doing test driven development, so downn the line things are not unpredicatable.  
 
