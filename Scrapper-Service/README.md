@@ -71,14 +71,21 @@ Jump to `demo.py` for implementing a scrapper from scratch and configuring it to
 ## Test
 
 
+Test whether the initialization is working or not
+
+
 ```shell
 
-Test whether the initialization is working or not
 >> python app.py -l debug -ls console  --test True
 
-Test whether the run is working or not
->> python app.py -l debug -ls file --test False
+```
 
+Test whether the run is working or not
+
+
+```shell
+
+>> python app.py -l debug -ls file --test False
 
 ```
 
