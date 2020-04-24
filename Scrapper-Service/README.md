@@ -24,6 +24,24 @@ It's the service responsible for scrapping information about conferences and put
 * dill
 * html5lib
 
+## Schema Used
+
+Conference
+  | Field | Type |
+  | ------------- | ------------- |
+  | title  | string  |
+  | url  | string  |
+  | deadline | Date |
+  | metadata | {Metadata} |
+  | categories | Array<string> |
+  | dateRange | Array<Date> |
+  | finalDue | string |
+  | location | string |
+  | notificationDue | Date |
+  | bulkText | string |
+
+The fields used as index are : `url`, `title`, `deadline` and `categories`.
+
 ## Deploying the service
 
 ```shell
