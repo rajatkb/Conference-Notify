@@ -219,7 +219,7 @@ It will run all the unit tests written and kept under test folder
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/rajatkb/Conference-Notify/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/rajatkb/Conference-Notify/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Authors
 
@@ -231,7 +231,7 @@ Waiting for some 🧐
 
 ## License
 
-This project is licensed under the GPL License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GPL License - see the [LICENSE.md](https://github.com/rajatkb/Conference-Notify/blob/master/LICENSE) file for details
 
 ## Acknowledgement
 
