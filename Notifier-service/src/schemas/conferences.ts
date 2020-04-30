@@ -5,6 +5,7 @@ type Conference = {
     title:string;
     url:string;
     deadline:Date;
+    _id?: string;
     metadata?:{
         [tag:string]:Metadata
     };
