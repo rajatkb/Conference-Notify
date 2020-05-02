@@ -20,10 +20,11 @@ export class ConferenceController extends Controller {
     getOne = async (request: Request, response: Response) => {
         let requester = request.ip;
         let category: string = request.params.category;
+        let _id: string = request.params.id;
         this.logger.info(this.success("getOne", requester))
         try {
 
-            let result = await this.conferenceService.getOne();
+            let result = await this.conferenceService.getOne(_id);
             response.json(this.successResponse(result));
         }
         catch (e) {
