@@ -10,5 +10,5 @@ export abstract class ConferenceService extends Service{
     abstract async getConferencesFromCategory(category:String , offset:Number , count:Number):Promise<Conference[]>
     abstract async getCategories():Promise<Array<string>>
 
-    abstract async getOne():Promise<Conference | null>
+    abstract async getOne(_id: string):Promise<Conference | null>
 }

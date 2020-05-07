@@ -15,7 +15,7 @@ import { Model } from '../model';
 @injectable()
 export abstract class ConferenceModel extends Model{
     protected abstract modelName:string;
-    abstract async getOne():Promise<ConferenceDocument | null>
+    abstract async getOne(id: string):Promise<ConferenceDocument | null>
     abstract async getConferences(offset:number , range:number):Promise<ConferenceDocument[] | null>
     abstract async getConferencesFromCategory(category:string , offset:number , range:number):Promise<ConferenceDocument[] | null>
     abstract async getCategories():Promise<Array<string> | null>

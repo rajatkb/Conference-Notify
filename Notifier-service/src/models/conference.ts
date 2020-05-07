@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model} from 'mongoose';
 import { Connection } from 'mongoose';
 import { Conference, ConferenceDocument, ConferenceSchema } from '../schemas/conferences';
 import { Database } from '../interfaces/database';
@@ -50,11 +50,12 @@ export class ConferenceModelMongo extends ConferenceModel {
     }
 
 
-    async getOne(): Promise<ConferenceDocument | null> {
+    async getOne(id: string): Promise<ConferenceDocument | null> {
         this.logger.debug("getOne invoked")
+        let query = {_id:id}
         let result = this.makeQuery((model) => {
             return new Promise<ConferenceDocument | null>((resolve, reject) => {
-                model.findOne({}, (err, res) => {
+                model.findOne(query, (err, res) => {
                     if (!err) {
                         resolve(res);
                     }
