@@ -1,0 +1,48 @@
+--- 
+matrix: 
+  services: 
+  - mongodb
+  include: 
+      install: 
+        - sudo python -m pip install pymongo
+        - pip install -r Scrapper-Service/requirements.txt --user
+      language: python
+      python: 
+        - "3.6"
+      script: 
+        - python -m unittest test
+
+      before_script: 
+        - cd User-App
+        - npm install --save-dev @angular-devkit/build-angular
+        - npm install -g --silent @angular/cli
+      language: node_js
+      node_js: 
+        - "10"
+      script:
+        - ng lint
+        - ng test --watch=false --browsers=ChromeHeadless
+        - ng build --prod
+      
+      before_script: 
+        - cd Notifier-service
+        - npm install
+      language: node_js
+      node_js: 
+        - "10"
+      script:
+        - npm run test --watch=false --browsers=ChromeHeadless
+        - npm run build --prod
+      
+      # Uncomment the line below after adding proper test script for Search-Service
+      before_script: 
+        - cd Search-Service
+        - npm install
+      language: node_js
+      node_js: 
+        - "10"
+      script:
+        # - npm run test --watch=false --browsers=ChromeHeadless
+        - npm run build --prod
+
+ 
