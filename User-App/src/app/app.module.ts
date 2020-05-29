@@ -20,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { ConferencesListComponent } from './conferences-list/conferences-list.component';
 import { ConferenceComponent } from './conference/conference.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,8 @@ import { ConferenceComponent } from './conference/conference.component';
     MatInputModule,
     FlexLayoutModule,
     HttpClientModule
+    FormsModule,
+    ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -219,11 +219,23 @@ It will run all the unit tests written and kept under test folder
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/rajatkb/Conference-Notify/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/rajatkb/Conference-Notify/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Authors
 
-* **Rajat Kanti Bhattacharjee** - *Initial work* - [rajatkb](https://github.com/rajatkb)
+## 👨 Project Admin
+
+- Rajat Kanti Bhattacharjee  <p>[<img src="https://img.icons8.com/color/32/000000/github-2.png" display = "inline-block">](https://github.com/rajatkb) [<img src="https://img.icons8.com/doodle/32/000000/linkedin-circled.png" display = "inline-block">](https://www.linkedin.com/in/rajatkb/)</p>
+
+## 👬  Mentors
+| Name | Point of Contact |
+| ------- | ------- |
+| Maham Arif     |      <p float = "center">[<img src="https://img.icons8.com/color/32/000000/github-2.png" display = "inline-block">](https://github.com/MahamArif)  [<img src="https://img.icons8.com/doodle/32/000000/linkedin-circled.png" display = "inline-block">](https://www.linkedin.com/in/maham-arif/)</p> |
+| Anoop Singh  |      <p float = "center">[<img src="https://img.icons8.com/color/32/000000/github-2.png" display = "inline-block">](https://github.com/anoopsingh1996)   [<img src="https://img.icons8.com/doodle/32/000000/linkedin-circled.png" display = "inline-block">](https://linkedin.com/in/anoopsingh1996)</p> |
+| Sagar Sehgal  |   <p float = "center">[<img src="https://img.icons8.com/color/32/000000/github-2.png" display = "inline-block">](https://github.com/sagar-sehgal) [<img src="https://img.icons8.com/doodle/32/000000/linkedin-circled.png" display = "inline-block">](https://www.linkedin.com/in/sagar-sehgal/)</p> |
+
+
+Feel free to ask your queries!! 🙌
+
 
 #### Contributors  
 
@@ -231,7 +243,7 @@ Waiting for some 🧐
 
 ## License
 
-This project is licensed under the GPL License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GPL License - see the [LICENSE.md](https://github.com/rajatkb/Conference-Notify/blob/master/LICENSE) file for details
 
 ## Acknowledgement
 

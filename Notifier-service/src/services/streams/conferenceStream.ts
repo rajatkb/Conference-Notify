@@ -4,7 +4,7 @@ import { ConferenceDocument } from "../../schemas/conferences";
 import { injectable } from "inversify";
 import { Logger } from "../../utility/log";
 import { Observable, Observer } from 'rxjs'
-import { share } from 'rxjs/operators'
+import { share,filter } from 'rxjs/operators'
 
 import { ConferenceStream } from "../../interfaces/services/streams/conferenceStream";
 
@@ -14,6 +14,10 @@ export class ConferenceStreamMongo extends ConferenceStream {
 
     private logger = new Logger(this.constructor.name).getLogger()
     private streamObs$: Observable<any>
+    private insertstreamObs$: Observable<any>;
+    private updatestreamObs$: Observable<any>;
+    private deletestreamObs$: Observable<any>;
+    private replacestreamObs$: Observable<any>;
     constructor(conferenceModel: ConferenceModel) {
         super(conferenceModel)
         this.logger.info("Conference Stream started")
@@ -41,14 +45,34 @@ export class ConferenceStreamMongo extends ConferenceStream {
             .pipe(
                 share()
             )
-
+            this.insertstreamObs$ = this.getStream().pipe(filter(data => {
+                            return data.operationType == 'insert'
+                        }))
+                        this.updatestreamObs$ = this.getStream().pipe(filter(data => {
+                            return data.operationType == 'update'
+                        }))
+                        this.deletestreamObs$ = this.getStream().pipe(filter(data => {
+                            return data.operationType == 'delete'
+                        }))
+                        this.replacestreamObs$ = this.getStream().pipe(filter(data => {
+                            return data.operationType == 'replace' 
+                        }))
 
     }
 
     public getStream(): Observable<any> {
         return this.streamObs$;
     }
-
-
-
+    public getInsertStream():Observable<any> {
+        return this.insertstreamObs$;
+    }
+    public getUpdateStream():Observable<any> {
+        return this.updatestreamObs$;
+    }
+    public getDeleteStream():Observable<any> {
+        return this.deletestreamObs$;
+    }
+    public getReplaceStream():Observable<any> {
+        return this.replacestreamObs$;
+    }
 } 

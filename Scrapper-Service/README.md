@@ -12,7 +12,35 @@ It's the service responsible for scrapping information about conferences and put
 * Requests
 * logging (python default)
 * unittest (for unit test of course)
+* bs4
+* certifi
+* chardet
+* idna
+* linecache2
+* six
+* soupsieve
+* traceback2
+* urllib3
+* dill
+* html5lib
 
+## Schema Used
+
+Conference
+  | Field | Type |
+  | ------------- | ------------- |
+  | title  | string  |
+  | url  | string  |
+  | deadline | Date |
+  | metadata | {Metadata} |
+  | categories | Array<string> |
+  | dateRange | Array<Date> |
+  | finalDue | string |
+  | location | string |
+  | notificationDue | Date |
+  | bulkText | string |
+
+The fields used as index are : `url`, `title`, `deadline` and `categories`.
 
 ## Deploying the service
 
@@ -38,9 +66,53 @@ optional arguments:
 (base)
 ```
 
+## Deploying Scraper service in different modes
+
+```bash
+# running the scraper with a custom configuration file
+>> python app.py -c <path/to/config.json>
+or
+>> python app.py --config <path/to/config.json>
+
+# running the scraper service with logs of specific type
+>> python app.py -l debug # for only debug logs
+>> python app.py -l warn # for only warn logs
+>> python app.py -l error # for only error logs
+>> python app.py -l info # for only info logs
+
+# running the scraper service with different test modes
+>> python app.py --t False
+or 
+>> python app.py --test False 
+
+# running the scraper service with different logstream settings
+>> python app.py -ls console # for logging to console
+>> python app.py -ls file # to save logs to file
+```
+
 Jump to `demo.py` for implementing a scrapper from scratch and configuring it to run. 
 
 ## Test
+
+
+Test whether the initialization is working or not
+
+
+```shell
+
+>> python app.py -l debug -ls console  --test True
+
+```
+
+Test whether the run is working or not
+
+
+```shell
+
+>> python app.py -l debug -ls file --test False
+
+```
+
 We are focusing on doing test driven development, so downn the line things are not unpredicatable.  
 
 Before deploying the current build , it's recommended that you run the test suite once. 
@@ -67,7 +139,7 @@ If this succeeds , you can move forward with deployment. If this fails. Please m
 
 ## How to Contribute ?
 
-* Add new scrappers by implementing the interface Scrapper.py and add the new scrapper information inside the config.json file so that the main.py file can pick up the required class when starting
+* Add new scrappers by implementing the interface Scrapper.py and add the new scrapper information inside the config.json file so that the app.py file can pick up the required class when starting
 
 * Provide better implementation changes to the base design of the service.
 

@@ -5,6 +5,7 @@ type Conference = {
     title:string;
     url:string;
     deadline:Date;
+    _id?: string;
     metadata?:{
         [tag:string]:Metadata
     };
@@ -34,6 +35,7 @@ interface ConferenceDocument extends Document {
 } 
 
 let ConferenceSchema = new Schema({
+    _id: {type:String, required:true},
     title:{type:String , required:true},
     url:{type:String , required:true},
     deadline:{type:Date , required:true},
