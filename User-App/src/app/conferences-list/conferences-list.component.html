@@ -1,0 +1,22 @@
+<div class="main">
+  <div class="head">
+    <h1>List of Conferences near you</h1>
+  </div>
+  <div class="conference-list" (scroll)="scrollHandler($event)" class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="centre">
+    <div class="conference" *ngFor="let conference of conferences">
+      <a routerLink = "conference">
+      <mat-card>
+        <mat-card-title>{{conference.title}}</mat-card-title> <br>
+        <mat-card-content> <br>
+          <b>Categories: </b>[{{conference.categories}}] <br> <br>
+          For detailed information, visit <a href="{{conference.url}}">Conference_url</a> <br>
+          Location: {{conference.location}} <br> <br>
+          Notification Due: {{conference.notificationDue}} <br>
+          FinalDue: {{conference.finalDue}} <br> <br> <br> <br>
+        </mat-card-content>
+        <mat-card-footer><b>Date Range: </b>{{conference.dateRange}} <br> <b>Deadline: {{conference.deadline}}</b></mat-card-footer>
+      </mat-card>
+      </a>
+    </div>
+  </div>
+</div>

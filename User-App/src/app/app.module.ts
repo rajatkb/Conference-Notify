@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +18,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { SearchPageComponent } from './search-page/search-page.component';
+import { ConferencesListComponent } from './conferences-list/conferences-list.component';
+import { ConferenceComponent } from './conference/conference.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -26,7 +29,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    SearchPageComponent
+    SearchPageComponent,
+    ConferencesListComponent,
+    ConferenceComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +45,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatInputModule,
     FlexLayoutModule,
+    HttpClientModule
     FormsModule,
     ReactiveFormsModule
     ],
