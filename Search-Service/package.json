@@ -6,15 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "ts-node-dev --respawn src/server.ts",
+    "start": "ts-node-dev --respawn server.ts",
     "run": "node build/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/dotenv-safe": "^8.1.0",
+    "@types/elasticsearch": "^5.0.36",
     "dotenv": "^8.2.0",
     "dotenv-safe": "^8.2.0",
+    "elasticsearch": "^16.7.1",
     "express": "^4.17.1",
     "mongoose": "^5.9.3",
     "winston": "^3.2.1"
