@@ -10,6 +10,6 @@ six==1.14.0
 soupsieve==1.9.5
 traceback2==1.4.0
 unittest2==1.1.0
-urllib3==1.25.8
+urllib3==1.26.5
 dill==0.3.1.1
 html5lib==1.0.1
